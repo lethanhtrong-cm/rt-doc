@@ -1,19 +1,16 @@
-/* RESET & BIẾN MÀU SẮC Y TẾ */
+/* Tối giản & Biến màu Y tế */
 :root {
-    --primary-blue: #2A5C82;    /* Xanh lam đậm - Tin cậy */
-    --soft-blue: #EBF3F9;       /* Xanh lam nhạt - Nền */
-    --accent-teal: #14B8A6;     /* Xanh ngọc - Nhấn mạnh/CTA */
-    --text-main: #1F2937;       /* Xám đen - Văn bản chính */
-    --text-muted: #4B5563;      /* Xám nhạt - Văn bản phụ */
+    --primary-blue: #2A5C82;    /* Xanh lam đậm - Chuyên nghiệp */
+    --soft-blue: #F0F7FA;       /* Xanh lam rất nhạt - Nền CT */
+    --accent-teal: #14B8A6;     /* Xanh ngọc - CTA */
+    --bg-light-gray: #FAFAFB;   /* Xám cực nhạt - Nền MRI */
+    --text-main: #1F2937;
+    --text-muted: #6B7280;
     --white: #FFFFFF;
-    --border-radius: 12px;
+    --transition-speed: 0.4s;
 }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
     font-family: 'Inter', sans-serif;
@@ -22,200 +19,98 @@ body {
     line-height: 1.6;
 }
 
-/* NAVBAR TẠM */
+/* NAVBAR */
 .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 5%;
-    background: var(--white);
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-    position: relative;
-    z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 16px 5%; background: var(--white);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    position: relative; z-index: 100;
 }
-.logo { font-size: 24px; font-weight: 700; color: var(--primary-blue); }
+.logo { font-size: 22px; font-weight: 700; color: var(--primary-blue); }
 .logo span { color: var(--accent-teal); }
-.navbar nav a { text-decoration: none; color: var(--text-muted); margin-left: 24px; font-weight: 500; }
+.navbar nav a { text-decoration: none; color: var(--text-muted); margin-left: 24px; font-weight: 500; font-size: 15px;}
 .navbar nav a:hover { color: var(--primary-blue); }
 
-/* HERO SLIDER KẾT CẤU */
-.hero-slider {
-    position: relative;
+/* BỐ CỤC SPLIT-SCREEN 50/50 */
+.split-hero {
+    display: flex;
     width: 100%;
-    height: 80vh;
-    min-height: 600px;
-    background-color: var(--soft-blue);
+    min-height: calc(100vh - 66px); /* Trừ đi chiều cao Navbar */
+}
+
+.split-panel-wrapper {
+    flex: 1; /* Mỗi bên chiếm 50% */
+    display: flex;
+    flex-direction: column;
+    padding: 60px 5% 40px;
+    position: relative;
     overflow: hidden;
-    display: flex;
-    align-items: center;
+    transition: background-color var(--transition-speed);
 }
 
-.slide-container {
-    width: 100%;
-    height: 100%;
-    position: relative;
-}
+/* Background cho từng panel */
+.ct-wrapper { background-color: var(--soft-blue); }
+.mri-wrapper { background-color: var(--bg-light-gray); border-left: 1px solid #E5E7EB; }
 
-.slide-wrapper {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.8s ease-in-out, visibility 0.8s ease-in-out;
-}
-
-.slide-wrapper.active {
-    opacity: 1;
-    visibility: visible;
-}
-
-/* NỘI DUNG SLIDE (DÙNG CHUNG CHO CÁC MODULE) */
-.hero-content {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 90%;
-    max-width: 1200px;
-    height: 100%;
+/* NỘI DUNG BÊN TRONG MODULE */
+.panel-content {
+    max-width: 500px;
     margin: 0 auto;
-    gap: 40px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
-/* Modifier cho Slide 2 (đảo ngược vị trí) */
-.hero-content.reverse {
-    flex-direction: row-reverse;
-}
+.panel-text { margin-bottom: 40px; }
 
-.text-col, .visual-col {
-    flex: 1;
-}
-
-/* TYPOGRAPHY TRONG SLIDE */
+/* Typography */
 .badge {
-    display: inline-block;
-    padding: 6px 14px;
-    background-color: rgba(20, 184, 166, 0.15);
-    color: #0F8A7C;
-    border-radius: 20px;
-    font-size: 14px;
-    font-weight: 600;
-    margin-bottom: 20px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+    display: inline-block; padding: 6px 12px; border-radius: 20px;
+    font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;
+    margin-bottom: 16px;
 }
-.badge.blue {
-    background-color: rgba(42, 92, 130, 0.1);
-    color: var(--primary-blue);
-}
+.badge-teal { background-color: rgba(20, 184, 166, 0.15); color: #0D9488; }
+.badge-blue { background-color: rgba(42, 92, 130, 0.1); color: var(--primary-blue); }
 
-.hero-title {
-    font-size: 42px;
-    font-weight: 700;
-    color: var(--primary-blue);
-    margin-bottom: 24px;
-    line-height: 1.2;
-}
-
-.hero-desc {
-    font-size: 18px;
-    color: var(--text-muted);
-    margin-bottom: 32px;
-    max-width: 90%;
-}
+.panel-title { font-size: 32px; font-weight: 700; color: var(--primary-blue); margin-bottom: 16px; line-height: 1.3; }
+.panel-desc { font-size: 16px; color: var(--text-muted); margin-bottom: 24px; }
 
 .cta-btn {
-    display: inline-block;
-    padding: 14px 28px;
-    background-color: var(--primary-blue);
-    color: var(--white);
-    text-decoration: none;
-    font-weight: 600;
-    border-radius: 8px;
-    transition: background 0.3s ease;
+    display: inline-flex; align-items: center; justify-content: center;
+    padding: 12px 24px; border-radius: 8px; font-weight: 600; text-decoration: none;
+    transition: all 0.3s ease; border: none; cursor: pointer;
 }
-.cta-btn.teal { background-color: var(--accent-teal); }
-.cta-btn:hover { opacity: 0.9; transform: translateY(-2px); }
+.cta-teal { background-color: var(--accent-teal); color: var(--white); box-shadow: 0 4px 14px rgba(20,184,166,0.3); }
+.cta-blue { background-color: var(--primary-blue); color: var(--white); box-shadow: 0 4px 14px rgba(42,92,130,0.3); }
+.cta-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.15); }
 
-/* VISUAL MOCKUPS CỦA SLIDE (CSS thuần thay cho ảnh thật để demo) */
-.visual-mockup {
-    width: 100%;
-    height: 400px;
-    background: var(--white);
-    border-radius: var(--border-radius);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.08);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    overflow: hidden;
+/* VISUAL MOCKUPS */
+.panel-visual {
+    flex-grow: 1;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--white); border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    min-height: 250px; position: relative; overflow: hidden;
+    transition: transform var(--transition-speed);
 }
 
-/* Grid cho MRI */
+/* Hiệu ứng Hover cho cả panel */
+.split-panel-wrapper:hover .panel-visual { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(0,0,0,0.08); }
+
+/* Định dạng riêng cho MRI Grid */
 .mri-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
-    gap: 12px;
-    padding: 12px;
-    width: 100%;
-    height: 100%;
-    background: #E5E7EB;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+    width: 80%; height: 80%;
 }
 .mri-item {
-    background: #374151; /* Màu film MRI giả định */
-    border-radius: 8px;
-    display: flex;
-    align-items: flex-end;
-    padding: 12px;
-    color: rgba(255,255,255,0.7);
-    font-weight: 600;
-    font-size: 14px;
+    background: #374151; border-radius: 8px; padding: 12px;
+    color: rgba(255,255,255,0.8); font-size: 12px; font-weight: 600; display: flex; align-items: flex-end;
 }
 
-/* ĐIỀU HƯỚNG SLIDER (CONTROLS) */
-.slider-btn {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(255,255,255,0.7);
-    border: none;
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--primary-blue);
-    z-index: 10;
-    transition: all 0.2s ease;
-}
-.slider-btn:hover { background: var(--white); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
-.prev-btn { left: 30px; }
-.next-btn { right: 30px; }
-.slider-btn svg { width: 24px; height: 24px; }
-
-.slider-dots {
-    position: absolute;
-    bottom: 30px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 10px;
-    z-index: 10;
-}
-.dot {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background: rgba(42, 92, 130, 0.3);
-    cursor: pointer;
-    transition: background 0.3s ease, transform 0.3s ease;
-}
-.dot.active {
-    background: var(--primary-blue);
-    transform: scale(1.3);
+/* RESPONSIVE (Dành cho Mobile/Tablet) */
+@media (max-width: 900px) {
+    .split-hero { flex-direction: column; }
+    .mri-wrapper { border-left: none; border-top: 1px solid #E5E7EB; }
+    .split-panel-wrapper { padding: 40px 5%; }
+    .panel-visual { min-height: 300px; }
 }
