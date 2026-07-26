@@ -33,7 +33,7 @@ body {
 .navbar nav a { text-decoration: none; color: var(--text-muted); margin-left: 24px; font-weight: 500; font-size: 15px;}
 .navbar nav a:hover { color: var(--primary-blue); }
 
-/* BENTO GRID LAYOUT */
+/* BENTO GRID LAYOUT (Mặc định cho Desktop) */
 .hero-bento-section {
     padding: 24px 5% 48px;
     max-width: 1400px;
@@ -73,7 +73,8 @@ body {
 .outline-border { border: 1px solid var(--border-color); }
 
 /* PANEL CONTENT (TEXT) */
-.panel-header { z-index: 2; position: relative; margin-bottom: 24px; }
+.panel-header { z-index: 2; position: relative; margin-bottom: 24px; pointer-events: none; }
+.panel-header a { pointer-events: auto; } /* Cho phép click vào nút nếu cần */
 
 .badge {
     display: inline-block; padding: 6px 12px; border-radius: 20px;
@@ -108,6 +109,7 @@ body {
     align-items: flex-end;
     flex-grow: 1;
     margin-top: 20px;
+    pointer-events: none;
 }
 
 /* Quiz Mockup */
@@ -117,7 +119,7 @@ body {
 .quiz-options { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
 .quiz-opt { padding: 8px; background: var(--light-gray); border-radius: 6px; font-size: 12px; font-weight: 500; color: var(--text-muted); }
 
-/* THIẾT KẾ MỚI: MRI Sequence Light Theme */
+/* MRI Sequence Light Theme */
 .mri-grid-light { 
     display: grid; grid-template-columns: 1fr 1fr; gap: 10px; width: 85%; 
 }
@@ -128,7 +130,7 @@ body {
     box-shadow: 0 4px 12px rgba(0,0,0,0.02);
 }
 
-/* THIẾT KẾ MỚI: Protocol List Light Theme */
+/* Protocol List Light Theme */
 .protocol-list-light { 
     width: 95%; background: var(--soft-teal); border-radius: 12px 12px 0 0; 
     padding: 20px; border: 1px solid #CCFBF1; box-shadow: 0 -4px 12px rgba(0,0,0,0.02);
@@ -146,7 +148,36 @@ body {
 }
 .check-icon { color: var(--primary-teal); width: 16px; height: 16px; }
 
-/* RESPONSIVE: Đưa về 1 cột trên Mobile/Tablet */
+/* =========================================
+   RESPONSIVE OPTIMIZATION (MOBILE & TABLET) 
+   ========================================= */
 @media (max-width: 900px) {
-    .bento-grid { grid-template-columns: 1fr; grid-template-rows: auto; }
+    /* Navbar tối giản trên mobile */
+    .navbar nav { display: none; } /* Ẩn menu ngang, có thể thay bằng Hamburger menu sau */
+
+    /* Thu hẹp khoảng cách Grid */
+    .hero-bento-section { padding: 16px 5% 32px; }
+    .bento-grid { 
+        grid-template-columns: 1fr; /* 1 cột */
+        grid-template-rows: auto; 
+        gap: 16px; /* Giảm gap từ 24px xuống 16px */
+    }
+
+    /* Thu hẹp Padding bên trong thẻ */
+    .bento-panel { padding: 24px; }
+
+    /* Điều chỉnh Typography cho vừa vặn */
+    .panel-title { font-size: 22px; }
+    .panel-desc { font-size: 14px; max-width: 100%; }
+
+    /* Đưa lưới đáp án Trắc nghiệm về 1 cột dọc để dễ chạm */
+    .quiz-options { grid-template-columns: 1fr; }
+
+    /* Mở rộng lưới MRI để cân đối màn hình nhỏ */
+    .mri-grid-light { width: 100%; gap: 8px; }
+    .mri-item-light { height: 70px; padding: 10px; font-size: 12px; }
+
+    /* Thu nhỏ chữ trong bảng Protocol */
+    .protocol-list-light { width: 100%; padding: 16px; }
+    .proto-row-light { font-size: 12px; padding: 10px 0; }
 }
