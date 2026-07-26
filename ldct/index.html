@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="vi">
-    <script src="https://cdn.counter.dev/script.js" data-id="86e74dda-26a8-41de-99d1-63d0e8fec60e" data-utcoffset="7"></script>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tầm Soát Ung Thư Phổi - LDCT (Professional UI Edition)</title>
     <meta name="description" content="Hướng dẫn kỹ thuật LDCT chuyên nghiệp với tài liệu tham khảo chuẩn mực và giao diện di động tối ưu.">
+    
+    <!-- Analytics -->
+    <script src="https://cdn.counter.dev/script.js" data-id="86e74dda-26a8-41de-99d1-63d0e8fec60e" data-utcoffset="7"></script>
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -294,7 +296,15 @@
             box-shadow: 0 4px 6px rgba(0,0,0,0.02);
         }
 
-        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(30, 64, 175, 0.08); }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(30, 64, 175, 0.08); border-left-color: var(--med-primary); }
+
+        .card ul {
+            padding-left: 20px; 
+            font-size: 0.95rem;
+            color: var(--text-main);
+        }
+
+        .card ul li { margin-bottom: 8px; }
 
         .icon-box { background: var(--soft-blue); padding: 10px; border-radius: 12px; display: inline-block; margin-bottom: 15px; }
 
@@ -421,7 +431,7 @@
         @media (max-width: 850px) {
             body { font-size: 16px; }
 
-            /* Navigation Mobile: THREE ROWS, JUSTIFIED */
+            /* Navigation Mobile */
             nav { height: auto; padding: 15px 0 10px; }
             .nav-container { flex-direction: column; gap: 12px; padding: 0 12px; }
             .nav-logo { height: 42px; margin-bottom: 2px; }
@@ -447,7 +457,6 @@
                 line-height: 1.2;
             }
 
-            /* Hàng 3: Nút Tính Liều trải rộng */
             .nav-links > a[style*="background: var(--warm-yellow)"] {
                 grid-column: span 3; 
                 grid-row: 3;
@@ -456,7 +465,6 @@
                 font-weight: 800;
             }
 
-            /* Hàng 2: Nút EN ở vị trí cột 3 */
             .lang-btn {
                 grid-column: span 1;
                 grid-row: 2;
@@ -478,7 +486,6 @@
             section { margin: 20px 10px; padding: 25px 15px; border-radius: 24px; }
             h2 { font-size: 1.25rem; margin-bottom: 20px; }
             
-            /* Stacking Sections */
             #criteria .grid, #studies .grid, #workflow .grid { grid-template-columns: 1fr !important; gap: 15px; }
             .card { padding: 20px; }
 
@@ -494,12 +501,7 @@
             .formula-text { font-size: 1.3rem; }
 
             /* Back to Top Mobile */
-            .back-to-top {
-                bottom: 20px;
-                right: 20px;
-                width: 45px;
-                height: 45px;
-            }
+            .back-to-top { bottom: 20px; right: 20px; width: 45px; height: 45px; }
         }
     </style>
 </head>
@@ -548,20 +550,19 @@
         <div class="grid">
             <div class="card">
                 <div class="icon-box"><i data-lucide="activity" style="color:var(--med-primary)"></i></div>
-                <h3 data-i18n="acs_title">Khuyến cáo ACS</h3>
-                <ul data-i18n="acs_content" style="padding-left: 20px; font-size: 0.95rem;">
+                <h3 data-i18n="uspstf_title">Khuyến cáo USPSTF (2021)</h3>
+                <ul data-i18n="uspstf_content">
                     <li><strong>Độ tuổi:</strong> 50 - 80 tuổi.</li>
-                    <li><strong>Hút thuốc:</strong> ≥ 20 gói-năm.</li>
-                    <li><strong>Tình trạng:</strong> Đang hút/cai < 15 năm.</li>
+                    <li><strong>Tiền sử:</strong> ≥ 20 gói-năm.</li>
+                    <li><strong>Tình trạng:</strong> Đang hút hoặc đã cai < 15 năm.</li>
                 </ul>
             </div>
             <div class="card">
-                <div class="icon-box"><i data-lucide="shield" style="color:var(--med-primary)"></i></div>
-                <h3 data-i18n="ala_title">Khuyến cáo ALA</h3>
-                <ul data-i18n="ala_content" style="padding-left: 20px; font-size: 0.95rem;">
-                    <li><strong>Độ tuổi:</strong> 50 - 80 tuổi.</li>
-                    <li><strong>Tiền sử:</strong> ≥ 20 gói-năm.</li>
-                    <li><strong>Sức khỏe:</strong> Đủ đ/k phẫu thuật/đ/trị.</li>
+                <div class="icon-box"><i data-lucide="shield-check" style="color:var(--med-primary)"></i></div>
+                <h3 data-i18n="nccn_title">Khuyến cáo NCCN (2024)</h3>
+                <ul data-i18n="nccn_content">
+                    <li><strong>Nhóm 1:</strong> Tương tự tiêu chuẩn của USPSTF.</li>
+                    <li><strong>Nhóm 2:</strong> Tuổi ≥ 50, ≥ 20 gói-năm <strong>kèm thêm</strong> ≥ 1 yếu tố nguy cơ khác (phơi nhiễm nghề nghiệp, tiền sử gia đình...).</li>
                 </ul>
             </div>
         </div>
@@ -569,7 +570,7 @@
             <i data-lucide="alert-octagon" style="color:#ef4444; flex-shrink:0; width: 28px; height: 28px;"></i>
             <div>
                 <span data-i18n="contra_title" style="font-weight:800; color:#991b1b; display:block; margin-bottom:5px; font-size: 1.1rem;">Chống chỉ định:</span>
-                <p style="margin:0; font-size:0.95rem; color:#4a5568;" data-i18n="contra_content">BN cai thuốc > 15 năm; kỳ vọng sống ngắn; đang có triệu chứng nghi ngờ.</p>
+                <p style="margin:0; font-size:0.95rem; color:#4a5568;" data-i18n="contra_content">Bệnh nhân đã cai thuốc > 15 năm; kỳ vọng sống ngắn; hoặc đang có triệu chứng nghi ngờ ung thư phổi (cần chụp CT chẩn đoán thay vì LDCT).</p>
             </div>
         </div>
     </section>
@@ -604,20 +605,20 @@
         <h2 data-i18n="sec_workflow">Quy trình Standard</h2>
         <div class="grid">
             <div class="card">
-                <h4 data-i18n="step1_title">1. Position</h4>
-                <p data-i18n="step1_desc" style="font-size: 0.9rem;">Nằm ngửa, hai tay giơ cao quá đầu. Tháo bỏ trang sức vùng ngực.</p>
+                <h4 data-i18n="step1_title">1. Định vị (Position)</h4>
+                <p data-i18n="step1_desc" style="font-size: 0.9rem;">Nằm ngửa, hai tay giơ cao quá đầu. Tháo bỏ toàn bộ trang sức, kim loại vùng ngực.</p>
             </div>
             <div class="card">
-                <h4 data-i18n="step2_title">2. Breathing</h4>
-                <p data-i18n="step2_desc" style="font-size: 0.9rem;">Hít sâu tối đa và nín thở. Tránh nhiễu cử động và đảm bảo phổi nở căng.</p>
+                <h4 data-i18n="step2_title">2. Hô hấp (Breathing)</h4>
+                <p data-i18n="step2_desc" style="font-size: 0.9rem;">Hít sâu tối đa và nín thở. Đảm bảo phổi nở căng hoàn toàn để tránh nhiễu và xẹp phổi phụ thuộc.</p>
             </div>
             <div class="card">
-                <h4 data-i18n="step3_title">3. Acquisition</h4>
-                <p data-i18n="step3_desc" style="font-size: 0.9rem;">Quét Spiral từ đỉnh phổi đến hết cơ hoành. **Không tiêm thuốc cản quang**.</p>
+                <h4 data-i18n="step3_title">3. Thu nhận (Acquisition)</h4>
+                <p data-i18n="step3_desc" style="font-size: 0.9rem;">Quét xoắn ốc (Spiral) từ đỉnh phổi đến hết góc sườn hoành. <strong>Tuyệt đối không tiêm thuốc cản quang</strong>.</p>
             </div>
             <div class="card">
-                <h4 data-i18n="step4_title">4. Reconstruction</h4>
-                <p data-i18n="step4_desc" style="font-size: 0.9rem;">Tái tạo lát mỏng ≤ 1.25mm. Áp dụng thuật toán Iterative Reconstruction.</p>
+                <h4 data-i18n="step4_title">4. Tái tạo & Đọc kết quả</h4>
+                <p data-i18n="step4_desc" style="font-size: 0.9rem;">Tái tạo lát cắt mỏng ≤ 1.25mm với thuật toán IR. Phân loại và báo cáo nốt phổi theo hệ thống <strong>Lung-RADS</strong>.</p>
             </div>
         </div>
     </section>
@@ -636,7 +637,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr><td><strong>ACR (Mỹ)</strong></td><td>≤ 75</td><td>≤ 3.0</td><td class="hidden-xs">BN Kích thước chuẩn</td></tr>
+                    <tr><td><strong>ACR (Mỹ)</strong></td><td>≤ 75</td><td>≤ 3.0</td><td class="hidden-xs">BN Kích thước chuẩn (170cm, 70kg)</td></tr>
                     <tr><td><strong>AAPM</strong></td><td>≤ 100</td><td>≤ 3.0</td><td class="hidden-xs">Tham chiếu chung</td></tr>
                     <tr><td><strong>EU Program</strong></td><td>≤ 100</td><td>≤ 3.0</td><td class="hidden-xs">Tiêu chuẩn Châu Âu</td></tr>
                 </tbody>
@@ -667,7 +668,7 @@
                 <span class="formula-label" data-i18n="sub_eff_dose">Công thức liều hiệu dụng:</span>
                 <span class="formula-text">E (mSv) = DLP × 0.014</span>
             </div>
-            <p style="font-size:0.95rem; opacity: 0.9;" data-i18n="ex_content">DLP 70 mGy·cm → E = 0.98 mSv. (Thấp hơn ~10 lần CT quy ước).</p>
+            <p style="font-size:0.95rem; opacity: 0.9;" data-i18n="ex_content">Ví dụ: DLP 70 mGy·cm → E = 0.98 mSv. (Thấp hơn khoảng 10 lần so với CT ngực quy ước).</p>
         </div>
     </section>
 
@@ -675,45 +676,45 @@
     <section id="parameters" style="text-align:center; border: 2px solid var(--med-accent);">
         <h2 data-i18n="sec_params">Thông số & Protocols</h2>
         <p style="color:var(--text-muted); font-size: 1rem; margin-bottom:30px; max-width: 800px; margin-left: auto; margin-right: auto;" data-i18n="params_desc">
-            Hướng dẫn thiết lập kV, mAs và AEC tối ưu cho các hãng máy CT.
+            Hướng dẫn thiết lập mức năng lượng (kV), dòng dẫn (mAs) và hệ thống tự động điều chỉnh liều (AEC) tối ưu cho các hãng máy CT.
         </p>
         
         <a href="https://www.aapm.org/pubs/ctprotocols/documents/lungcancerscreeningct.pdf" target="_blank" class="btn-cta" style="margin-top:0;" data-i18n="btn_view_params">
             <i data-lucide="file-text"></i>
-            Tải Protocol Chi Tiết
+            Tải Protocol Chi Tiết của AAPM
         </a>
     </section>
 
-    <!-- NEW SECTION 6: REFERENCES -->
+    <!-- SECTION 6: REFERENCES -->
     <section id="references">
         <h2 data-i18n="sec_refs">Tài liệu Tham khảo</h2>
         <ul class="ref-list">
             <li class="ref-item">
                 <i data-lucide="book-open" class="ref-icon"></i>
                 <div>
-                    <a href="https://www.nejm.org/doi/full/10.1056/NEJMoa1102873" target="_blank" class="ref-link">The National Lung Screening Trial Research Team (2011)</a>
-                    <span class="ref-meta">Reduced Lung-Cancer Mortality with Low-Dose Computed Tomographic Screening. NEJM.</span>
+                    <a href="https://www.uspreventiveservicestaskforce.org/uspstf/recommendation/lung-cancer-screening" target="_blank" class="ref-link">USPSTF Final Recommendation Statement (2021)</a>
+                    <span class="ref-meta">Khuyến cáo chính thức về sàng lọc ung thư phổi của Lực lượng Đặc nhiệm Y tế Dự phòng Hoa Kỳ.</span>
                 </div>
             </li>
             <li class="ref-item">
                 <i data-lucide="book-open" class="ref-icon"></i>
                 <div>
-                    <a href="https://www.nejm.org/doi/full/10.1056/NEJMoa1903223" target="_blank" class="ref-link">De Koning HJ, et al. (2020) - NELSON Trial</a>
-                    <span class="ref-meta">Reduced Lung-Cancer Mortality with Volume CT Screening in a Randomized Trial. NEJM.</span>
+                    <a href="https://www.nccn.org/guidelines/guidelines-detail?category=2&id=1446" target="_blank" class="ref-link">NCCN Clinical Practice Guidelines in Oncology</a>
+                    <span class="ref-meta">Hướng dẫn thực hành lâm sàng của Mạng lưới Ung thư Quốc gia Hoa Kỳ (Lung Cancer Screening).</span>
                 </div>
             </li>
             <li class="ref-item">
                 <i data-lucide="link" class="ref-icon"></i>
                 <div>
                     <a href="https://www.acr.org/Clinical-Resources/Reporting-and-Data-Systems/Lung-Rads" target="_blank" class="ref-link">ACR Lung-RADS® v1.1 Reporting System</a>
-                    <span class="ref-meta">Hệ thống báo cáo và dữ liệu hình ảnh nốt phổi chuẩn Hoa Kỳ.</span>
+                    <span class="ref-meta">Hệ thống báo cáo và quản lý dữ liệu hình ảnh nốt phổi chuẩn của Hoa Kỳ.</span>
                 </div>
             </li>
             <li class="ref-item">
-                <i data-lucide="link" class="ref-icon"></i>
+                <i data-lucide="book-open" class="ref-icon"></i>
                 <div>
-                    <a href="https://www.uspreventiveservicestaskforce.org/uspstf/recommendation/lung-cancer-screening" target="_blank" class="ref-link">USPSTF Final Recommendation Statement</a>
-                    <span class="ref-meta">Khuyến cáo chính thức về sàng lọc ung thư phổi (Cập nhật 2021).</span>
+                    <a href="https://www.nejm.org/doi/full/10.1056/NEJMoa1102873" target="_blank" class="ref-link">The National Lung Screening Trial Research Team (2011)</a>
+                    <span class="ref-meta">Reduced Lung-Cancer Mortality with Low-Dose Computed Tomographic Screening. NEJM.</span>
                 </div>
             </li>
             <li class="ref-item">
@@ -733,140 +734,7 @@
         <p style="margin-top:25px; font-size:0.85rem; color:var(--med-accent);">Lê Thanh Trọng - 0944406507</p>
     </footer>
 
-    <script>
-        lucide.createIcons();
-        document.getElementById('year').textContent = new Date().getFullYear();
-
-        // Back to Top Logic
-        const bttButton = document.getElementById('backToTop');
-        window.onscroll = function() {
-            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
-                bttButton.classList.add('show');
-            } else {
-                bttButton.classList.remove('show');
-            }
-        };
-        bttButton.onclick = function() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        };
-
-        // Ambient particles
-        const bg = document.getElementById('ambient-bg');
-        function addParticle() {
-            const item = document.createElement('div');
-            item.className = 'float-item';
-            const size = Math.random() * 20 + 5 + 'px';
-            item.style.width = size;
-            item.style.height = size;
-            item.style.left = Math.random() * 100 + 'vw';
-            item.style.animationDuration = (Math.random() * 15 + 10) + 's';
-            const colors = ['#ffffff', '#bae6fd', '#fbcfe8', '#ffffff'];
-            item.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-            item.style.opacity = Math.random() * 0.4;
-            bg.appendChild(item);
-            setTimeout(() => item.remove(), 25000);
-        }
-        setInterval(addParticle, 1200);
-
-        // Translations
-        const translations = {
-            vi: {
-                header_main: "TRANG THÔNG TIN HƯỚNG DẪN",
-                header_sub: "TẦM SOÁT UNG THƯ PHỔI BẰNG CẮT LỚP VI TÍNH LIỀU THẤP",
-                header_desc: "Medical Excellence • Precision Protocols • Patient Safety",
-                btn_explore: "Khám phá nội dung",
-                btn_view_params: "Tải Protocol Chi Tiết",
-                nav_guidelines: "Khuyến cáo",
-                nav_studies: "Nghiên cứu",
-                nav_workflow: "Quy trình",
-                nav_dose: "Liều tia",
-                nav_params: "Thông số",
-                nav_calc: "Tính Liều",
-                sec_guidelines: "Đối tượng Tầm soát",
-                acs_title: "Khuyến cáo ACS",
-                acs_content: "<li><strong>Độ tuổi:</strong> 50 - 80 tuổi.</li><li><strong>Hút thuốc:</strong> ≥ 20 gói-năm.</li><li><strong>Tình trạng:</strong> Đang hút/cai < 15 năm.</li>",
-                ala_title: "Khuyến cáo ALA",
-                ala_content: "<li><strong>Độ tuổi:</strong> 50 - 80 tuổi.</li><li><strong>Tiền sử:</strong> ≥ 20 gói-năm.</li><li><strong>Sức khỏe:</strong> Đủ đ/k phẫu thuật/đ/trị.</li>",
-                contra_title: "Chống chỉ định:",
-                contra_content: "BN cai thuốc > 15 năm; kỳ vọng sống ngắn; đang có triệu chứng nghi ngờ.",
-                sec_studies: "Chứng minh lâm sàng",
-                nlst_content: "Nghiên cứu quy mô lớn chứng minh <strong>LDCT giảm 20% tỷ lệ tử vong</strong> so với chụp X-quang phổi.",
-                read_nejm: "Xem báo cáo NEJM &rarr;",
-                nelson_content: "Giảm tử vong 24% ở nam và 33% ở nữ sau 10 năm sàng lọc định kỳ.",
-                lusi_content: "Khẳng định giá trị LDCT trong phát hiện sớm và can thiệp kịp thời.",
-                sec_workflow: "Quy trình Standard",
-                step1_title: "1. Position",
-                step1_desc: "Nằm ngửa, hai tay giơ cao quá đầu. Tháo bỏ trang sức vùng ngực.",
-                step2_title: "2. Breathing",
-                step2_desc: "Hít sâu tối đa và nín thở. Tránh nhiễu cử động và đảm bảo phổi nở căng.",
-                step3_title: "3. Acquisition",
-                step3_desc: "Quét Spiral từ đỉnh phổi đến hết cơ hoành. **Không tiêm thuốc cản quang**.",
-                step4_title: "4. Reconstruction",
-                step4_desc: "Tái tạo lát mỏng ≤ 1.25mm. Áp dụng thuật toán Iterative Reconstruction.",
-                sec_dose: "Quản lý Liều tia",
-                th_org: "Tổ chức",
-                sub_ctdi_weight: "Phân loại $CTDI_{vol}$ theo Cân nặng",
-                sub_eff_dose: "Công thức liều hiệu dụng:",
-                ex_content: "DLP 70 mGy·cm → E = 0.98 mSv. (Thấp hơn ~10 lần CT quy ước).",
-                sec_params: "Thông số & Protocols",
-                params_desc: "Hướng dẫn thiết lập kV, mAs và AEC tối ưu cho các hãng máy CT.",
-                sec_refs: "Tài liệu Tham khảo"
-            },
-            en: {
-                header_main: "TECHNICAL GUIDELINES",
-                header_sub: "LOW DOSE CT LUNG SCREENING (LDCT)",
-                header_desc: "Medical Excellence • Precision Protocols • Patient Safety",
-                btn_explore: "Explore Content",
-                btn_view_params: "Download Protocols",
-                nav_guidelines: "Guidelines",
-                nav_studies: "Studies",
-                nav_workflow: "Workflow",
-                nav_dose: "Radiation",
-                nav_params: "Parameters",
-                nav_calc: "Dose Calc",
-                sec_guidelines: "Screening Criteria",
-                acs_title: "ACS Guidelines",
-                acs_content: "<li><strong>Age:</strong> 50 - 80 years.</li><li><strong>Smoking:</strong> ≥ 20 pack-years.</li><li><strong>Status:</strong> Current or quit < 15 years.</li>",
-                ala_title: "ALA Guidelines",
-                ala_content: "<li><strong>Age:</strong> 50 - 80 years.</li><li><strong>History:</strong> ≥ 20 pack-years.</li><li><strong>Health:</strong> Eligible for surgery/treatment.</li>",
-                contra_title: "Contraindications:",
-                contra_content: "Quit > 15 years; short life expectancy; symptomatic patients.",
-                sec_studies: "Clinical Evidence",
-                nlst_content: "Study proved <strong>LDCT reduced mortality by 20%</strong> compared to chest X-ray.",
-                read_nejm: "View NEJM Report &rarr;",
-                nelson_content: "Mortality reduced by 24% in men and 33% in women after 10-year follow-up.",
-                lusi_content: "Confirms LDCT as the most effective screening tool.",
-                sec_workflow: "Standard Workflow",
-                step1_title: "1. Position",
-                step1_desc: "Supine position, arms above head. Remove metal objects.",
-                step2_title: "2. Breathing",
-                step2_desc: "Maximum inspiration and breath-hold for parenchyma assessment.",
-                step3_title: "3. Acquisition",
-                step3_desc: "Spiral scan lung apices to diaphragm. No contrast media.",
-                step4_title: "4. Reconstruction",
-                step4_desc: "Thin slice ≤ 1.25mm. Use Iterative Reconstruction (IR).",
-                sec_dose: "Radiation Management",
-                th_org: "Organization",
-                sub_ctdi_weight: "$CTDI_{vol}$ by Weight",
-                sub_eff_dose: "Effective Dose Calculation:",
-                ex_content: "DLP 70 mGy·cm → E = 0.98 mSv (~10x lower than routine CT).",
-                sec_params: "Machine Protocols",
-                params_desc: "Optimized kV/mAs and reconstruction for all CT vendors.",
-                sec_refs: "References"
-            }
-        };
-
-        let currentLang = 'vi';
-        function toggleLanguage() {
-            currentLang = currentLang === 'vi' ? 'en' : 'vi';
-            document.querySelectorAll('[data-i18n]').forEach(el => {
-                const key = el.getAttribute('data-i18n');
-                if (translations[currentLang][key]) el.innerHTML = translations[currentLang][key];
-            });
-            document.querySelector('.lang-btn').textContent = currentLang === 'vi' ? 'EN' : 'VN';
-            lucide.createIcons();
-        }
-    </script>
+    <!-- Tải File Logic Riêng -->
+    <script src="script.js"></script>
 </body>
 </html>
-
