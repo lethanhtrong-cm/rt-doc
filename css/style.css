@@ -9,6 +9,7 @@
     --text-main: #111827;
     --text-muted: #4B5563;
     --border-color: #E5E7EB;
+    --border-light: #BFDBFE;    /* Viền xanh nhạt */
     --radius-lg: 24px;          /* Bo góc lớn cho thẻ Bento */
 }
 
@@ -68,7 +69,6 @@ body {
 /* Background Colors */
 .bg-soft-blue { background-color: var(--soft-blue); }
 .bg-soft-teal { background-color: var(--soft-teal); }
-.bg-light-gray { background-color: var(--light-gray); }
 .bg-white { background-color: var(--white); }
 .outline-border { border: 1px solid var(--border-color); }
 
@@ -117,15 +117,34 @@ body {
 .quiz-options { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
 .quiz-opt { padding: 8px; background: var(--light-gray); border-radius: 6px; font-size: 12px; font-weight: 500; color: var(--text-muted); }
 
-/* MRI Layouts */
-.mri-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; width: 80%; }
-.mri-item { background: #374151; height: 80px; border-radius: 8px; display: flex; align-items: flex-end; padding: 8px; color: rgba(255,255,255,0.7); font-size: 12px; font-weight: 600;}
+/* THIẾT KẾ MỚI: MRI Sequence Light Theme */
+.mri-grid-light { 
+    display: grid; grid-template-columns: 1fr 1fr; gap: 10px; width: 85%; 
+}
+.mri-item-light { 
+    background: var(--white); border: 1px solid var(--border-light); height: 80px; 
+    border-radius: 10px; display: flex; align-items: flex-end; padding: 12px; 
+    color: var(--primary-blue); font-size: 13px; font-weight: 600;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+}
 
-.protocol-list { width: 90%; background: var(--light-gray); border-radius: 12px 12px 0 0; padding: 16px; }
-.proto-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px dashed #D1D5DB; font-size: 13px; }
-.proto-row:last-child { border: none; }
-.proto-label { font-weight: 600; color: var(--text-main); }
-.proto-val { color: var(--text-muted); font-family: monospace; }
+/* THIẾT KẾ MỚI: Protocol List Light Theme */
+.protocol-list-light { 
+    width: 95%; background: var(--soft-teal); border-radius: 12px 12px 0 0; 
+    padding: 20px; border: 1px solid #CCFBF1; box-shadow: 0 -4px 12px rgba(0,0,0,0.02);
+}
+.proto-row-light { 
+    display: flex; justify-content: space-between; align-items: center; 
+    padding: 12px 0; border-bottom: 1px dashed #99F6E4; font-size: 13px; 
+}
+.proto-row-light:last-child { border: none; padding-bottom: 0; }
+.proto-label-light { 
+    font-weight: 600; color: var(--text-main); display: flex; align-items: center; gap: 8px;
+}
+.proto-val-light { 
+    color: var(--primary-teal); font-family: monospace; font-weight: 600;
+}
+.check-icon { color: var(--primary-teal); width: 16px; height: 16px; }
 
 /* RESPONSIVE: Đưa về 1 cột trên Mobile/Tablet */
 @media (max-width: 900px) {
