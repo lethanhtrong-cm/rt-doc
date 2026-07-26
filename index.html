@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nền Tảng Hướng Dẫn Kỹ Thuật Chẩn Đoán Hình Ảnh</title>
+    <!-- Font Inter cho giao diện y tế hiện đại -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Navbar giả định (Anh có thể tách thành module sau) -->
+    <header class="navbar">
+        <div class="logo">Medical<span>Guide</span></div>
+        <nav>
+            <a href="#">Trang chủ</a>
+            <a href="#">CT Scanner</a>
+            <a href="#">MRI</a>
+            <a href="#">Tài liệu</a>
+        </nav>
+    </header>
+
+    <!-- Khung chứa Hero Slider -->
+    <section id="hero-slider" class="hero-slider">
+        <!-- Vùng chứa nội dung các slide được fetch vào đây -->
+        <div id="slide-container" class="slide-container"></div>
+
+        <!-- Điều hướng mũi tên -->
+        <button id="prev-btn" class="slider-btn prev-btn" aria-label="Previous Slide">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        </button>
+        <button id="next-btn" class="slider-btn next-btn" aria-label="Next Slide">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+        </button>
+
+        <!-- Điều hướng dấu chấm (Dots) -->
+        <div id="slider-dots" class="slider-dots"></div>
+    </section>
+
+    <!-- Script xử lý module -->
+    <script src="js/main.js"></script>
+</body>
+</html>
