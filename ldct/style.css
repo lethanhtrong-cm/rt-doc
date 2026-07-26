@@ -121,7 +121,7 @@ header {
 }
 
 header h1[data-i18n="header_main"] {
-    font-size: clamp(1rem, 2.5vw, 1.8rem); 
+    font-size: clamp(0.9rem, 2vw, 1.4rem); /* Đã giảm thông số size chữ */
     opacity: 0.9;
     margin-bottom: 5px;
     font-weight: 700;
@@ -130,7 +130,7 @@ header h1[data-i18n="header_main"] {
 
 header h1[data-i18n="header_sub"] {
     font-family: 'Montserrat', sans-serif;
-    font-size: clamp(2rem, 5vw, 3.8rem); 
+    font-size: clamp(1.5rem, 4vw, 2.8rem); /* Đã giảm thông số size chữ */
     margin: 0;
     text-transform: uppercase;
     letter-spacing: -1px;
