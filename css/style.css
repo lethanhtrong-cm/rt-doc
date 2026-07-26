@@ -1,13 +1,15 @@
-/* Tối giản & Biến màu Y tế */
+/* RESET & BIẾN MÀU Y TẾ */
 :root {
-    --primary-blue: #2A5C82;    /* Xanh lam đậm - Chuyên nghiệp */
-    --soft-blue: #F0F7FA;       /* Xanh lam rất nhạt - Nền CT */
-    --accent-teal: #14B8A6;     /* Xanh ngọc - CTA */
-    --bg-light-gray: #FAFAFB;   /* Xám cực nhạt - Nền MRI */
-    --text-main: #1F2937;
-    --text-muted: #6B7280;
+    --primary-blue: #1E40AF;    /* Xanh lam đậm - Học thuật */
+    --primary-teal: #0D9488;    /* Xanh ngọc - Nhấn mạnh */
+    --soft-blue: #EFF6FF;       /* Xanh lam nhạt */
+    --soft-teal: #F0FDFA;       /* Xanh ngọc nhạt */
+    --light-gray: #F3F4F6;      /* Xám nhạt */
     --white: #FFFFFF;
-    --transition-speed: 0.4s;
+    --text-main: #111827;
+    --text-muted: #4B5563;
+    --border-color: #E5E7EB;
+    --radius-lg: 24px;          /* Bo góc lớn cho thẻ Bento */
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -23,94 +25,109 @@ body {
 .navbar {
     display: flex; justify-content: space-between; align-items: center;
     padding: 16px 5%; background: var(--white);
-    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
     position: relative; z-index: 100;
 }
 .logo { font-size: 22px; font-weight: 700; color: var(--primary-blue); }
-.logo span { color: var(--accent-teal); }
+.logo span { color: var(--primary-teal); }
 .navbar nav a { text-decoration: none; color: var(--text-muted); margin-left: 24px; font-weight: 500; font-size: 15px;}
 .navbar nav a:hover { color: var(--primary-blue); }
 
-/* BỐ CỤC SPLIT-SCREEN 50/50 */
-.split-hero {
-    display: flex;
-    width: 100%;
-    min-height: calc(100vh - 66px); /* Trừ đi chiều cao Navbar */
-}
-
-.split-panel-wrapper {
-    flex: 1; /* Mỗi bên chiếm 50% */
-    display: flex;
-    flex-direction: column;
-    padding: 60px 5% 40px;
-    position: relative;
-    overflow: hidden;
-    transition: background-color var(--transition-speed);
-}
-
-/* Background cho từng panel */
-.ct-wrapper { background-color: var(--soft-blue); }
-.mri-wrapper { background-color: var(--bg-light-gray); border-left: 1px solid #E5E7EB; }
-
-/* NỘI DUNG BÊN TRONG MODULE */
-.panel-content {
-    max-width: 500px;
+/* BENTO GRID LAYOUT */
+.hero-bento-section {
+    padding: 24px 5% 48px;
+    max-width: 1400px;
     margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
 }
 
-.panel-text { margin-bottom: 40px; }
+.bento-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 24px;
+    min-height: 80vh;
+}
 
-/* Typography */
+/* COMMON PANEL STYLES */
+.bento-panel {
+    border-radius: var(--radius-lg);
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+.bento-panel:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.06);
+}
+
+/* Background Colors */
+.bg-soft-blue { background-color: var(--soft-blue); }
+.bg-soft-teal { background-color: var(--soft-teal); }
+.bg-light-gray { background-color: var(--light-gray); }
+.bg-white { background-color: var(--white); }
+.outline-border { border: 1px solid var(--border-color); }
+
+/* PANEL CONTENT (TEXT) */
+.panel-header { z-index: 2; position: relative; margin-bottom: 24px; }
+
 .badge {
     display: inline-block; padding: 6px 12px; border-radius: 20px;
-    font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;
+    font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;
     margin-bottom: 16px;
 }
-.badge-teal { background-color: rgba(20, 184, 166, 0.15); color: #0D9488; }
-.badge-blue { background-color: rgba(42, 92, 130, 0.1); color: var(--primary-blue); }
+.badge-blue { background-color: rgba(30, 64, 175, 0.1); color: var(--primary-blue); }
+.badge-teal { background-color: rgba(13, 148, 136, 0.1); color: var(--primary-teal); }
+.badge-gray { background-color: rgba(75, 85, 99, 0.1); color: var(--text-muted); }
 
-.panel-title { font-size: 32px; font-weight: 700; color: var(--primary-blue); margin-bottom: 16px; line-height: 1.3; }
-.panel-desc { font-size: 16px; color: var(--text-muted); margin-bottom: 24px; }
+.panel-title { font-size: 26px; font-weight: 700; color: var(--text-main); line-height: 1.3; margin-bottom: 12px;}
+.panel-title span { color: var(--primary-blue); }
+.panel-title.teal span { color: var(--primary-teal); }
 
-.cta-btn {
-    display: inline-flex; align-items: center; justify-content: center;
-    padding: 12px 24px; border-radius: 8px; font-weight: 600; text-decoration: none;
-    transition: all 0.3s ease; border: none; cursor: pointer;
+.panel-desc { font-size: 15px; color: var(--text-muted); max-width: 90%; }
+
+.cta-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    margin-top: 16px; font-size: 15px; font-weight: 600; text-decoration: none;
 }
-.cta-teal { background-color: var(--accent-teal); color: var(--white); box-shadow: 0 4px 14px rgba(20,184,166,0.3); }
-.cta-blue { background-color: var(--primary-blue); color: var(--white); box-shadow: 0 4px 14px rgba(42,92,130,0.3); }
-.cta-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.15); }
+.cta-link.blue { color: var(--primary-blue); }
+.cta-link.teal { color: var(--primary-teal); }
+.cta-link svg { width: 18px; height: 18px; transition: transform 0.2s; }
+.bento-panel:hover .cta-link svg { transform: translateX(4px); }
 
 /* VISUAL MOCKUPS */
 .panel-visual {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
     flex-grow: 1;
-    display: flex; align-items: center; justify-content: center;
-    background: var(--white); border-radius: 16px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-    min-height: 250px; position: relative; overflow: hidden;
-    transition: transform var(--transition-speed);
+    margin-top: 20px;
 }
 
-/* Hiệu ứng Hover cho cả panel */
-.split-panel-wrapper:hover .panel-visual { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(0,0,0,0.08); }
+/* Quiz Mockup */
+.quiz-mockup { width: 100%; background: var(--white); padding: 16px; border-radius: 12px 12px 0 0; box-shadow: 0 -4px 20px rgba(0,0,0,0.03); }
+.quiz-bar { height: 6px; background: var(--light-gray); border-radius: 3px; margin-bottom: 16px; overflow: hidden; }
+.quiz-progress { height: 100%; width: 40%; background: var(--primary-blue); }
+.quiz-options { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.quiz-opt { padding: 8px; background: var(--light-gray); border-radius: 6px; font-size: 12px; font-weight: 500; color: var(--text-muted); }
 
-/* Định dạng riêng cho MRI Grid */
-.mri-grid {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
-    width: 80%; height: 80%;
-}
-.mri-item {
-    background: #374151; border-radius: 8px; padding: 12px;
-    color: rgba(255,255,255,0.8); font-size: 12px; font-weight: 600; display: flex; align-items: flex-end;
-}
+/* MRI Layouts */
+.mri-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; width: 80%; }
+.mri-item { background: #374151; height: 80px; border-radius: 8px; display: flex; align-items: flex-end; padding: 8px; color: rgba(255,255,255,0.7); font-size: 12px; font-weight: 600;}
 
-/* RESPONSIVE (Dành cho Mobile/Tablet) */
+.protocol-list { width: 90%; background: var(--light-gray); border-radius: 12px 12px 0 0; padding: 16px; }
+.proto-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px dashed #D1D5DB; font-size: 13px; }
+.proto-row:last-child { border: none; }
+.proto-label { font-weight: 600; color: var(--text-main); }
+.proto-val { color: var(--text-muted); font-family: monospace; }
+
+/* RESPONSIVE: Đưa về 1 cột trên Mobile/Tablet */
 @media (max-width: 900px) {
-    .split-hero { flex-direction: column; }
-    .mri-wrapper { border-left: none; border-top: 1px solid #E5E7EB; }
-    .split-panel-wrapper { padding: 40px 5%; }
-    .panel-visual { min-height: 300px; }
+    .bento-grid { grid-template-columns: 1fr; grid-template-rows: auto; }
 }
