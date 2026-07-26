@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tầm Soát Ung Thư Phổi - LDCT (Professional UI Edition)</title>
+    <title>Tầm Soát Ung Thư Phổi - LDCT | Phan Thường Điện Quang</title>
     <meta name="description" content="Hướng dẫn kỹ thuật LDCT chuyên nghiệp với tài liệu tham khảo chuẩn mực và giao diện di động tối ưu.">
     
     <!-- Analytics -->
@@ -12,7 +12,7 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -28,34 +28,34 @@
 
     <style>
         :root {
-            /* Palette Blue Gradient */
-            --med-primary: #1e40af;      
-            --med-secondary: #3b82f6;    
-            --med-accent: #60a5fa;       
-            --med-gradient: linear-gradient(135deg, #1e40af 0%, #3b82f6 50%, #60a5fa 100%);
+            /* Updated Medical Palette: Deep Navy & Teal */
+            --med-primary: #0f172a;      
+            --med-secondary: #0ea5e9;    
+            --med-accent: #38bdf8;       
+            --med-gradient: linear-gradient(135deg, #0f172a 0%, #0284c7 50%, #0ea5e9 100%);
             
             /* Backgrounds */
             --bg-light: #f8fafc;         
             --white: #ffffff;
-            --soft-blue: #e0f2fe;
-            --cherry-pink: #fbcfe8;      
-            --warm-yellow: #facc15;      
+            --soft-blue: #f0f9ff;
+            --warm-yellow: #fbbf24;      
             
             /* Text */
-            --text-main: #1e293b;
+            --text-main: #334155;
             --text-muted: #64748b;
             
             /* Components */
-            --glass: rgba(255, 255, 255, 0.98);
+            --glass: rgba(255, 255, 255, 0.85);
+            --glass-border: rgba(255, 255, 255, 0.4);
             --border-radius: 24px;
-            --shadow: 0 10px 30px rgba(59, 130, 246, 0.1);
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --shadow: 0 20px 40px rgba(15, 23, 42, 0.06);
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         /* --- Ambient Animation --- */
         @keyframes floatEffect {
             0% { transform: translateY(100vh) scale(0.5); opacity: 0; }
-            50% { opacity: 0.6; }
+            50% { opacity: 0.5; }
             100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
         }
 
@@ -63,23 +63,8 @@
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             z-index: -1;
-            background: radial-gradient(circle at 50% 50%, #ffffff 0%, #f0f9ff 100%);
+            background: radial-gradient(circle at 50% 0%, #f0f9ff 0%, #f8fafc 100%);
             overflow: hidden;
-        }
-
-        .ambient-bg::after {
-            content: '';
-            position: absolute;
-            bottom: 10%;
-            right: 5%;
-            width: 600px;
-            height: 600px;
-            background-image: url('https://images.unsplash.com/photo-1559757175-5700dde675bc?auto=format&fit=crop&q=80&w=1000');
-            background-size: contain;
-            background-repeat: no-repeat;
-            opacity: 0.03; 
-            filter: grayscale(100%);
-            pointer-events: none;
         }
 
         .float-item {
@@ -88,6 +73,7 @@
             border-radius: 50%;
             pointer-events: none;
             animation: floatEffect linear infinite;
+            box-shadow: 0 4px 15px rgba(2, 132, 199, 0.1);
         }
 
         /* --- Global Styles --- */
@@ -98,15 +84,15 @@
             line-height: 1.7;
             font-size: 18px; 
             overflow-x: hidden;
-            background-color: var(--bg-light);
+            background-color: transparent;
             scroll-behavior: smooth;
         }
 
         /* --- Hero Section --- */
         header {
             position: relative;
-            height: 60vh;
-            min-height: 450px;
+            height: 65vh;
+            min-height: 500px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -121,17 +107,17 @@
             top: 0; left: 0; width: 100%; height: 100%;
             background-image: url('https://images.unsplash.com/photo-1579154235602-3c2003d65291?auto=format&fit=crop&q=80&w=2000');
             background-size: cover;
-            background-position: center;
-            opacity: 0.85; 
+            background-position: center 30%;
+            opacity: 0.9; 
             z-index: 1;
         }
 
         .hero-overlay {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle, 
-                rgba(255, 255, 255, 0.4) 0%, 
-                rgba(255, 255, 255, 0.7) 60%, 
+            background: radial-gradient(circle at center, 
+                rgba(255, 255, 255, 0.6) 0%, 
+                rgba(240, 249, 255, 0.9) 70%, 
                 rgba(240, 249, 255, 1) 100%);
             z-index: 2;
         }
@@ -145,37 +131,51 @@
         }
 
         @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
+            from { opacity: 0; transform: translateY(30px); }
             to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .brand-badge {
+            display: inline-block;
+            background: var(--med-primary);
+            color: white;
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            box-shadow: 0 4px 15px rgba(15, 23, 42, 0.2);
         }
 
         header h1[data-i18n="header_main"] {
-            font-size: clamp(0.9rem, 2.5vw, 1.6rem); 
+            font-size: clamp(1rem, 2.5vw, 1.8rem); 
             opacity: 0.9;
-            margin-bottom: 8px;
+            margin-bottom: 5px;
             font-weight: 700;
-            letter-spacing: 1.5px;
-            text-shadow: 0 2px 8px rgba(255,255,255,1);
+            letter-spacing: 2px;
         }
 
         header h1[data-i18n="header_sub"] {
             font-family: 'Montserrat', sans-serif;
-            font-size: clamp(1.8rem, 5vw, 3.4rem); 
+            font-size: clamp(2rem, 5vw, 3.8rem); 
             margin: 0;
             text-transform: uppercase;
             letter-spacing: -1px;
-            line-height: 1.1;
-            font-weight: 800;
-            color: var(--med-primary) !important;
-            text-shadow: 0 2px 12px rgba(255,255,255,1);
+            line-height: 1.15;
+            font-weight: 900;
+            background: var(--med-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 10px 30px rgba(2, 132, 199, 0.15);
         }
 
         .hero-subhead {
-            font-size: 1.2rem;
+            font-size: 1.25rem;
             margin-top: 15px;
-            font-weight: 700;
-            color: var(--med-secondary);
-            text-shadow: 0 2px 8px rgba(255,255,255,0.8);
+            font-weight: 600;
+            color: var(--text-muted);
         }
 
         .btn-cta {
@@ -185,60 +185,96 @@
             gap: 10px;
             background: var(--med-gradient);
             color: white;
-            padding: 14px 35px;
+            padding: 16px 40px;
             border-radius: 50px;
             text-decoration: none;
             font-weight: 800;
-            font-size: 0.95rem;
+            font-size: 1rem;
             text-transform: uppercase;
-            margin-top: 30px;
-            box-shadow: 0 8px 20px rgba(30, 64, 175, 0.2);
+            margin-top: 35px;
+            box-shadow: 0 10px 25px rgba(2, 132, 199, 0.3);
             transition: var(--transition);
         }
 
-        .btn-cta:hover { transform: translateY(-3px); box-shadow: 0 12px 25px rgba(30, 64, 175, 0.3); }
+        .btn-cta:hover { 
+            transform: translateY(-4px); 
+            box-shadow: 0 15px 35px rgba(2, 132, 199, 0.4); 
+        }
 
         /* --- Navigation --- */
         nav {
             position: sticky; top: 0; z-index: 1000;
             background: var(--glass);
-            border-bottom: 1px solid rgba(186, 230, 253, 0.5);
-            height: 80px; 
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--glass-border);
+            height: 85px; 
             display: flex; align-items: center;
-            box-shadow: 0 4px 20px rgba(59, 130, 246, 0.05);
+            box-shadow: 0 4px 30px rgba(15, 23, 42, 0.05);
         }
 
         .nav-container {
             max-width: 1400px; width: 100%; margin: 0 auto;
             display: flex; 
-            justify-content: center; 
+            justify-content: space-between; 
             align-items: center;
-            padding: 0 25px;
-            gap: 30px; 
+            padding: 0 40px;
         }
 
-        .nav-logo { height: 50px; border-radius: 50%; border: 2px solid var(--med-accent); transition: var(--transition); flex-shrink: 0; }
+        .nav-logo-group {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none;
+        }
+
+        .nav-logo { 
+            height: 55px; 
+            border-radius: 50%; 
+            border: 2px solid var(--med-secondary); 
+            transition: var(--transition); 
+            padding: 2px;
+            background: white;
+        }
         
-        .nav-links { display: flex; gap: 12px; align-items: center; }
+        .nav-brand-name {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            font-size: 1.1rem;
+            color: var(--med-primary);
+            line-height: 1.2;
+            text-transform: uppercase;
+        }
+
+        .nav-brand-name span {
+            display: block;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--med-secondary);
+            letter-spacing: 0.5px;
+        }
+        
+        .nav-links { display: flex; gap: 8px; align-items: center; }
 
         .nav-item {
-            color: var(--med-primary);
-            font-weight: 700; font-size: 0.85rem;
+            color: var(--text-main);
+            font-weight: 700; font-size: 0.9rem;
             text-decoration: none;
-            padding: 8px 12px;
-            border-radius: 10px;
+            padding: 10px 16px;
+            border-radius: 12px;
             transition: var(--transition);
-            text-transform: uppercase;
             white-space: nowrap;
-            text-align: center;
         }
-        .nav-item:hover { background: var(--soft-blue); color: var(--med-primary); }
+        .nav-item:hover { 
+            background: var(--soft-blue); 
+            color: var(--med-secondary); 
+        }
 
         .lang-btn {
             background: var(--med-primary); color: white; border: none;
-            padding: 8px 18px; border-radius: 50px;
+            padding: 10px 20px; border-radius: 50px;
             font-weight: 700; cursor: pointer;
-            font-size: 0.8rem; flex-shrink: 0;
+            font-size: 0.85rem; margin-left: 10px;
             transition: var(--transition);
         }
         .lang-btn:hover { background: var(--med-secondary); transform: scale(1.05); }
@@ -246,88 +282,114 @@
         /* --- Content Layout --- */
         section {
             max-width: 1100px; 
-            margin: 60px auto;
+            margin: 70px auto;
             background: var(--white);
-            padding: 55px;
+            padding: 60px;
             border-radius: 32px;
             box-shadow: var(--shadow);
             position: relative;
-            scroll-margin-top: 100px;
-            border: 1px solid rgba(186, 230, 253, 0.3);
+            scroll-margin-top: 120px;
+            border: 1px solid rgba(14, 165, 233, 0.1);
             z-index: 1;
         }
 
         section::before {
             content: '🩺'; position: absolute;
-            top: -22px; left: 50%; transform: translateX(-50%);
+            top: -25px; left: 50%; transform: translateX(-50%);
             background: white; width: 50px; height: 50px;
             display: flex; align-items: center; justify-content: center;
             border-radius: 50%; font-size: 1.5rem;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+            border: 1px solid rgba(14, 165, 233, 0.1);
         }
 
         h2 {
             font-family: 'Montserrat', sans-serif;
             color: var(--med-primary);
             text-align: center;
-            font-size: 1.8rem; 
-            margin-bottom: 35px;
-            display: flex; align-items: center; justify-content: center; gap: 15px;
+            font-size: 2rem; 
+            margin-bottom: 45px;
+            display: flex; flex-direction: column; align-items: center; gap: 15px;
             text-transform: uppercase;
+            font-weight: 800;
         }
 
-        h2::after, h2::before {
-            content: ''; height: 3px; width: 40px; background: var(--med-accent);
+        h2::after {
+            content: ''; height: 4px; width: 60px; background: var(--med-secondary);
             border-radius: 50px;
         }
 
-        h3 { color: var(--med-secondary); font-family: 'Montserrat', sans-serif; margin-bottom: 15px; font-size: 1.4rem; }
+        h3 { color: var(--med-primary); font-family: 'Montserrat', sans-serif; margin-bottom: 15px; font-size: 1.3rem; font-weight: 700; }
 
         /* --- UI Elements --- */
-        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 35px; }
 
         .card {
             background: var(--white);
             border: 1px solid #f1f5f9;
-            border-radius: 20px;
-            padding: 30px;
+            border-radius: 24px;
+            padding: 35px;
             transition: var(--transition);
-            border-left: 6px solid var(--med-accent);
-            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 6px; height: 100%;
+            background: var(--med-secondary);
+            border-radius: 24px 0 0 24px;
+            transition: var(--transition);
         }
 
-        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(30, 64, 175, 0.08); border-left-color: var(--med-primary); }
+        .card:hover { 
+            transform: translateY(-8px); 
+            box-shadow: 0 20px 40px rgba(14, 165, 233, 0.1); 
+        }
+        
+        .card:hover::before { width: 10px; }
 
         .card ul {
             padding-left: 20px; 
             font-size: 0.95rem;
-            color: var(--text-main);
+            color: var(--text-muted);
         }
 
-        .card ul li { margin-bottom: 8px; }
+        .card ul li { margin-bottom: 12px; }
+        .card ul li strong { color: var(--text-main); }
 
-        .icon-box { background: var(--soft-blue); padding: 10px; border-radius: 12px; display: inline-block; margin-bottom: 15px; }
+        .icon-box { 
+            background: var(--soft-blue); 
+            padding: 12px; 
+            border-radius: 14px; 
+            display: inline-flex; 
+            margin-bottom: 20px; 
+            color: var(--med-secondary);
+        }
 
         .highlight-card {
             background: var(--med-gradient);
-            color: white; padding: 35px; border-radius: 24px;
-            margin-bottom: 40px;
-            box-shadow: 0 12px 30px rgba(30, 64, 175, 0.15);
+            color: white; padding: 40px; border-radius: 24px;
+            margin-bottom: 45px;
+            box-shadow: 0 15px 35px rgba(2, 132, 199, 0.25);
             position: relative; overflow: hidden;
         }
         
         .alert-ui {
-            background: #fff5f5; border: 1px solid #fee2e2;
-            padding: 20px; border-radius: 20px; margin-top: 25px;
-            display: flex; gap: 12px; align-items: flex-start;
+            background: #fff1f2; border: 1px solid #fecdd3;
+            padding: 25px; border-radius: 20px; margin-top: 35px;
+            display: flex; gap: 15px; align-items: flex-start;
         }
 
         .table-container { 
             overflow-x: auto; 
             -webkit-overflow-scrolling: touch; 
-            border-radius: 16px; 
+            border-radius: 20px; 
             border: 1px solid #e2e8f0; 
-            margin: 25px 0; 
+            margin: 30px 0; 
+            box-shadow: 0 10px 25px rgba(15, 23, 42, 0.03);
         }
 
         .table-ui {
@@ -337,62 +399,78 @@
         }
 
         .table-ui th {
-            background: var(--med-primary); color: white;
-            padding: 15px; font-weight: 700; text-transform: uppercase; font-size: 0.8rem;
+            background: var(--bg-light); color: var(--text-main);
+            padding: 18px; font-weight: 800; text-transform: uppercase; font-size: 0.85rem;
+            border-bottom: 2px solid #cbd5e1;
         }
 
-        .table-ui td { padding: 15px; border-bottom: 1px solid #f1f5f9; text-align: center; font-size: 1rem; }
-        .table-ui tr:nth-child(even) { background: #f8fafc; }
+        .table-ui td { padding: 18px; border-bottom: 1px solid #f1f5f9; text-align: center; font-size: 1rem; color: var(--text-muted); }
+        .table-ui td strong { color: var(--text-main); }
+        .table-ui tr:last-child td { border-bottom: none; }
+        .table-ui tr:hover td { background: var(--soft-blue); }
 
         .formula-container {
-            background: var(--med-gradient); 
+            background: var(--med-primary); 
             color: white; 
-            padding: 30px 20px; 
+            padding: 35px 25px; 
             border-radius: 24px; 
             text-align: center; 
-            margin-top: 35px;
+            margin-top: 40px;
+            box-shadow: 0 15px 30px rgba(15, 23, 42, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .formula-container::before {
+            content: '';
+            position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+            background: radial-gradient(circle, rgba(14, 165, 233, 0.1) 0%, transparent 60%);
+            pointer-events: none;
         }
 
         .formula-row {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 15px;
-            margin-bottom: 10px;
+            gap: 20px;
+            margin-bottom: 15px;
+            position: relative; z-index: 2;
         }
 
-        .formula-label { font-weight: 800; font-size: 0.9rem; text-transform: uppercase; opacity: 0.95; white-space: nowrap; }
-        .formula-text { font-size: 2rem; font-weight: 800; white-space: nowrap; }
+        .formula-label { font-weight: 700; font-size: 1rem; text-transform: uppercase; opacity: 0.9; white-space: nowrap; }
+        .formula-text { font-size: 2.2rem; font-weight: 900; white-space: nowrap; color: var(--med-accent); font-family: 'Montserrat', sans-serif;}
 
         /* --- References List --- */
         .ref-list { list-style: none; padding: 0; margin: 0; }
         .ref-item { 
-            padding: 18px 0; 
-            border-bottom: 1px solid #f1f5f9; 
+            padding: 20px 0; 
+            border-bottom: 1px solid #e2e8f0; 
             display: flex; 
-            gap: 15px; 
+            gap: 18px; 
             align-items: flex-start;
+            transition: var(--transition);
         }
         .ref-item:last-child { border-bottom: none; }
-        .ref-icon { color: var(--med-secondary); margin-top: 5px; flex-shrink: 0; }
+        .ref-item:hover { background: #f8fafc; padding-left: 10px; border-radius: 12px; border-bottom-color: transparent;}
+        .ref-icon { color: var(--med-secondary); margin-top: 3px; flex-shrink: 0; }
         .ref-link { 
-            color: var(--med-primary); 
+            color: var(--text-main); 
             text-decoration: none; 
-            font-weight: 600; 
-            font-size: 0.95rem; 
+            font-weight: 700; 
+            font-size: 1rem; 
             transition: var(--transition);
         }
         .ref-link:hover { color: var(--med-secondary); }
-        .ref-meta { font-size: 0.85rem; color: var(--text-muted); display: block; margin-top: 5px; }
+        .ref-meta { font-size: 0.9rem; color: var(--text-muted); display: block; margin-top: 6px; line-height: 1.5; }
 
         /* --- Back to Top Button --- */
         .back-to-top {
             position: fixed;
             bottom: 30px;
             right: 30px;
-            width: 50px;
-            height: 50px;
-            background: var(--med-gradient);
+            width: 55px;
+            height: 55px;
+            background: var(--med-primary);
             color: white;
             border: none;
             border-radius: 50%;
@@ -400,7 +478,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 4px 15px rgba(30, 64, 175, 0.3);
+            box-shadow: 0 10px 25px rgba(15, 23, 42, 0.3);
             z-index: 2000;
             opacity: 0;
             visibility: hidden;
@@ -415,54 +493,113 @@
         }
 
         .back-to-top:hover {
-            transform: scale(1.1);
-            filter: brightness(1.1);
-            box-shadow: 0 6px 20px rgba(30, 64, 175, 0.4);
+            transform: translateY(-5px);
+            background: var(--med-secondary);
+            box-shadow: 0 15px 30px rgba(2, 132, 199, 0.4);
         }
 
+        /* --- Professional Footer --- */
         footer {
-            background: #0f172a; color: white;
-            padding: 60px 20px; text-align: center;
+            background: var(--med-primary); 
+            color: white;
+            padding: 80px 20px 40px; 
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        footer::before {
+            content: '';
+            position: absolute; top: 0; left: 0; width: 100%; height: 5px;
+            background: var(--med-gradient);
         }
 
-        .footer-logo { height: 75px; margin-bottom: 20px; border-radius: 50%; border: 3px solid var(--med-accent); background: white; padding: 5px; }
+        .footer-logo { 
+            height: 85px; 
+            margin-bottom: 25px; 
+            border-radius: 50%; 
+            border: 3px solid var(--med-secondary); 
+            background: white; 
+            padding: 4px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+        
+        .footer-brand {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 900;
+            letter-spacing: 1px;
+            margin: 0 0 10px 0;
+            text-transform: uppercase;
+        }
+
+        .footer-role {
+            font-size: 1.1rem;
+            color: var(--med-accent);
+            font-weight: 600;
+            margin-bottom: 25px;
+        }
+
+        .footer-contact {
+            display: inline-flex;
+            flex-direction: column;
+            gap: 12px;
+            text-align: left;
+            background: rgba(255,255,255,0.05);
+            padding: 25px 40px;
+            border-radius: 20px;
+            margin-bottom: 40px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.95rem;
+            color: #e2e8f0;
+        }
 
         /* --- MOBILE REFINEMENTS --- */
-        @media (max-width: 850px) {
+        @media (max-width: 950px) {
             body { font-size: 16px; }
 
             /* Navigation Mobile */
-            nav { height: auto; padding: 15px 0 10px; }
-            .nav-container { flex-direction: column; gap: 12px; padding: 0 12px; }
-            .nav-logo { height: 42px; margin-bottom: 2px; }
+            nav { height: auto; padding: 15px 0; }
+            .nav-container { flex-direction: column; gap: 15px; padding: 0 20px; }
+            .nav-logo-group { width: 100%; justify-content: center; }
             
             .nav-links {
                 display: grid;
                 grid-template-columns: repeat(3, 1fr); 
                 width: 100%;
-                gap: 6px;
+                gap: 8px;
                 padding: 0;
             }
 
             .nav-item {
-                font-size: 0.7rem;
-                padding: 10px 4px;
+                font-size: 0.75rem;
+                padding: 12px 5px;
                 border: 1px solid #e2e8f0;
-                border-radius: 10px;
-                background: #f8fafc;
+                border-radius: 12px;
+                background: var(--white);
                 display: flex;
                 align-items: center;
                 justify-content: center;
                 white-space: normal; 
-                line-height: 1.2;
+                line-height: 1.3;
+                text-align: center;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.02);
             }
 
             .nav-links > a[style*="background: var(--warm-yellow)"] {
                 grid-column: span 3; 
                 grid-row: 3;
                 background: var(--warm-yellow) !important;
+                color: #000 !important;
                 border: none;
                 font-weight: 800;
+                padding: 14px;
             }
 
             .lang-btn {
@@ -471,34 +608,38 @@
                 width: 100%;
                 height: 100%;
                 padding: 0;
-                font-size: 0.75rem;
-                border-radius: 10px;
+                font-size: 0.8rem;
+                border-radius: 12px;
                 margin: 0;
             }
 
             /* Hero Mobile */
-            header { height: 45vh; min-height: 380px; }
-            header h1[data-i18n="header_sub"] { font-size: 1.5rem; line-height: 1.2; }
-            .hero-subhead { font-size: 0.9rem; margin-top: 10px; }
-            .btn-cta { padding: 12px 25px; font-size: 0.85rem; margin-top: 20px; }
+            header { height: 50vh; min-height: 420px; }
+            header h1[data-i18n="header_sub"] { font-size: 1.8rem; line-height: 1.25; }
+            .hero-subhead { font-size: 1rem; margin-top: 10px; }
+            .btn-cta { padding: 14px 30px; font-size: 0.9rem; margin-top: 25px; }
 
             /* Content Mobile */
-            section { margin: 20px 10px; padding: 25px 15px; border-radius: 24px; }
-            h2 { font-size: 1.25rem; margin-bottom: 20px; }
+            section { margin: 30px 15px; padding: 35px 20px; border-radius: 28px; }
+            h2 { font-size: 1.5rem; margin-bottom: 30px; }
             
-            #criteria .grid, #studies .grid, #workflow .grid { grid-template-columns: 1fr !important; gap: 15px; }
-            .card { padding: 20px; }
+            #criteria .grid, #studies .grid, #workflow .grid { grid-template-columns: 1fr !important; gap: 20px; }
+            .card { padding: 25px; }
 
             /* Table Mobile */
             .table-ui { min-width: 100%; } 
-            .table-ui th { padding: 10px 5px; font-size: 0.65rem; }
-            .table-ui td { padding: 10px 5px; font-size: 0.8rem; }
+            .table-ui th { padding: 12px 8px; font-size: 0.7rem; }
+            .table-ui td { padding: 12px 8px; font-size: 0.85rem; }
             .hidden-xs { display: none; }
 
             /* Formula Mobile */
             .formula-row { flex-direction: column; gap: 5px; }
-            .formula-label { font-size: 0.75rem; }
-            .formula-text { font-size: 1.3rem; }
+            .formula-label { font-size: 0.85rem; }
+            .formula-text { font-size: 1.6rem; }
+            
+            /* Footer Mobile */
+            .footer-contact { width: 100%; box-sizing: border-box; padding: 20px; }
+            .contact-item { font-size: 0.85rem; }
 
             /* Back to Top Mobile */
             .back-to-top { bottom: 20px; right: 20px; width: 45px; height: 45px; }
@@ -518,19 +659,26 @@
         <div class="hero-img"></div>
         <div class="hero-overlay"></div>
         <div class="hero-content">
+            <span class="brand-badge">Phan Thường Điện Quang</span>
             <h1 data-i18n="header_main">TRANG THÔNG TIN HƯỚNG DẪN</h1>
             <h1 data-i18n="header_sub">TẦM SOÁT UNG THƯ PHỔI BẰNG CẮT LỚP VI TÍNH LIỀU THẤP</h1>
             <p class="hero-subhead" data-i18n="header_desc">Medical Excellence • Precision Protocols • Patient Safety</p>
             <a href="#criteria" class="btn-cta" data-i18n="btn_explore">
-                <i data-lucide="eye"></i>
                 Khám phá nội dung
+                <i data-lucide="arrow-down" size="20"></i>
             </a>
         </div>
     </header>
 
     <nav>
         <div class="nav-container">
-            <a href="#"><img src="https://i.postimg.cc/tTbb7VJW/81dc535f2325f27bab34.jpg" alt="Logo" class="nav-logo"></a>
+            <a href="#" class="nav-logo-group">
+                <img src="https://i.postimg.cc/tTbb7VJW/81dc535f2325f27bab34.jpg" alt="Logo" class="nav-logo">
+                <div class="nav-brand-name">
+                    Phan Thường
+                    <span>Điện Quang</span>
+                </div>
+            </a>
             
             <div class="nav-links">
                 <a href="#criteria" class="nav-item" data-i18n="nav_guidelines">Khuyến cáo</a>
@@ -549,7 +697,7 @@
         <h2 data-i18n="sec_guidelines">Đối tượng Tầm soát</h2>
         <div class="grid">
             <div class="card">
-                <div class="icon-box"><i data-lucide="activity" style="color:var(--med-primary)"></i></div>
+                <div class="icon-box"><i data-lucide="activity"></i></div>
                 <h3 data-i18n="uspstf_title">Khuyến cáo USPSTF (2021)</h3>
                 <ul data-i18n="uspstf_content">
                     <li><strong>Độ tuổi:</strong> 50 - 80 tuổi.</li>
@@ -558,7 +706,7 @@
                 </ul>
             </div>
             <div class="card">
-                <div class="icon-box"><i data-lucide="shield-check" style="color:var(--med-primary)"></i></div>
+                <div class="icon-box"><i data-lucide="shield-check"></i></div>
                 <h3 data-i18n="nccn_title">Khuyến cáo NCCN (2024)</h3>
                 <ul data-i18n="nccn_content">
                     <li><strong>Nhóm 1:</strong> Tương tự tiêu chuẩn của USPSTF.</li>
@@ -576,26 +724,28 @@
     </section>
 
     <!-- SECTION 2: STUDIES -->
-    <section id="studies" style="background: #fdfdfd;">
+    <section id="studies" style="background: var(--white);">
         <h2 data-i18n="sec_studies">Chứng minh lâm sàng</h2>
         <div class="highlight-card">
             <div style="display:flex; justify-content:space-between; align-items:center;">
                 <div style="max-width: 80%;">
-                    <h3 style="color:white; margin:0; font-size: 1.4rem;">🇺🇸 NLST Trial</h3>
-                    <p style="margin-top:15px; opacity:0.95; line-height:1.6; font-size: 1rem;" data-i18n="nlst_content">Nghiên cứu trên 53,000+ người chứng minh <strong>LDCT giảm 20% tỷ lệ tử vong</strong> so với chụp X-quang phổi quy ước.</p>
+                    <h3 style="color:white; margin:0; font-size: 1.5rem; letter-spacing: 1px;">🇺🇸 NLST Trial</h3>
+                    <p style="margin-top:15px; opacity:0.95; line-height:1.6; font-size: 1.05rem;" data-i18n="nlst_content">Nghiên cứu trên 53,000+ người chứng minh <strong>LDCT giảm 20% tỷ lệ tử vong</strong> so với chụp X-quang phổi quy ước.</p>
                 </div>
-                <i data-lucide="award" size="60" style="opacity: 0.2;"></i>
+                <i data-lucide="award" size="70" style="opacity: 0.15;"></i>
             </div>
-            <a href="https://www.nejm.org/doi/full/10.1056/NEJMoa1102873" target="_blank" style="display:inline-block; margin-top:15px; color:var(--white); font-weight:800; text-decoration:underline;" data-i18n="read_nejm">Xem báo cáo NEJM &rarr;</a>
+            <a href="https://www.nejm.org/doi/full/10.1056/NEJMoa1102873" target="_blank" style="display:inline-flex; align-items: center; gap: 8px; margin-top:20px; color:var(--white); font-weight:800; text-decoration:none; border-bottom: 2px solid white; padding-bottom: 2px;" data-i18n="read_nejm">
+                Xem báo cáo NEJM <i data-lucide="external-link" size="16"></i>
+            </a>
         </div>
         <div class="grid">
             <div class="card">
-                <h4 style="color:var(--med-primary); margin-bottom:10px; font-weight:800;">🇪🇺 NELSON Trial</h4>
-                <p data-i18n="nelson_content" style="font-size:0.9rem; color:var(--text-muted);">Giảm tử vong 24% ở nam và 33% ở nữ sau 10 năm sàng lọc định kỳ.</p>
+                <h4 style="color:var(--text-main); margin-top:0; margin-bottom:12px; font-weight:800; font-family: 'Montserrat', sans-serif; font-size: 1.1rem;">🇪🇺 NELSON Trial</h4>
+                <p data-i18n="nelson_content" style="font-size:0.95rem; color:var(--text-muted); margin:0;">Giảm tử vong 24% ở nam và 33% ở nữ sau 10 năm sàng lọc định kỳ.</p>
             </div>
             <div class="card">
-                <h4 style="color:var(--med-primary); margin-bottom:10px; font-weight:800;">🇩🇪 LUSI Study</h4>
-                <p data-i18n="lusi_content" style="font-size:0.9rem; color:var(--text-muted);">Khẳng định giá trị LDCT trong phát hiện sớm và can thiệp kịp thời.</p>
+                <h4 style="color:var(--text-main); margin-top:0; margin-bottom:12px; font-weight:800; font-family: 'Montserrat', sans-serif; font-size: 1.1rem;">🇩🇪 LUSI Study</h4>
+                <p data-i18n="lusi_content" style="font-size:0.95rem; color:var(--text-muted); margin:0;">Khẳng định giá trị LDCT trong phát hiện sớm và can thiệp kịp thời.</p>
             </div>
         </div>
     </section>
@@ -605,20 +755,20 @@
         <h2 data-i18n="sec_workflow">Quy trình Standard</h2>
         <div class="grid">
             <div class="card">
-                <h4 data-i18n="step1_title">1. Định vị (Position)</h4>
-                <p data-i18n="step1_desc" style="font-size: 0.9rem;">Nằm ngửa, hai tay giơ cao quá đầu. Tháo bỏ toàn bộ trang sức, kim loại vùng ngực.</p>
+                <h4 data-i18n="step1_title" style="margin-top:0; color: var(--med-primary); font-family: 'Montserrat', sans-serif;">1. Định vị (Position)</h4>
+                <p data-i18n="step1_desc" style="font-size: 0.95rem; margin-bottom:0;">Nằm ngửa, hai tay giơ cao quá đầu. Tháo bỏ toàn bộ trang sức, kim loại vùng ngực.</p>
             </div>
             <div class="card">
-                <h4 data-i18n="step2_title">2. Hô hấp (Breathing)</h4>
-                <p data-i18n="step2_desc" style="font-size: 0.9rem;">Hít sâu tối đa và nín thở. Đảm bảo phổi nở căng hoàn toàn để tránh nhiễu và xẹp phổi phụ thuộc.</p>
+                <h4 data-i18n="step2_title" style="margin-top:0; color: var(--med-primary); font-family: 'Montserrat', sans-serif;">2. Hô hấp (Breathing)</h4>
+                <p data-i18n="step2_desc" style="font-size: 0.95rem; margin-bottom:0;">Hít sâu tối đa và nín thở. Đảm bảo phổi nở căng hoàn toàn để tránh nhiễu và xẹp phổi phụ thuộc.</p>
             </div>
             <div class="card">
-                <h4 data-i18n="step3_title">3. Thu nhận (Acquisition)</h4>
-                <p data-i18n="step3_desc" style="font-size: 0.9rem;">Quét xoắn ốc (Spiral) từ đỉnh phổi đến hết góc sườn hoành. <strong>Tuyệt đối không tiêm thuốc cản quang</strong>.</p>
+                <h4 data-i18n="step3_title" style="margin-top:0; color: var(--med-primary); font-family: 'Montserrat', sans-serif;">3. Thu nhận (Acquisition)</h4>
+                <p data-i18n="step3_desc" style="font-size: 0.95rem; margin-bottom:0;">Quét xoắn ốc (Spiral) từ đỉnh phổi đến hết góc sườn hoành. <strong>Tuyệt đối không tiêm thuốc cản quang</strong>.</p>
             </div>
             <div class="card">
-                <h4 data-i18n="step4_title">4. Tái tạo & Đọc kết quả</h4>
-                <p data-i18n="step4_desc" style="font-size: 0.9rem;">Tái tạo lát cắt mỏng ≤ 1.25mm với thuật toán IR. Phân loại và báo cáo nốt phổi theo hệ thống <strong>Lung-RADS</strong>.</p>
+                <h4 data-i18n="step4_title" style="margin-top:0; color: var(--med-primary); font-family: 'Montserrat', sans-serif;">4. Tái tạo & Đọc kết quả</h4>
+                <p data-i18n="step4_desc" style="font-size: 0.95rem; margin-bottom:0;">Tái tạo lát cắt mỏng ≤ 1.25mm với thuật toán IR. Phân loại nốt phổi theo hệ thống <strong>Lung-RADS</strong>.</p>
             </div>
         </div>
     </section>
@@ -644,7 +794,7 @@
             </table>
         </div>
 
-        <h3 style="text-align:center; margin-top:40px;" data-i18n="sub_ctdi_weight">Phân loại $CTDI_{vol}$ theo Cân nặng</h3>
+        <h3 style="text-align:center; margin-top:50px;" data-i18n="sub_ctdi_weight">Phân loại $CTDI_{vol}$ theo Cân nặng</h3>
         <div class="table-container">
             <table class="table-ui">
                 <thead>
@@ -655,10 +805,10 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr><td data-i18n="size_small">Nhỏ (Small)</td><td>50 – &lt; 70</td><td>≤ 2.0</td></tr>
-                    <tr><td data-i18n="size_medium">Trung bình</td><td>70 – &lt; 90</td><td>≤ 3.0</td></tr>
-                    <tr><td data-i18n="size_large">Lớn (Large)</td><td>90 – &lt; 110</td><td>≤ 5.0</td></tr>
-                    <tr><td data-i18n="size_vlarge">Rất lớn</td><td>≥ 110</td><td>≤ 7.0</td></tr>
+                    <tr><td data-i18n="size_small">Nhỏ (Small)</td><td>50 – &lt; 70</td><td><strong>≤ 2.0</strong></td></tr>
+                    <tr><td data-i18n="size_medium">Trung bình</td><td>70 – &lt; 90</td><td><strong>≤ 3.0</strong></td></tr>
+                    <tr><td data-i18n="size_large">Lớn (Large)</td><td>90 – &lt; 110</td><td><strong>≤ 5.0</strong></td></tr>
+                    <tr><td data-i18n="size_vlarge">Rất lớn</td><td>≥ 110</td><td><strong>≤ 7.0</strong></td></tr>
                 </tbody>
             </table>
         </div>
@@ -668,19 +818,19 @@
                 <span class="formula-label" data-i18n="sub_eff_dose">Công thức liều hiệu dụng:</span>
                 <span class="formula-text">E (mSv) = DLP × 0.014</span>
             </div>
-            <p style="font-size:0.95rem; opacity: 0.9;" data-i18n="ex_content">Ví dụ: DLP 70 mGy·cm → E = 0.98 mSv. (Thấp hơn khoảng 10 lần so với CT ngực quy ước).</p>
+            <p style="font-size:0.95rem; opacity: 0.9; margin:0;" data-i18n="ex_content">Ví dụ: DLP 70 mGy·cm → E = 0.98 mSv. (Thấp hơn khoảng 10 lần so với CT ngực quy ước).</p>
         </div>
     </section>
 
     <!-- SECTION 5: PARAMS -->
-    <section id="parameters" style="text-align:center; border: 2px solid var(--med-accent);">
+    <section id="parameters" style="text-align:center; border: 2px solid var(--med-secondary); background: var(--soft-blue);">
         <h2 data-i18n="sec_params">Thông số & Protocols</h2>
-        <p style="color:var(--text-muted); font-size: 1rem; margin-bottom:30px; max-width: 800px; margin-left: auto; margin-right: auto;" data-i18n="params_desc">
+        <p style="color:var(--text-main); font-size: 1.05rem; margin-bottom:35px; max-width: 800px; margin-left: auto; margin-right: auto;" data-i18n="params_desc">
             Hướng dẫn thiết lập mức năng lượng (kV), dòng dẫn (mAs) và hệ thống tự động điều chỉnh liều (AEC) tối ưu cho các hãng máy CT.
         </p>
         
         <a href="https://www.aapm.org/pubs/ctprotocols/documents/lungcancerscreeningct.pdf" target="_blank" class="btn-cta" style="margin-top:0;" data-i18n="btn_view_params">
-            <i data-lucide="file-text"></i>
+            <i data-lucide="file-down"></i>
             Tải Protocol Chi Tiết của AAPM
         </a>
     </section>
@@ -728,10 +878,25 @@
     </section>
 
     <footer>
-        <img src="https://i.postimg.cc/tTbb7VJW/81dc535f2325f27bab34.jpg" alt="Logo" class="footer-logo">
-        <p style="font-size: 1.2rem; font-weight: 700;">Cộng đồng Kỹ thuật viên Hình ảnh Y học Việt Nam</p>
-        <p>© <span id="year"></span> | Complete Professional Edition</p>
-        <p style="margin-top:25px; font-size:0.85rem; color:var(--med-accent);">Lê Thanh Trọng - 0944406507</p>
+        <img src="https://i.postimg.cc/tTbb7VJW/81dc535f2325f27bab34.jpg" alt="Phan Thường Điện Quang Logo" class="footer-logo">
+        
+        <h3 class="footer-brand">PHAN THƯỜNG ĐIỆN QUANG</h3>
+        <p class="footer-role">Kỹ thuật viên Hình ảnh Y học</p>
+        
+        <div class="footer-contact">
+            <div class="contact-item">
+                <i data-lucide="map-pin" size="18" style="color: var(--med-accent);"></i>
+                <span>Phòng khám: Số 244, Đường Tân Bình, Phường Cẩm Phả, Quảng Ninh</span>
+            </div>
+            <div class="contact-item">
+                <i data-lucide="shield-check" size="18" style="color: var(--med-accent);"></i>
+                <span>Chuyên trang Truyền thông Sức khỏe & Cập nhật Kỹ thuật Y khoa</span>
+            </div>
+        </div>
+
+        <div style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 25px; font-size: 0.9rem; color: #94a3b8;">
+            <p>© <span id="year"></span> | Complete Professional Edition</p>
+        </div>
     </footer>
 
     <!-- Tải File Logic Riêng -->
