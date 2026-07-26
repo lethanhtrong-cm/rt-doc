@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hướng Dẫn Kỹ Thuật Y Khoa</title>
-    <!-- Font chữ Inter thanh lịch -->
+    <title>Nền Tảng Đào Tạo & Hướng Dẫn Y Khoa</title>
+    <!-- Font Inter hiện đại -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
 </head>
@@ -14,19 +14,23 @@
         <div class="logo">Medical<span>Guide</span></div>
         <nav>
             <a href="#">Trang chủ</a>
+            <a href="#">Ngân hàng đề</a>
             <a href="#">CT Scanner</a>
             <a href="#">MRI</a>
-            <a href="#">Tài liệu</a>
         </nav>
     </header>
 
-    <!-- Layout Split-Screen Hero -->
-    <section class="split-hero">
-        <!-- Container chứa module CT Phổi -->
-        <div id="ct-module-container" class="split-panel-wrapper ct-wrapper"></div>
-        
-        <!-- Container chứa module MRI -->
-        <div id="mri-module-container" class="split-panel-wrapper mri-wrapper"></div>
+    <!-- Layout Bento Box (Lưới 2x2) -->
+    <section class="hero-bento-section">
+        <div class="bento-grid">
+            <!-- HÀNG 1 -->
+            <div id="module-quiz" class="bento-panel bg-soft-blue"></div>
+            <div id="module-ct" class="bento-panel bg-soft-teal"></div>
+            
+            <!-- HÀNG 2 -->
+            <div id="module-mri-seq" class="bento-panel bg-light-gray"></div>
+            <div id="module-mri-proto" class="bento-panel bg-white outline-border"></div>
+        </div>
     </section>
 
     <!-- Script xử lý module -->
