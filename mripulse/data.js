@@ -20,85 +20,1051 @@ const MRIData = {
     },
     
     groupStyles: {
-        'spin-echo': { title: { vi: 'Nhóm Spin Echo (SE)', en: 'Spin Echo (SE)' }, bg: 'bg-gradient-to-r from-blue-700 to-blue-600', textDark: 'text-blue-900', hover: 'hover:bg-blue-100', border: 'border-blue-100' },
-        'gradient-echo': { title: { vi: 'Nhóm Gradient Echo (GRE)', en: 'Gradient Echo (GRE)' }, bg: 'bg-gradient-to-r from-rose-600 to-red-500', textDark: 'text-rose-900', hover: 'hover:bg-rose-50', border: 'border-rose-100' },
-        'fat-suppression': { title: { vi: 'Kỹ Thuật Xóa Mỡ', en: 'Fat Suppression' }, bg: 'bg-gradient-to-r from-emerald-600 to-green-500', textDark: 'text-emerald-900', hover: 'hover:bg-emerald-50', border: 'border-emerald-100' },
+        'spin-echo': { title: { vi: 'Nhóm Spin Echo (SE)', en: 'Spin Echo (SE) Group' }, bg: 'bg-gradient-to-r from-blue-700 to-blue-600', textDark: 'text-blue-900', hover: 'hover:bg-blue-100', border: 'border-blue-100' },
+        'gradient-echo': { title: { vi: 'Nhóm Gradient Echo (GRE)', en: 'Gradient Echo (GRE) Group' }, bg: 'bg-gradient-to-r from-rose-600 to-red-500', textDark: 'text-rose-900', hover: 'hover:bg-rose-50', border: 'border-rose-100' },
+        'fat-suppression': { title: { vi: 'Kỹ Thuật Xóa Mỡ', en: 'Fat Suppression Techniques' }, bg: 'bg-gradient-to-r from-emerald-600 to-green-500', textDark: 'text-emerald-900', hover: 'hover:bg-emerald-50', border: 'border-emerald-100' },
         'non-contrast-mra': { title: { vi: 'Mạch Máu (Không Thuốc)', en: 'Non-Contrast MRA' }, bg: 'bg-gradient-to-r from-indigo-600 to-violet-500', textDark: 'text-indigo-900', hover: 'hover:bg-indigo-50', border: 'border-indigo-100' },
         'ce-mra': { title: { vi: 'Mạch Máu (Tiêm Thuốc)', en: 'Contrast-Enhanced MRA' }, bg: 'bg-gradient-to-r from-teal-600 to-cyan-500', textDark: 'text-teal-900', hover: 'hover:bg-teal-50', border: 'border-teal-100' },
-        'diffusion': { title: { vi: 'Xung Khuếch Tán (DWI)', en: 'Diffusion-Weighted (DWI)' }, bg: 'bg-gradient-to-r from-fuchsia-600 to-purple-500', textDark: 'text-fuchsia-900', hover: 'hover:bg-fuchsia-50', border: 'border-fuchsia-100' },
+        'diffusion': { title: { vi: 'Xung Khuếch Tán (DWI)', en: 'Diffusion-Weighted Group' }, bg: 'bg-gradient-to-r from-fuchsia-600 to-purple-500', textDark: 'text-fuchsia-900', hover: 'hover:bg-fuchsia-50', border: 'border-fuchsia-100' },
         'advanced-maps': { title: { vi: 'Kỹ Thuật Nâng Cao', en: 'Advanced Techniques' }, bg: 'bg-gradient-to-r from-amber-600 to-orange-500', textDark: 'text-amber-900', hover: 'hover:bg-amber-50', border: 'border-amber-100' }
     },
 
     sequences: [
+        // ========= NHÓM SPIN ECHO ==========
         {
-            id: 't1w', group: 'spin-echo',
+            id: 't1w',
+            group: 'spin-echo',
             genericName: { vi: 'T1W (TSE/FSE)', en: 'T1W (TSE/FSE)' },
-            vendors: { Siemens: 'TSE', GE: 'FastSE', Philips: 'TSE', Canon: 'FastSE', Fujifilm: 'FastSE' },
+            vendors: {
+                Siemens: 'TSE (Turbo Spin Echo)', 
+                GE: 'FastSE (Fast Spin Echo)', 
+                Philips: 'TSE (Turbo Spin Echo)', 
+                Canon: 'FastSE (Fast Spin Echo)', 
+                Fujifilm: 'FastSE (Fast Spin Echo)' 
+            },
             imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_wMaSpsmRiiyzo0rSGU8E23kjvFGwxUIAxA&s', 
-            physics: { vi: 'Sử dụng TR ngắn (300-600ms) và TE ngắn (10-20ms). Độ tương phản chủ yếu dựa trên thời gian hồi phục T1 của mô. Mỡ sáng, Nước/Dịch tối.', en: 'Uses short TR and short TE. Contrast based on T1 recovery. Fat is bright, Fluid is dark.' },
+            physics: {
+                vi: 'Sử dụng TR ngắn (300-600ms) và TE ngắn (10-20ms). Độ tương phản chủ yếu dựa trên thời gian hồi phục T1 của mô. Mỡ (T1 ngắn) sẽ sáng, Nước/Dịch (T1 dài) sẽ tối.',
+                en: 'Uses short TR (300-600ms) and short TE (10-20ms). Contrast is primarily based on the T1 recovery time of tissues. Fat (short T1) is bright, Water/Fluid (long T1) is dark.'
+            },
             applications: [
-                { priority: 1, use: { vi: 'Đánh giá giải phẫu chi tiết cho não, cột sống, khớp.', en: 'Anatomical detail evaluation.' } },
-                { priority: 2, use: { vi: 'Chuỗi xung nền (pre-contrast) so sánh ngấm thuốc.', en: 'Pre-contrast baseline.' } },
-                { priority: 3, use: { vi: 'Phát hiện mỡ, máu bán cấp, melanin.', en: 'Detection of fat, subacute blood, melanin.' } }
+                { priority: 1, use: { vi: 'Đánh giá giải phẫu (anatomical detail) cho não, cột sống, khớp.', en: 'Anatomical detail evaluation for brain, spine, and joints.' } },
+                { priority: 2, use: { vi: 'Chuỗi xung nền (pre-contrast) để so sánh với ảnh sau tiêm thuốc (post-contrast).', en: 'Pre-contrast sequence for comparison with post-contrast images.' } },
+                { priority: 3, use: { vi: 'Phát hiện các tổn thương có T1 ngắn: mỡ (u mỡ), máu bán cấp (methemoglobin), hắc tố (melanin).', en: 'Detection of T1-shortening substances: fat (lipoma), subacute hemorrhage (methemoglobin), melanin.' } }
             ],
-            tips: { vi: 'Tăng TR tăng SNR nhưng giảm tương phản T1. Tăng Turbo Factor chụp nhanh nhưng dễ mờ ảnh.', en: 'Increasing TR increases SNR but reduces T1 contrast.' }
+            tips: {
+                vi: 'Tăng TR sẽ tăng SNR nhưng giảm tương phản T1 (ảnh "PD-like" hơn). Tăng Turbo Factor (TSE/FSE) giúp chụp nhanh hơn nhưng có thể làm mờ ảnh (blurring) và làm mỡ sáng hơn.',
+                en: 'Increasing TR increases SNR but reduces T1 contrast (more "PD-like"). Increasing Turbo Factor (TSE/FSE) is faster but can cause blurring and make fat brighter.'
+            }
         },
         {
-            id: 't2w', group: 'spin-echo',
+            id: 't2w',
+            group: 'spin-echo',
             genericName: { vi: 'T2-weighted (T2W)', en: 'T2-weighted (T2W)' },
-            vendors: { Siemens: 'TSE', GE: 'FastSE', Philips: 'TSE', Canon: 'FastSE', Fujifilm: 'FastSE' },
+            vendors: {
+                Siemens: 'TSE (Turbo Spin Echo)', 
+                GE: 'FastSE (Fast Spin Echo)', 
+                Philips: 'TSE (Turbo Spin Echo)', 
+                Canon: 'FastSE (Fast Spin Echo)', 
+                Fujifilm: 'FastSE (Fast Spin Echo)' 
+            },
             imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhe4Aei1XRdB8L5XUJNkjtUCYrDAEBOlMe4A&s', 
-            physics: { vi: 'Sử dụng TR dài (2000-6000ms) và TE dài (80-120ms). Dịch sáng, mỡ cũng sáng (nếu không xóa).', en: 'Long TR and TE. Fluid is bright.' },
+            physics: {
+                vi: 'Sử dụng TR dài (2000-6000ms) và TE dài (80-120ms). Độ tương phản dựa trên thời gian thư duỗi T2. Nước/dịch (T2 dài) sẽ sáng. Mỡ cũng sáng (nhưng có thể xóa bằng Fat-Sat).',
+                en: 'Uses long TR (2000-6000ms) and long TE (80-120ms). Contrast is based on T2 decay time. Water/fluid (long T2) is bright. Fat is also bright (but can be suppressed with Fat-Sat).'
+            },
             applications: [
-                { priority: 1, use: { vi: 'Phát hiện bệnh lý: phù, viêm, u, nhồi máu.', en: 'Pathology detection: edema, tumor, infarct.' } },
-                { priority: 2, use: { vi: 'Đánh giá dịch, nang.', en: 'Fluid evaluation.' } }
+                { priority: 1, use: { vi: 'Phát hiện bệnh lý (pathology-weighted): phù, viêm, u, nhồi máu, xuất huyết cấp.', en: 'Pathology-weighted sequence: detects edema, inflammation, tumors, infarction, acute hemorrhage.' } },
+                { priority: 2, use: { vi: 'Đánh giá dịch (nang, dịch não tủy, dịch khớp, đường mật, dịch trong ổ bụng).', en: 'Evaluation of fluids (cysts, CSF, joint fluid, bile, abdominal fluid).' } },
+                { priority: 3, use: { vi: 'Đánh giá sụn khớp (độ dày, tín hiệu).', en: 'Evaluation of joint cartilage (thickness, signal).' } },
+                { priority: 4, use: { vi: 'Đánh giá chất xám và chất trắng trong não.', en: 'Gray matter and white matter evaluation in the brain.'} }
             ],
-            tips: { vi: 'Dùng Flow Compensation khi chụp cột sống để giảm artifact dòng chảy CSF.', en: 'Use Flow Comp for spine to reduce CSF artifacts.' }
+            tips: {
+                vi: 'TE dài (ví dụ: >100ms) cho tương phản T2 tốt nhất nhưng SNR sẽ giảm. Tăng Turbo Factor (ETL) giúp chụp nhanh nhưng tăng blurring. Cân nhắc dùng Flow Compensation (chống dòng chảy) khi chụp cột sống cổ/ngực để giảm artifact dịch não tủy.',
+                en: 'Longer TE (e.g., >100ms) gives best T2 contrast but reduces SNR. Increasing Turbo Factor (ETL) is faster but increases blurring. Consider Flow Compensation for cervical/thoracic spine to reduce CSF artifacts.'
+            }
         },
         {
-            id: 't2w_fs', group: 'spin-echo',
-            genericName: { vi: 'T2W Fat-Sat (T2W-FS)', en: 'T2W Fat-Sat (T2W-FS)' },
-            vendors: { Siemens: 'T2 TSE Fat Sat', GE: 'T2 FSE Fat Sat', Philips: 'T2 TSE SPIR' },
+            id: 't2w_fs',
+            group: 'spin-echo',
+            genericName: { vi: 'T2-weighted Fat-Sat (T2W-FS)', en: 'T2-weighted Fat-Sat (T2W-FS)' },
+            vendors: {
+                Siemens: 'T2 TSE with Fat Sat', 
+                GE: 'T2 FSE with Fat Sat / Chem Sat', 
+                Philips: 'T2 TSE with SPIR / SPAIR',
+                Canon: 'T2 FastSE with MSOFT / SPAIR', 
+                Fujifilm: 'T2 FastSE with SINC / H-SINC' 
+            },
             imageUrl: 'https://medality.com/wp-content/uploads/2024/08/jg-ss202019-05-3120at204.08.4320PM.png', 
-            physics: { vi: 'Xóa tín hiệu mỡ để làm nổi bật tín hiệu dịch/phù.', en: 'Fat suppression applied to T2W to highlight fluid.' },
+            physics: {
+                vi: 'Là chuỗi xung T2-weighted tiêu chuẩn, được thêm vào một mô-đun xóa mỡ (thường là Fat-Sat/CHESS) trước khi bắt đầu chuỗi xung. Mục đích là làm mất tín hiệu của mỡ (vốn sáng trên T2) để làm nổi bật tín hiệu của dịch/phù (vẫn sáng).',
+                en: 'A standard T2-weighted sequence with a fat-suppression module (usually Fat-Sat/CHESS) added before the sequence starts. The goal is to nullify the signal from fat (which is bright on T2) to highlight fluid/edema signals (which remain bright).'
+            },
             applications: [
-                { priority: 1, use: { vi: 'Đánh giá phù tủy xương, chấn thương cơ xương khớp.', en: 'Bone marrow edema evaluation.' } }
+                { priority: 1, use: { vi: 'Đánh giá phù tủy xương, rách/viêm cơ, dây chằng trong chấn thương cơ-xương-khớp.', en: 'Evaluation of bone marrow edema, muscle/ligament tears or inflammation in MSK trauma.' } },
+                { priority: 2, use: { vi: 'Phát hiện tổn thương viêm, u ở các vùng có nhiều mỡ (ví dụ: hốc mắt, cổ, phần mềm).', en: 'Detection of inflammatory lesions or tumors in fatty areas (e.g., orbit, neck, soft tissues).' } },
+                { priority: 3, use: { vi: 'Đánh giá vú (phát hiện nang, tổn thương).', en: 'Breast evaluation (detecting cysts, lesions).'} }
             ],
-            tips: { vi: 'Yêu cầu từ trường đồng nhất tốt (Shimming). Nếu lỗi, chuyển sang STIR.', en: 'Requires good shimming. Switch to STIR if failing.' }
+            tips: {
+                vi: 'Đây là chuỗi xung "nhạy bệnh lý" (fluid-sensitive) hàng đầu cho MSK. Nếu xóa mỡ không đều (dùng CHESS), hãy kiểm tra shimming hoặc đổi sang dùng STIR.',
+                en: 'This is the top "fluid-sensitive" sequence for MSK. If fat suppression is inhomogeneous (using CHESS), check shimming or switch to STIR.'
+            }
         },
         {
-            id: 'flair', group: 'spin-echo',
-            genericName: { vi: 'FLAIR', en: 'FLAIR' },
-            vendors: { Siemens: 'TIRM/Dark Fluid', GE: 'FLAIR', Philips: 'FLAIR' },
+            id: 'pd',
+            group: 'spin-echo',
+            genericName: { vi: 'Proton Density (PD)', en: 'Proton Density (PD)' },
+            vendors: {
+                Siemens: 'PD TSE', 
+                GE: 'PD FastSE', 
+                Philips: 'PD TSE', 
+                Canon: 'PD FastSE', 
+                Fujifilm: 'PD FastSE' 
+            },
+            imageUrl: 'https://prod-images-static.radiopaedia.org/images/3388449/f31464a387cf1cefe0dfe193f4dfd3_big_gallery.jpg', 
+            physics: {
+                vi: 'Sử dụng TR dài (2000-4000ms) và TE ngắn (10-30ms). Chuỗi xung này giảm thiểu ảnh hưởng của T1 và T2, làm cho độ tương phản chủ yếu phụ thuộc vào mật độ proton. Mô có nhiều proton (sụn, dịch脑 tủy) sẽ sáng.',
+                en: 'Uses long TR (2000-4000ms) and short TE (10-30ms). This sequence minimizes T1 and T2 effects, making contrast dependent mainly on proton density. Tissues with high proton density (cartilage, CSF) are bright.'
+            },
+            applications: [
+                { priority: 1, use: { vi: 'Đánh giá sụn khớp (đặc biệt là khớp gối): phát hiện rách sụn chêm, tổn thương sụn khớp.', en: 'Evaluation of joint cartilage (especially knee): detecting meniscal tears, chondral lesions.' } },
+                { priority: 2, use: { vi: 'Đánh giá não: phân biệt chất xám - chất trắng, phát hiện mảng xơ cứng (MS) gần não thất.', en: 'Brain evaluation: gray-white matter differentiation, detecting periventricular MS plaques.' } },
+                { priority: 3, use: { vi: 'Đánh giá dây chằng, gân (ví dụ: chóp xoay ở vai).', en: 'Evaluation of ligaments, tendons (e.g., rotator cuff in shoulder).'} }
+            ],
+            tips: {
+                vi: 'Là chuỗi xung tốt nhất để xem sụn (cartilage). Tăng TR (>2000ms) và giảm TE (<20ms) để tối ưu tương phản PD. Thường được ưu tiên hơn T2 ở khớp gối.',
+                en: 'The best sequence for cartilage. Increase TR (>2000ms) and decrease TE (<20ms) to optimize PD contrast. Often preferred over T2 in the knee joint.'
+            }
+        },
+        {
+            id: 'pd_fs',
+            group: 'spin-echo',
+            genericName: { vi: 'PD Fat-Sat (PD-FS)', en: 'PD Fat-Sat (PD-FS)' },
+            vendors: {
+                Siemens: 'PD TSE with Fat Sat', 
+                GE: 'PD FSE with Fat Sat', 
+                Philips: 'PD TSE with SPIR / SPAIR',
+                Canon: 'PD FastSE with MSOFT / SPAIR', 
+                Fujifilm: 'PD FastSE with SINC' 
+            },
+            imageUrl: 'https://mrimaster.com/wp-content/uploads/2023/10/Proton-DensityPD-Fat-Saturated-coronal-Image-of-Knee-e1696715470691.jpg', 
+            physics: {
+                vi: 'Là chuỗi xung PD-weighted kết hợp với kỹ thuật xóa mỡ (Fat-Sat/CHESS). Xóa tín hiệu mỡ (sáng) để làm nổi bật các cấu trúc có mật độ proton cao và T2 ngắn/trung bình (như sụn) và dịch/phù (sáng).',
+                en: 'A PD-weighted sequence combined with fat suppression (Fat-Sat/CHESS). Suppresses bright fat signal to highlight high-proton-density structures with short/intermediate T2 (like cartilage) and fluid/edema (bright).'
+            },
+            applications: [
+                { priority: 1, use: { vi: 'Chuỗi xung "vàng" (gold standard) để đánh giá sụn khớp và tủy xương dưới sụn.', en: 'Gold standard sequence for evaluating articular cartilage and subchondral bone marrow.' } },
+                { priority: 2, use: { vi: 'Phát hiện rách sụn chêm, rách dây chằng, phù tủy xương trong chấn thương khớp.', en: 'Detecting meniscal tears, ligament tears, and bone marrow edema in joint trauma.' } },
+                { priority: 3, use: { vi: 'Đánh giá tốt các cấu trúc nhỏ trong khớp (ví dụ: phức hợp sụn sợi tam giác ở cổ tay).', en: 'Good for evaluating small structures in joints (e.g., TFCC in the wrist).'} }
+            ],
+            tips: {
+                vi: 'Kết hợp ưu điểm của PD (xem sụn) và T2-FS (xem phù tủy xương, dịch). Rất nhạy nhưng cũng dễ bị artifact "magic angle" ở gân (ví dụ: gân chóp xoay ở vai).',
+                en: 'Combines the advantages of PD (cartilage) and T2-FS (bone edema, fluid). Very sensitive but also prone to "magic angle" artifacts in tendons (e.g., rotator cuff).'
+            }
+        },
+        {
+            id: 'flair',
+            group: 'spin-echo',
+            genericName: { vi: 'FLAIR (Fluid-Attenuated Inversion Recovery)', en: 'FLAIR (Fluid-Attenuated Inversion Recovery)' },
+            vendors: {
+                Siemens: 'TIRM, Dark Fluid, FLAIR', 
+                GE: 'FLAIR',
+                Philips: 'FLAIR',
+                Canon: 'FastFLAIR', 
+                Fujifilm: 'FIR-FLAIR' 
+            },
             imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQwQJxSVqgsQ1A1eDB-f8ZElPpPeUbEgr50Tw&s', 
-            physics: { vi: 'T2W thêm xung đảo nghịch 180 độ và TI dài (2000-2500ms) xóa tín hiệu dịch tự do.', en: 'T2W with inversion recovery to null free fluid.' },
+            physics: {
+                vi: 'Là chuỗi xung T2W được thêm một xung đảo nghịch 180 độ và thời gian TI (Inversion Time) dài (khoảng 2000-2500ms) để xóa tín hiệu của dịch tự do (dịch não tủy, dịch nang). Tín hiệu bệnh lý (phù) vẫn sáng.',
+                en: 'A T2W sequence with an added 180-degree inversion pulse and a long TI (Inversion Time) (approx 2000-2500ms) to null the signal from free fluid (CSF, cyst fluid). Pathological signals (edema) remain bright.'
+            },
             applications: [
-                { priority: 1, use: { vi: 'Đánh giá tổn thương chất trắng (MS, đột quỵ).', en: 'White matter lesion evaluation.' } }
+                { priority: 1, use: { vi: 'Phát hiện tổn thương chất trắng quanh não thất (ví dụ: MS, bệnh lý chất trắng, đột quỵ).', en: 'Detecting periventricular white matter lesions (e.g., MS, white matter disease, stroke).' } },
+                { priority: 2, use: { vi: 'Phát hiện nhồi máu não giai đoạn sớm (phát hiện phù độc tế bào).', en: 'Detecting early-stage cerebral infarction (cytotoxic edema).' } },
+                { priority: 3, use: { vi: 'Phát hiện viêm màng não, xuất huyết dưới nhện (bán cấp/mạn tính - dịch não tủy bẩn).', en: 'Detecting meningitis, subarachnoid hemorrhage (subacute/chronic - "dirty" CSF).'} }
             ],
-            tips: { vi: 'Thời gian TI cực kỳ quan trọng và phụ thuộc vào từ trường (1.5T vs 3T).', en: 'TI is field-strength dependent.' }
+            tips: {
+                vi: 'Thời gian TI là CỰC KỲ QUAN TRỌNG. TI sai sẽ không xóa được dịch não tủy. TI phụ thuộc vào từ trường (dài hơn ở 3T so với 1.5T). Artifact dòng chảy CSF có thể xuất hiện (dịch sáng), cần bật Flow Comp.',
+                en: 'TI time is CRITICAL. Incorrect TI will fail to null CSF. TI is field-strength dependent (longer at 3T vs 1.5T). CSF flow artifacts may appear (bright fluid), requires Flow Comp.'
+            }
         },
         {
-            id: 'gre_t2star', group: 'gradient-echo',
-            genericName: { vi: 'T2* GRE', en: 'T2* GRE' },
-            vendors: { Siemens: 'GRE', GE: 'GRE', Philips: 'FFE' },
+            id: 'mrcp',
+            group: 'spin-echo',
+            genericName: { vi: 'MRCP (T2-weighted 3D/Single-Shot)', en: 'MRCP (T2-weighted 3D/Single-Shot)' },
+            vendors: {
+                Siemens: 'HASTE (2D), 3D TSE (SPACE)', 
+                GE: 'Single-Shot FSE (2D), 3D FSE (CUBE)', 
+                Philips: 'Single-Shot TSE (2D), 3D TSE (VISTA)', 
+                Canon: 'FASE (2D), FASE3D mVox (3D)', 
+                Fujifilm: 'Single-Shot FSE (2D), isoFSE (3D)' 
+            },
+            imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSeOWQe56bahqH6dqAYnWreS8iHk-Q7hIpBUQ&s', 
+            physics: {
+                vi: 'Là chuỗi xung T2W có thời gian TE rất dài (>>200ms) (chuỗi xung "siêu T2"). Ở TE dài, hầu hết các mô tĩnh đều mất tín hiệu, chỉ có dịch (T2 rất dài) như mật, dịch tụy, dịch não tủy là còn tín hiệu và sáng rực. Thường chụp 3D (để tái tạo) hoặc 2D lát dày (Single-Shot).',
+                en: 'A T2W sequence with a very long TE (>>200ms) (a "super T2" sequence). At long TEs, most static tissues lose signal, only fluids with very long T2 (like bile, pancreatic fluid, CSF) remain and are bright. Usually acquired in 3D (for reconstruction) or thick-slab 2D (Single-Shot).'
+            },
+            applications: [
+                { priority: 1, use: { vi: 'Đánh giá sỏi đường mật, sỏi túi mật (không xâm lấn, thay thế ERCP chẩn đoán).', en: 'Evaluation of bile duct stones, gallstones (non-invasive, replaces diagnostic ERCP).' } },
+                { priority: 2, use: { vi: 'Phát hiện hẹp, giãn đường mật (do u, chít hẹp sau phẫu thuật).', en: 'Detecting biliary strictures, dilation (due to tumors, post-surgical stenosis).' } },
+                { priority: 3, use: { vi: 'Đánh giá bệnh lý tụy (nang tụy, MRCP tụy, u tụy).', en: 'Evaluation of pancreatic diseases (cysts, pancreatic MRCP, tumors).'} },
+                { priority: 4, use: { vi: 'Chụp hệ niệu (MR Urography - MRU) đánh giá giãn đài bể thận, niệu quản.', en: 'MR Urography (MRU) to evaluate hydronephrosis, ureteral dilation.'} }
+            ],
+            tips: {
+                vi: 'Bệnh nhân cần nhịn ăn (ít nhất 4-6 tiếng) để giảm nhu động ruột và làm căng túi mật. Sử dụng Saturation Band (bão hòa) phía trên để xóa tín hiệu dịch dạ dày. Chụp 3D cho phép xoay 360 độ (MIP), chụp 2D (HASTE lát dày) nhanh và ít artifact hơn.',
+                en: 'Patient must be fasting (at least 4-6 hours) to reduce bowel motion and fill the gallbladder. Use a Saturation Band superiorly to null stomach fluid signal. 3D acquisition allows 360-degree rotation (MIP), 2D (thick-slab HASTE) is faster and has fewer artifacts.'
+            }
+        },
+        {
+            id: 'ssfse',
+            group: 'spin-echo',
+            genericName: { vi: 'SSFSE (HASTE / Single-Shot)', en: 'SSFSE (HASTE / Single-Shot)' },
+            vendors: {
+                Siemens: 'HASTE (Half-Fourier Acq. TSE)',
+                GE: 'Single-Shot FSE', 
+                Philips: 'Single-Shot TSE', 
+                Canon: 'FASE (Fast Advanced SE)', 
+                Fujifilm: 'Single-Shot FSE' 
+            },
+            imageUrl: 'https://epos.myesr.org/posterimage/esr/ecr2023/161575/media/945465', 
+            physics: {
+                vi: 'Là một chuỗi xung Turbo Spin Echo (TSE/FSE) siêu nhanh, trong đó toàn bộ k-space của một lát cắt được điền đầy chỉ sau một lần kích thích (TR). Thường kết hợp với kỹ thuật half-scan (HASTE) để rút ngắn thời gian hơn nữa. Ảnh thu được (thường là T2W) rất nhanh (dưới 1 giây/lát) nhưng có độ phân giải thấp hơn TSE thông thường.',
+                en: 'An ultra-fast Turbo Spin Echo (TSE/FSE) sequence where the entire k-space for one slice is filled after a single excitation (TR). Often combined with half-scan techniques (HASTE) to shorten time further. The resulting image (usually T2W) is very fast (<1 sec/slice) but has lower resolution than conventional TSE.'
+            },
+            applications: [
+                { priority: 1, use: { vi: 'Chụp bụng (Abdomen): Chụp T2W khi bệnh nhân nín thở, giảm artifact chuyển động.', en: 'Abdomen imaging: T2W acquisition during breath-hold, reduces motion artifacts.' } },
+                { priority: 2, use: { vi: 'Chụp thai nhi (Fetal MRI): Giảm artifact do thai nhi chuyển động.', en: 'Fetal MRI: Reduces artifacts from fetal movement.' } },
+                { priority: 3, use: { vi: 'Chụp MRCP 2D (như đã mô tả ở thẻ MRCP).', en: '2D MRCP acquisition (as described in the MRCP card).' } },
+                { priority: 4, use: { vi: 'Chụp bệnh nhân không hợp tác, trẻ em (chụp nhanh não, cột sống).', en: 'Imaging uncooperative patients, children (fast brain, spine scan).'} }
+            ],
+            tips: {
+                vi: 'Chất lượng ảnh T2 SSFSE/HASTE không bằng T2 TSE thường quy (do bị mờ) nhưng tốc độ là ưu điểm lớn nhất. Rất tốt để "scan" nhanh ổ bụng, đặc biệt là khi bệnh nhân không nín thở tốt.',
+                en: 'Image quality of T2 SSFSE/HASTE is not as good as conventional T2 TSE (due to blurring), but speed is its biggest advantage. Excellent for a quick "scan" of the abdomen, especially if the patient cannot hold their breath well.'
+            }
+        },
+        {
+            id: 't1_post_no_fs',
+            group: 'spin-echo',
+            genericName: { vi: 'T1W + Contrast (Không xóa mỡ)', en: 'T1W + Contrast (No Fat-Sat)' },
+            vendors: {
+                Siemens: 'TSE +C', 
+                GE: 'FastSE +C', 
+                Philips: 'TSE +C',
+                Canon: 'FastSE +C', 
+                Fujifilm: 'FastSE +C' 
+            },
+            imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDN-VKNRpAUnZuTPVk-wMf2YIqrBfFhaZmdQ&s', 
+            physics: {
+                vi: 'Là chuỗi xung T1W (thường là Spin Echo hoặc TSE/FSE) được thực hiện sau khi tiêm thuốc đối quang từ (Gadolinium) mà KHÔNG xóa mỡ. Dùng để so sánh trực tiếp với ảnh T1W pre-contrast.',
+                en: 'A T1W sequence (usually Spin Echo or TSE/FSE) performed after injecting Gadolinium contrast WITHOUT fat suppression. Used for direct comparison with pre-contrast T1W images.'
+            },
+            applications: [
+                { priority: 1, use: { vi: 'Chụp não (Brain): Chuỗi xung tiêu chuẩn để đánh giá ngấm thuốc của u não, viêm màng não, tổn thương mất myelin... (Mỡ trong não ít, không cần xóa).', en: 'Brain: Standard sequence to evaluate enhancement of brain tumors, meningitis, demyelinating lesions... (Fat in the brain is minimal, no suppression needed).' } },
+                { priority: 2, use: { vi: 'Chụp cột sống (Spine): Đánh giá u tủy, viêm tủy, ngấm thuốc màng cứng, thoát vị đĩa đệm tái phát (sẹo ngấm thuốc).', en: 'Spine: Evaluation of spinal tumors, myelitis, dural enhancement, recurrent disc herniation (scar enhances).' } },
+                { priority: 3, use: { vi: 'Chụp khớp (MSK): Đánh giá viêm bao hoạt dịch, u phần mềm khi không cần xóa mỡ.', en: 'Joints (MSK): Evaluation of synovitis, soft tissue tumors when fat suppression is not required.'} }
+            ],
+            tips: {
+                vi: 'Luôn luôn chạy T1W không xóa mỡ sau tiêm ở não và cột sống. Điều này giúp phân biệt tổn thương ngấm thuốc (sáng) với các cấu trúc T1 ngắn tự nhiên (mỡ, máu bán cấp).',
+                en: 'Always run T1W without fat-sat post-contrast in the brain and spine. This helps differentiate enhancing lesions (bright) from naturally T1-short structures (fat, subacute blood).'
+            }
+        },
+        {
+            id: 'tse_3d_variable_flip',
+            group: 'spin-echo',
+            genericName: { vi: '3D TSE (Variable Flip Angle)', en: '3D TSE (Variable Flip Angle)' },
+            vendors: {
+                Siemens: 'SPACE (Sampling Perfection...Optimization)',
+                GE: 'CUBE',
+                Philips: 'VISTA (Volume ISotropic TSE Acq.)',
+                Canon: 'FASE3D mVox', 
+                Fujifilm: 'isoFSE' 
+            },
+            imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQagL_OmoOSdWgKBF3sEQAlzTDKIsPE1RX2HQ&s', 
+            physics: {
+                vi: 'Là chuỗi xung Turbo Spin Echo (TSE/FSE) 3D, đẳng hướng (isotropic), cho phép tái tạo đa mặt phẳng (MPR). Sử dụng chuỗi góc lật thay đổi (variable flip angle) để duy trì tín hiệu qua chuỗi echo train dài, cho phép chụp 3D T2W, FLAIR hoặc PDW với độ phân giải cao, tương phản tốt.',
+                en: 'A 3D, isotropic Turbo Spin Echo (TSE/FSE) sequence that allows for multiplanar reconstruction (MPR). Uses a variable flip angle train to maintain signal over a long echo train, enabling high-resolution 3D T2W, FLAIR, or PDW imaging with good contrast.'
+            },
+            applications: [
+                { priority: 1, use: { vi: 'Đánh giá tai trong, dây thần kinh sọ (ví dụ: dây VII, VIII).', en: 'Evaluation of the inner ear, cranial nerves (e.g., CN VII, VIII).' } },
+                { priority: 2, use: { vi: 'Đánh giá khớp (MSK): Chụp khớp gối, vai, háng... thay thế cho các chuỗi 2D ở 3 mặt phẳng, cho phép tái tạo các mặt phẳng chéo (ví dụ: đánh giá dây chằng chéo trước).', en: 'Joint evaluation (MSK): Knee, shoulder, hip... replaces 2D sequences in 3 planes, allowing for oblique reformats (e.g., ACL evaluation).' } },
+                { priority: 3, use: { vi: 'Chụp đám rối thần kinh cánh tay (Brachial Plexus).', en: 'Imaging of the Brachial Plexus.' } },
+                { priority: 4, use: { vi: 'Chụp T2W/FLAIR 3D cho não (đặc biệt là hố sau, nơi artifact ít hơn GRE 3D).', en: '3D T2W/FLAIR for brain (especially posterior fossa, where artifacts are less than 3D GRE).'} }
+            ],
+            tips: {
+                vi: 'Chuỗi xung này rất dài (có thể 5-7 phút). Cần đảm bảo bệnh nhân nằm yên. Độ phân giải isotropic (ví dụ: 0.8mm³) là ưu điểm lớn nhất, cho phép KTV tái tạo (MPR) ra bất kỳ mặt phẳng nào mà không mất độ phân giải.',
+                en: 'This sequence is very long (can be 5-7 minutes). Patient must remain still. Isotropic resolution (e.g., 0.8mm³) is the biggest advantage, allowing techs to reformat (MPR) to any plane without resolution loss.'
+            }
+        },
+
+        // ========= NHÓM GRADIENT ECHO ==========
+        {
+            id: 'gre_t2star',
+            group: 'gradient-echo',
+            genericName: { vi: 'T2* GRE (T2 Star)', en: 'T2* GRE (T2 Star)' },
+            vendors: {
+                Siemens: 'GRE', 
+                GE: 'GRE',
+                Philips: 'FFE (Fast Field Echo)', 
+                Canon: 'FE (Field Echo)', 
+                Fujifilm: 'GE (Gradient Echo)' 
+            },
             imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJkM4aRcP8UbaT2x1p6S52_mpb1kHjS4nX-A&s', 
-            physics: { vi: 'Chuỗi xung nhạy với sự không đồng nhất từ trường. Máu, sắt, vôi hóa làm mất tín hiệu.', en: 'Sensitive to magnetic susceptibility. Blood, iron cause signal loss.' },
+            physics: {
+                vi: 'Chuỗi xung Gradient Echo sử dụng TR dài và TE trung bình/dài. Không dùng xung 180 độ nên rất nhạy với sự không đồng nhất từ trường (artifact T2*). Các chất gây nhiễu từ (máu giáng hóa, vôi hóa, sắt) sẽ gây mất tín hiệu (màu đen).',
+                en: 'Gradient Echo sequence using long TR and medium/long TE. No 180-degree pulse is used, so it is very sensitive to magnetic field inhomogeneities (T2* artifact). Susceptibility-inducing substances (blood products, calcification, iron) will cause signal loss (black).'
+            },
             applications: [
-                { priority: 1, use: { vi: 'Phát hiện xuất huyết, vi xuất huyết.', en: 'Detection of hemorrhage, microbleeds.' } }
+                { priority: 1, use: { vi: 'Phát hiện xuất huyết, vi xuất huyết (hemorrhage, microbleeds) trong não (đột quỵ, chấn thương, amyloidosis).', en: 'Detection of hemorrhage, microbleeds in the brain (stroke, trauma, amyloidosis).' } },
+                { priority: 2, use: { vi: 'Đánh giá vôi hóa (calcification) trong u não, bệnh lý nhiễm trùng.', en: 'Evaluation of calcification in brain tumors, infectious diseases.' } },
+                { priority: 3, use: { vi: 'Phát hiện lắng đọng sắt (iron deposition) trong các bệnh lý thoái hóa thần kinh (Parkinson).', en: 'Detection of iron deposition in neurodegenerative diseases (Parkinson\'s).' } },
+                { priority: 4, use: { vi: 'Chụp sụn khớp (dạng 3D GRE).', en: 'Cartilage imaging (as 3D GRE).' } }
             ],
-            tips: { vi: 'TE càng dài độ nhạy càng cao nhưng dễ nhiễu.', en: 'Longer TE increases sensitivity but adds noise.' }
+            tips: {
+                vi: 'TE càng dài, độ nhạy T2* càng cao (dễ phát hiện vi xuất huyết) nhưng ảnh càng nhiễu và artifact kim loại/khí càng lớn. Luôn chạy T2* GRE khi nghi ngờ đột quỵ xuất huyết hoặc chấn thương sọ não.',
+                en: 'Longer TE increases T2* sensitivity (better for microbleeds) but also increases noise and metal/air artifacts. Always run T2* GRE if hemorrhagic stroke or TBI is suspected.'
+            }
         },
         {
-            id: 'dwi', group: 'diffusion',
-            genericName: { vi: 'DWI (Khuếch Tán)', en: 'DWI (Diffusion)' },
-            vendors: { Siemens: 'DWI/RESOLVE', GE: 'DWI/MUSE', Philips: 'DWI' },
-            imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRkAqNlmUQfGuBhPdLDZ7jRRQrMao9tHQc7yFEDYGnYSy-XDPsKj5LINDUZbTL62dvUhRc&usqp=CAU',
-            physics: { vi: 'Đo chuyển động Brown của nước. Vùng hạn chế khuếch tán sẽ sáng trên DWI và tối trên ADC.', en: 'Measures water diffusion. Restricted areas are bright on DWI, dark on ADC.' },
+            id: 'swi',
+            group: 'gradient-echo',
+            genericName: { vi: 'SWI (Susceptibility Weighted Imaging)', en: 'SWI (Susceptibility Weighted Imaging)' },
+            vendors: {
+                Siemens: 'SWI',
+                GE: 'SWAN 2.0', 
+                Philips: 'SWIp',
+                Canon: 'FSBB (Flow Sensitive Black Blood)', 
+                Fujifilm: 'BSI (Blood SEnsitive Imaging)' 
+            },
+            imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/7/7c/SWI_4Tesla.png', 
+            physics: {
+                vi: 'Là một chuỗi xung GRE 3D T2* được xử lý đặc biệt (sử dụng cả thông tin biên độ và thông tin pha) để làm nổi bật sự khác biệt về độ nhạy từ (magnetic susceptibility) giữa các mô. Rất nhạy với máu khử oxy, canxi và sắt. Nhạy hơn T2* GRE tiêu chuẩn.',
+                en: 'A specially processed 3D T2* GRE sequence (using both magnitude and phase information) to highlight differences in magnetic susceptibility between tissues. Very sensitive to deoxygenated blood, calcium, and iron. More sensitive than standard T2* GRE.'
+            },
             applications: [
-                { priority: 1, use: { vi: 'Phát hiện nhồi máu não cấp.', en: 'Acute stroke detection.' } },
-                { priority: 2, use: { vi: 'Đặc tính hóa khối u ác tính.', en: 'Tumor characterization.' } }
+                { priority: 1, use: { vi: 'Phát hiện vi xuất huyết não (microbleeds) (nhạy nhất).', en: 'Detection of cerebral microbleeds (most sensitive).' } },
+                { priority: 2, use: { vi: 'Đánh giá tĩnh mạch (DVA - developmental venous anomaly), dị dạng mạch thể hang (cavernova).', en: 'Evaluation of veins (DVA), cavernous malformations.' } },
+                { priority: 3, use: { vi: 'Đánh giá lắng đọng sắt, vôi hóa trong u não.', en: 'Evaluation of iron deposition, calcification in brain tumors.' } },
+                { priority: 4, use: { vi: 'Chẩn đoán chấn thương sọ não (Traumatic Brain Injury) - phát hiện tổn thương trục lan tỏa (DAI).', en: 'Diagnosis of Traumatic Brain Injury (TBI) - detecting diffuse axonal injury (DAI).'} }
             ],
-            tips: { vi: 'Luôn đối chiếu với bản đồ ADC để loại trừ hiệu ứng T2 shine-through.', en: 'Always check ADC map to rule out T2 shine-through.' }
+            tips: {
+                vi: 'Là T2* GRE "phiên bản nâng cao". Rất nhạy với chuyển động, dặn bệnh nhân không nuốt, không cử động. Máy sẽ tự động tạo ra ảnh MinIP (Minimum Intensity Projection) để làm nổi bật các tĩnh mạch và vi xuất huyết (màu đen).',
+                en: 'An "advanced version" of T2* GRE. Very sensitive to motion; instruct patient not to swallow or move. The scanner automatically generates MinIP (Minimum Intensity Projection) images to highlight veins and microbleeds (black).'
+            }
+        },
+        {
+            id: 't1_3d_mprage',
+            group: 'gradient-echo',
+            genericName: { vi: 'T1W 3D GRE (e.g., MPRAGE)', en: 'T1W 3D GRE (e.g., MPRAGE)' },
+            vendors: {
+                Siemens: 'MPRAGE (Magnetization Prepared Rapid GRE)',
+                GE: 'BRAVO / 3D Fast SPGR', 
+                Philips: '3D TFE (Turbo Field Echo)', 
+                Canon: '3DFFE-IR / MPRAGE', 
+                Fujifilm: '3D-GEIR' 
+            },
+            imageUrl: 'https://static.cambridge.org/binary/version/id/urn:cambridge.org:id:binary:20170614045535012-0877:9781107706958:64323fig13_23.png?pub-status=live', 
+            physics: {
+                vi: 'Chuỗi xung GRE 3D, thường có xung chuẩn bị đảo nghịch (MPRAGE) để tối ưu hóa tương phản T1. Thu được một khối dữ liệu (volume) 3D, độ phân giải cao, đẳng hướng (isotropic), cho phép tái tạo đa mặt phẳng (MPR).',
+                en: 'A 3D GRE sequence, often with an inversion preparation pulse (MPRAGE) to optimize T1 contrast. Acquires a 3D, high-resolution, isotropic volume, allowing for multiplanar reconstruction (MPR).'
+            },
+            applications: [
+                { priority: 1, use: { vi: 'Đánh giá giải phẫu não chi tiết (vỏ não, chất xám sâu), phát hiện dị dạng vỏ não.', en: 'Detailed brain anatomy evaluation (cortex, deep gray matter), detecting cortical dysplasia.' } },
+                { priority: 2, use: { vi: 'Định vị phẫu thuật (neuronavigation).', en: 'Surgical navigation (neuronavigation).' } },
+                { priority: 3, use: { vi: 'Đo lường thể tích (volumetry) (ví dụ: teo não, teo hồi hải mã trong Alzheimer).', en: 'Volumetry (e.g., brain atrophy, hippocampal atrophy in Alzheimer\'s).' } },
+                { priority: 4, use: { vi: 'Dùng làm chuỗi xung sau tiêm thuốc (Post-contrast) để phát hiện các tổn thương nhỏ (di căn não).', en: 'Used as a post-contrast sequence to detect small lesions (brain metastases).'} }
+            ],
+            tips: {
+                vi: 'Chuẩn (standard) cho giải phẫu não 3D. Cho phép tái tạo MPR. Khi dùng sau tiêm, nó nhạy hơn T1W SE 2D trong việc phát hiện các tổn thương di căn nhỏ li ti.',
+                en: 'The standard for 3D brain anatomy. Allows MPR. When used post-contrast, it is more sensitive than 2D T1W SE for detecting tiny metastatic lesions.'
+            }
+        },
+        {
+            id: 't1_3d_dynamic',
+            group: 'gradient-echo',
+            genericName: { vi: 'T1W 3D GRE (Dynamic/VIBE/LAVA)', en: 'T1W 3D GRE (Dynamic/VIBE/LAVA)' },
+            vendors: {
+                Siemens: 'VIBE (Volumetric Interpolated BH Exam)',
+                GE: 'LAVA-XL / LAVA / VIBRANT', 
+                Philips: 'THRIVE / e-THRIVE', 
+                Canon: '3D Quick', 
+                Fujifilm: 'TIGRE' 
+            },
+            imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTrlr49h6cAdfmqJ7pX_Qp642jYtEXDix7P9g&s', 
+            physics: {
+                vi: 'Là chuỗi xung T1W 3D GRE siêu nhanh, thường kết hợp xóa mỡ (Fat-Sat hoặc Dixon) và được tối ưu hóa để chụp trong một lần nín thở (breath-hold). Cho phép chụp nhiều pha (multi-phasic) trước và sau khi tiêm thuốc (dynamic contrast enhancement - DCE).',
+                en: 'An ultra-fast T1W 3D GRE sequence, often combined with fat suppression (Fat-Sat or Dixon) and optimized for breath-hold acquisition. Allows for multi-phasic imaging before and after contrast injection (dynamic contrast enhancement - DCE).'
+            },
+            applications: [
+                { priority: 1, use: { vi: 'Chụp bụng (Gan, Tụy, Thận): Đánh giá tổn thương ngấm thuốc ở các pha động mạch, tĩnh mạch cửa, và pha muộn.', en: 'Abdomen (Liver, Pancreas, Kidney): Evaluation of enhancing lesions in arterial, portal venous, and delayed phases.' } },
+                { priority: 2, use: { vi: 'Chụp vú (Breast MRI): Chụp dynamic để đánh giá u vú (vẽ biểu đồ ngấm thuốc - time-intensity curve).', en: 'Breast MRI: Dynamic acquisition to evaluate breast tumors (time-intensity curve analysis).' } },
+                { priority: 3, use: { vi: 'Chụp mạch MRA có thuốc (CE-MRA): Chụp các pha động mạch, tĩnh mạch.', en: 'Contrast-Enhanced MRA (CE-MRA): Acquiring arterial and venous phases.' } },
+                { priority: 4, use: { vi: 'Chụp tuyến yên (Pituitary) dynamic.', en: 'Dynamic Pituitary imaging.'} }
+            ],
+            tips: {
+                vi: 'Thời gian nín thở (breath-hold) là quan trọng nhất. KTV phải tập cho bệnh nhân nín thở tốt. Nên dùng kỹ thuật xóa mỡ Dixon (LAVA-Flex, mDixon) thay vì Fat-Sat (CHESS) để xóa mỡ đồng đều hơn ở vùng bụng.',
+                en: 'Breath-hold timing is critical. Techs must coach the patient to hold their breath well. Dixon fat suppression (LAVA-Flex, mDixon) is preferred over Fat-Sat (CHESS) for more uniform suppression in the abdomen.'
+            }
+        },
+        {
+            id: 'bssfpmra',
+            group: 'gradient-echo',
+            genericName: { vi: 'b-SSFP (TrueFISP / FIESTA)', en: 'b-SSFP (TrueFISP / FIESTA)' },
+            vendors: {
+                Siemens: 'TrueFISP (True Fast Img. w Steady-State Prec.)',
+                GE: 'FIESTA / COSMIC', 
+                Philips: 'Balanced FFE (b-FFE)', 
+                Canon: 'True SSFP', 
+                Fujifilm: 'Balanced SARGE (BASG)' 
+            },
+            imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZBr0YVbH4_hpZ6eYAnlGMfA5eciBc5qdpUA&s', 
+            physics: {
+                vi: 'Chuỗi xung Gradient Echo ở trạng thái cân bằng (Balanced SSFP). Cung cấp tín hiệu rất cao từ các mô có tỷ lệ T2/T1 cao (như máu, dịch não tủy, dịch khớp) so với các mô nền. Tương phản là "lai" giữa T1 và T2. Rất nhanh nhưng nhạy với artifact (banding artifact).',
+                en: 'A balanced steady-state free precession (b-SSFP) gradient echo sequence. Provides very high signal from tissues with a high T2/T1 ratio (like blood, CSF, joint fluid) compared to background tissues. Contrast is a "hybrid" of T1 and T2. Very fast but sensitive to artifacts (banding).'
+            },
+            applications: [
+                { priority: 1, use: { vi: 'Chụp tim (Cardiac MRI): Chuỗi xung "cine" tiêu chuẩn để đánh giá co bóp của tim, chức năng van tim (máu sáng).', en: 'Cardiac MRI: Standard "cine" sequence to evaluate heart muscle contraction, valve function (bright blood).' } },
+                { priority: 2, use: { vi: 'Chụp mạch máu không tiêm thuốc (Non-contrast MRA) (ví dụ: FBI ở ngoại vi, mạch vành).', en: 'Non-contrast MRA (e.g., FBI in periphery, coronary arteries).' } },
+                { priority: 3, use: { vi: 'Chụp tai trong, hố sau (đánh giá dịch và dây thần kinh).', en: 'Inner ear, posterior fossa imaging (evaluating fluid and nerves).' } },
+                { priority: 4, use: { vi: 'Chụp khớp (ví dụ: MR Arthrography - chụp khớp có tiêm thuốc nội khớp).', en: 'Joint imaging (e.g., MR Arthrography - post-intra-articular injection).'} }
+            ],
+            tips: {
+                vi: 'Rất nhạy với artifact "banding" (các dải đen) ở rìa FOV hoặc vùng không đồng nhất. Cần shimming cẩn thận. Đảm bảo đặt "center frequency" (tần số trung tâm) đúng vào mô cần quan tâm (ví dụ: tim, khớp).',
+                en: 'Very sensitive to "banding" artifacts (black stripes) at the edge of the FOV or in inhomogeneous areas. Requires careful shimming. Ensure the "center frequency" is set correctly on the tissue of interest (e.g., heart, joint).'
+            }
+        },
+        {
+            id: 'ciss',
+            group: 'gradient-echo',
+            genericName: { vi: 'CISS / FIESTA-C (3D b-SSFP)', en: 'CISS / FIESTA-C (3D b-SSFP)' },
+            vendors: {
+                Siemens: 'CISS (Constructive Interference...)',
+                GE: 'FIESTA-C',
+                Philips: '(3D b-FFE)',
+                Canon: '(3D True SSFP)',
+                Fujifilm: 'Phase Balanced SARGE (PBSG)'
+            },
+            imageUrl: 'https://www.mdpi.com/biomedicines/biomedicines-10-02997/article_deploy/html/images/biomedicines-10-02997-g002.png', 
+            physics: {
+                vi: 'Dựa trên chuỗi xung b-SSFP (TrueFISP/FIESTA) 3D, thường thu 2 echo (dual excitation) và cộng hợp lại để tạo ra độ tương phản T2/T1 rất cao, đặc biệt giữa dịch (sáng) và các cấu trúc mô mềm (tối). Cung cấp độ phân giải 3D isotropic cao.',
+                en: 'Based on 3D b-SSFP (TrueFISP/FIESTA), often acquiring 2 echoes (dual excitation) and combining them to create very high T2/T1 contrast, especially between fluid (bright) and soft tissue structures (dark). Provides high 3D isotropic resolution.'
+            },
+            applications: [
+                { priority: 1, use: { vi: 'Chuỗi xung "vàng" (gold standard) để đánh giá dây thần kinh sọ (V, VII, VIII) và tai trong.', en: 'Gold standard sequence for evaluating cranial nerves (V, VII, VIII) and the inner ear.' } },
+                { priority: 2, use: { vi: 'Phát hiện xung đột mạch máu - thần kinh (neurovascular conflict) - chẩn đoán đau dây V.', en: 'Detecting neurovascular conflict - diagnosing trigeminal neuralgia.' } },
+                { priority: 3, use: { vi: 'Đánh giá các nang (cyst) nhỏ trong não, hẹp cống não.', en: 'Evaluating small cysts in the brain, aqueductal stenosis.' } }
+            ],
+            tips: {
+                vi: 'Rất nhạy với artifact "banding" giống như TrueFISP 2D. Cần shimming cẩn thận. Yêu cầu bệnh nhân nằm yên tuyệt đối vì là chuỗi xung 3D dài (5-7 phút). Artifact chuyển động/dòng chảy có thể xuất hiện dưới dạng "bóng ma" (ghosting).',
+                en: 'Very sensitive to banding artifacts, similar to 2D TrueFISP. Requires careful shimming. Patient must remain absolutely still as it is a long 3D sequence (5-7 min). Motion/flow artifacts can appear as "ghosting".'
+            }
+        },
+
+        // ========= NHÓM XÓA MỠ ==========
+        {
+            id: 'stir',
+            group: 'fat-suppression',
+            genericName: { vi: 'STIR (Short-Tau Inversion Recovery)', en: 'STIR (Short-Tau Inversion Recovery)' },
+            vendors: {
+                Siemens: 'TIRM, STIR', 
+                GE: 'STIR', 
+                Philips: 'STIR',
+                Canon: 'FastSTIR', 
+                Fujifilm: 'FIR-STIR' 
+            },
+            imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAtW4ykGwDd3hVzlbakl3Ka0sB8TsZBfa3NQ&s', 
+            physics: {
+                vi: 'Là chuỗi xung Inversion Recovery với TI ngắn (khoảng 140-160ms tại 1.5T) để xóa tín hiệu của mỡ. Đây là kỹ thuật xóa mỡ không nhạy với sự không đồng nhất từ trường (khác với Fat-Sat/CHESS). Tín hiệu có tính cộng hưởng T1+T2+PD (tổn thương có T1, T2 dài sẽ sáng).',
+                en: 'An Inversion Recovery sequence with a short TI (approx 140-160ms at 1.5T) to null the signal from fat. This fat suppression technique is insensitive to magnetic field inhomogeneities (unlike Fat-Sat/CHESS). The signal is a composite of T1+T2+PD (lesions with long T1 and T2 will be bright).'
+            },
+            applications: [
+                { priority: 1, use: { vi: 'Đánh giá tủy xương (phù, u, di căn), đặc biệt là cột sống và khớp. Rất nhạy với phù.', en: 'Bone marrow evaluation (edema, tumor, metastases), especially spine and joints. Very sensitive to edema.' } },
+                { priority: 2, use: { vi: 'Phát hiện tổn thương trong chấn thương cơ-xương-khớp (phù, rách cơ, dây chằng).', en: 'Detecting lesions in MSK trauma (edema, muscle/ligament tears).' } },
+                { priority: 3, use: { vi: 'Xóa mỡ ở các vùng dễ bị artifact (ví dụ: cổ, vai, chi dưới) nơi Fat-Sat thất bại.', en: 'Fat suppression in areas prone to artifacts (e.g., neck, shoulders, lower extremities) where Fat-Sat fails.' } },
+                { priority: 4, use: { vi: 'Lưu ý: Không dùng STIR sau tiêm thuốc Gadolinium (vì Gadolinium làm ngắn T1, có thể bị xóa luôn).', en: 'Note: Do NOT use STIR after Gadolinium injection (as Gadolinium shortens T1, it may also be nulled).'} }
+            ],
+            tips: {
+                vi: 'Kỹ thuật xóa mỡ "bất khả chiến bại" (robust) vì không dựa vào shimming. Cứu cánh khi Fat-Sat (CHESS) thất bại. Nhược điểm: SNR thấp hơn T2-FS, và TUYỆT ĐỐI KHÔNG dùng sau tiêm Gado.',
+                en: 'A "robust" fat suppression technique because it is not shim-dependent. A lifesaver when Fat-Sat (CHESS) fails. Disadvantages: Lower SNR than T2-FS, and NEVER use post-Gadolinium.'
+            }
+        },
+        {
+            id: 'fatsat',
+            group: 'fat-suppression',
+            genericName: { vi: 'Fat-Sat (CHESS / SPIR)', en: 'Fat-Sat (CHESS / SPIR)' },
+            vendors: {
+                Siemens: 'Fat Sat', 
+                GE: 'Fat Sat / Chem Sat', 
+                Philips: 'SPIR (Spectral Pre-saturation IR)', 
+                Canon: 'MSOFT', 
+                Fujifilm: 'SINC, H-SINC' 
+            },
+            imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTIWI8iM4mNFaQGYk6yFI9nzrk7ktDclkhmw&s', 
+            physics: {
+                vi: 'Kỹ thuật xóa mỡ dựa trên sự chênh lệch tần số cộng hưởng (chemical shift) giữa mỡ và nước. Một xung RF chọn lọc tần số (chỉ tác động lên mỡ) được phát ra, sau đó một gradient "spoiler" sẽ phá hủy tín hiệu của mỡ trước khi chuỗi xung chính (ví dụ: T1W, T2W) bắt đầu. Nhạy với sự không đồng nhất của từ trường (dễ bị xóa không đều).',
+                en: 'A fat suppression technique based on the chemical shift (frequency difference) between fat and water. A frequency-selective RF pulse (targeting only fat) is applied, followed by a spoiler gradient to destroy the fat signal before the main sequence (e.g., T1W, T2W) begins. Sensitive to magnetic field inhomogeneities (can be non-uniform).'
+            },
+            applications: [
+                { priority: 1, use: { vi: 'Kỹ thuật xóa mỡ phổ biến khi chụp T1W sau tiêm (T1W-FS+C) để làm nổi bật tổn thương ngấm thuốc.', en: 'The most common fat suppression technique for post-contrast T1W (T1W-FS+C) to highlight enhancing lesions.' } },
+                { priority: 2, use: { vi: 'Chụp T2W-FS hoặc PD-FS ở các vùng có từ trường đồng nhất (não, khớp, cột sống).', en: 'Used for T2W-FS or PD-FS in areas with homogeneous magnetic fields (brain, joints, spine).' } },
+            ],
+            tips: {
+                vi: 'Chất lượng xóa mỡ (CHESS) phụ thuộc 100% vào từ trường (B0) đồng nhất. Luôn đảm bảo shimming tốt. Nếu xóa không đều (ví dụ: ở cổ, vai, hoặc gần kim loại), hãy đổi sang STIR, SPAIR hoặc Dixon.',
+                en: 'The quality of CHESS fat suppression is 100% dependent on a homogeneous (B0) field. Always ensure good shimming. If suppression is non-uniform (e.g., in the neck, shoulder, or near metal), switch to STIR, SPAIR, or Dixon.'
+            }
+        },
+        {
+            id: 'spir_spair',
+            group: 'fat-suppression',
+            genericName: { vi: 'SPAIR / ASPIR (Adiabatic Fat Sat)', en: 'SPAIR / ASPIR (Adiabatic Fat Sat)' },
+            vendors: {
+                Siemens: '(N/A)', 
+                GE: 'ASPIR', 
+                Philips: 'SPAIR (Spectral Attenuated IR)',
+                Canon: 'SPAIR', 
+                Fujifilm: '(N/A)' 
+            },
+            imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFg3fC0rqxVJkMFFBhRqguUY2cpa1vBNGyDQ&s', 
+            physics: {
+                vi: 'Đây là các kỹ thuật xóa mỡ dựa trên Inversion Recovery (IR) chọn lọc phổ (spectrally selective). Một xung đảo nghịch 180 độ chỉ tác động lên mỡ. Sau một thời gian TI (Inversion Time) ngắn (tương tự STIR), khi tín hiệu mỡ đi qua điểm null (bằng 0), chuỗi xung chính được bắt đầu. SPAIR (và ASPIR của GE) là một biến thể mạnh mẽ hơn, ít nhạy với sự không đồng nhất của B0 và B1 hơn, cho phép xóa mỡ đồng đều ở các vùng khó.',
+                en: 'These are spectrally selective Inversion Recovery (IR) fat suppression techniques. A 180-degree inversion pulse is applied only to fat. After a short TI (similar to STIR), when the fat signal passes through its null point, the main sequence begins. SPAIR (and GE\'s ASPIR) is a more robust variant, less sensitive to B0 and B1 inhomogeneities, allowing for uniform fat suppression in difficult areas.'
+            },
+            applications: [
+                { priority: 1, use: { vi: 'Kỹ thuật xóa mỡ mạnh mẽ và đồng đều, đặc biệt ở các vùng cong, rìa FOV, hoặc từ trường không đồng nhất (ví dụ: cổ, vai, chi).', en: 'Robust and uniform fat suppression, especially in curved areas, at the edge of the FOV, or in inhomogeneous fields (e.g., neck, shoulder, extremities).' } },
+                { priority: 2, use: { vi: 'Dùng cho T1W-FS sau tiêm (khác với STIR) và T2W-FS, PD-FS.', en: 'Used for post-contrast T1W-FS (unlike STIR) and T2W-FS, PD-FS.' } },
+                { priority: 3, use: { vi: 'SPAIR/ASPIR thường được ưu tiên hơn SPIR/CHESS/Fat-Sat do độ tin cậy cao hơn.', en: 'SPAIR/ASPIR is often preferred over SPIR/CHESS/Fat-Sat due to its higher reliability.' } }
+            ],
+            tips: {
+                vi: 'Giống như STIR, đây là kỹ thuật IR. Tuy nhiên, vì nó chọn lọc phổ (chỉ đảo nghịch mỡ), nó *có thể* được dùng sau tiêm Gadolinium (không giống STIR, STIR xóa mọi thứ có T1 ngắn, bao gồm cả Gado). SPAIR/ASPIR thường cho chất lượng xóa mỡ tốt hơn CHESS/Fat-Sat.',
+                en: 'Like STIR, this is an IR technique. However, because it is spectrally selective (only inverts fat), it *can* be used after Gadolinium injection (unlike STIR, which nulls all short-T1 tissues, including Gado). SPAIR/ASPIR generally provides better fat suppression than CHESS/Fat-Sat.'
+            }
+        },
+        {
+            id: 'dixon',
+            group: 'fat-suppression',
+            genericName: { vi: 'Dixon (In/Out-of-Phase)', en: 'Dixon (In/Out-of-Phase)' },
+            vendors: {
+                Siemens: 'Dixon (TSE/VIBE)', 
+                GE: 'IDEAL / LAVA-Flex', 
+                Philips: 'mDixon (TSE/XD/FFE)', 
+                Canon: 'WFOP (Water Fat Opposed Phase)', 
+                Fujifilm: 'FatSep (Fat Separation)' 
+            },
+            imageUrl: 'https://static.cambridge.org/binary/version/id/urn:cambridge.org:id:binary:20170614045535012-0877:9781107706958:64323fig13_11.png?pub-status=live',
+            physics: {
+                vi: 'Dựa trên chuỗi xung GRE (hoặc TSE) thu tín hiệu ở (ít nhất) hai thời điểm TE khác nhau: khi mỡ và nước cùng pha (In-Phase) và khi chúng đối pha (Out-of-Phase). Từ hai ảnh này, máy tính có thể tái tạo ra 4 ảnh: In-Phase, Out-of-Phase, Chỉ Nước (Water-Only) và Chỉ Mỡ (Fat-Only). Kỹ thuật này xóa mỡ rất đồng đều, ít nhạy với artifact.',
+                en: 'Based on a GRE (or TSE) sequence acquiring signals at (at least) two different TEs: when fat and water are In-Phase and when they are Out-of-Phase. From these two images, the computer can reconstruct 4 images: In-Phase, Out-of-Phase, Water-Only, and Fat-Only. This technique provides very uniform fat suppression and is less sensitive to artifacts.'
+            },
+            applications: [
+                { priority: 1, use: { vi: 'Xóa mỡ đồng đều toàn thân (whole-body MRI), đặc biệt là vùng cổ, bụng, và chi (nơi Fat-Sat dễ thất bại).', en: 'Uniform fat suppression for whole-body MRI, especially in the neck, abdomen, and extremities (where Fat-Sat often fails).' } },
+                { priority: 2, use: { vi: 'Định lượng mỡ (quantitative fat) (ví dụ: gan nhiễm mỡ, mỡ cơ).', en: 'Quantitative fat measurement (e.g., hepatic steatosis, muscle fat).' } },
+                { priority: 3, use: { vi: 'Phát hiện mỡ vi thể (microscopic fat) trong u (ví dụ: adenoma tuyến thượng thận - tín hiệu giảm trên Out-of-Phase).', en: 'Detection of microscopic fat in tumors (e.g., adrenal adenoma - signal drop on Out-of-Phase).'} }
+            ],
+            tips: {
+                vi: 'Là kỹ thuật xóa mỡ tốt nhất, đồng đều nhất hiện nay. Chậm hơn CHESS/Fat-Sat nhưng đáng tin cậy. Khi chụp gan, ảnh "Out-of-Phase" (TE đối pha) là chìa khóa chẩn đoán gan nhiễm mỡ hoặc adenoma thượng thận.',
+                en: 'The best, most uniform fat suppression technique available today. Slower than CHESS/Fat-Sat but more reliable. For liver imaging, the "Out-of-Phase" image is key to diagnosing fatty liver or adrenal adenomas.'
+            }
+        },
+
+        // ========= NHÓM MẠCH MÁU (KHÔNG THUỐC) ==========
+        {
+            id: 'tof_mra',
+            group: 'non-contrast-mra',
+            genericName: { vi: 'MRA - TOF (Time of Flight)', en: 'MRA - TOF (Time of Flight)' },
+            vendors: {
+                Siemens: '3D TOF',
+                GE: '3D ToF / Inhance Inflow', 
+                Philips: '3D TOF',
+                Canon: '3D TOF',
+                Fujifilm: '3D TOF' 
+            },
+            imageUrl: 'https://cdn.medizzy.com/1_fjsfBZcbsA0m5McHqdRIB1hu8=/680x680/img/posts/2cfc23a3-4d66-434a-bc23-a34d66034a38', 
+            physics: {
+                vi: 'Kỹ thuật chụp mạch không tiêm thuốc. Làm bão hòa (saturate) tín hiệu của các mô tĩnh. Dòng máu tươi (chưa bị bão hòa) chảy vào lát cắt sẽ có tín hiệu sáng (hiệu ứng "flow-related enhancement"). Rất nhạy với dòng chảy nhanh, vuông góc với mặt phẳng cắt.',
+                en: 'Non-contrast angiography technique. Saturates the signal from static tissues. Fresh, unsaturated blood flowing into the slab has a bright signal (flow-related enhancement). Very sensitive to fast flow, perpendicular to the imaging plane.'
+            },
+            applications: [
+                { priority: 1, use: { vi: 'Đánh giá phình mạch, dị dạng mạch máu não (AVM, Aneurysm) - (Đa giác Willis).', en: 'Evaluation of aneurysms, cerebral AVMs - (Circle of Willis).' } },
+                { priority: 2, use: { vi: 'Đánh giá hẹp/tắc động mạch cảnh, động mạch đốt sống (đoạn trong sọ và ngoài sọ).', en: 'Evaluation of stenosis/occlusion of carotid and vertebral arteries (intracranial and extracranial).' } },
+                { priority: 3, use: { vi: 'Đánh giá động mạch thận (ít dùng hơn CTA/MRA có thuốc).', en: 'Evaluation of renal arteries (less common than CTA/CE-MRA).' } }
+            ],
+            tips: {
+                vi: 'Đặt khối (slab) vuông góc với hướng dòng chảy. Đặt Saturation Band (bão hòa) ở phía trên (ví dụ: chụp não thì đặt sat ở tĩnh mạch) để xóa tín hiệu tĩnh mạch, chỉ giữ lại động mạch (và ngược lại). Dòng chảy chậm (ví dụ: trong túi phình lớn) có thể bị mất tín hiệu (flow void).',
+                en: 'Place the slab perpendicular to the flow direction. Place a Saturation Band superiorly (for brain, sat veins) to null venous signal, keeping only arterial signal (and vice-versa). Slow flow (e.g., in a large aneurysm) can be lost (flow void).'
+            }
+        },
+        {
+            id: 'pc_mra',
+            group: 'non-contrast-mra',
+            genericName: { vi: 'MRA - PC (Phase Contrast)', en: 'MRA - PC (Phase Contrast)' },
+            vendors: {
+                Siemens: 'Phase Contrast (PC)', 
+                GE: 'Phase Contrast / Inhance Velocity', 
+                Philips: 'Phase Contrast (PC)', 
+                Canon: 'Phase Shift (PS)', 
+                Fujifilm: 'Phase Contrast (PC)' 
+            },
+            imageUrl: 'https://media.springernature.com/lw685/springer-static/image/art%3A10.1186%2Fs40809-016-0019-0/MediaObjects/40809_2016_19_Fig1_HTML.gif', 
+            physics: {
+                vi: 'Kỹ thuật MRA dựa trên sự thay đổi pha (phase shift) của proton di chuyển trong một gradient từ. Bằng cách thiết lập VENC (Encoding Velocity), máy có thể mã hóa vận tốc dòng chảy. Có thể tạo ảnh 2D, 3D (giải phẫu) hoặc 2D Cine (đo lường lưu lượng, vận tốc).',
+                en: 'MRA technique based on the phase shift of protons moving through a magnetic gradient. By setting a VENC (Encoding Velocity), the scanner can encode flow velocity. Can create 2D, 3D (anatomical) or 2D Cine (flow/velocity measurement) images.'
+            },
+            applications: [
+                { priority: 1, use: { vi: 'Chụp hệ thống tĩnh mạch (MR Venography - MRV) - ví dụ: xoang tĩnh mạch não (nhạy với dòng chảy chậm).', en: 'MR Venography (MRV) - e.g., cerebral venous sinuses (sensitive to slow flow).' } },
+                { priority: 2, use: { vi: 'Đánh giá dòng chảy dịch não tủy (CSF flow study) - chẩn đoán hẹp cống não, não úng thủy.', en: 'CSF flow study - diagnosing aqueductal stenosis, hydrocephalus.' } },
+                { priority: 3, use: { vi: 'Đo lường vận tốc và lưu lượng máu qua van tim, động mạch chủ (Cardiac MRI).', en: 'Measurement of velocity and flow through heart valves, aorta (Cardiac MRI).' } }
+            ],
+            tips: {
+                vi: 'Tham số quan trọng nhất là VENC (velocity encoding). Đặt VENC quá cao sẽ giảm SNR. Đặt VENC quá thấp sẽ gây artifact "aliasing" (tín hiệu bị lật). KTV phải ước lượng vận tốc dòng chảy (ví dụ: động mạch 150 cm/s, tĩnh mạch 20 cm/s, CSF 5 cm/s) để đặt VENC cho phù hợp.',
+                en: 'The most important parameter is VENC (velocity encoding). Setting VENC too high reduces SNR. Setting VENC too low causes "aliasing" artifacts. The tech must estimate the flow velocity (e.g., artery 150 cm/s, vein 20 cm/s, CSF 5 cm/s) to set the VENC appropriately.'
+            }
+        },
+        {
+            id: 'fbi',
+            group: 'non-contrast-mra',
+            genericName: { vi: 'Fresh Blood Imaging (FBI)', en: 'Fresh Blood Imaging (FBI)' },
+            vendors: {
+                Siemens: 'NATIVE-TrueFISP', 
+                GE: 'Inhance Inflow IR', 
+                Philips: 'B-TRANCE', 
+                Canon: 'Time-SLIP', 
+                Fujifilm: 'VASC' 
+            },
+            imageUrl: 'https://figures.semanticscholar.org/b20efb4e5552b962f0c7045bd2b0770157af0784/3-Figure1-1.png', 
+            physics: {
+                vi: 'Là kỹ thuật chụp mạch "máu sáng" (bright blood) không tiêm thuốc, thường dựa trên nguyên lý b-SSFP (TrueFISP, FIESTA) hoặc đôi khi là FSE. Kỹ thuật này khai thác tỷ lệ T2/T1 cao của máu, làm máu sáng rực so với mô tĩnh xung quanh (đã bị bão hòa). Thường kết hợp trừ nền (subtraction) để tăng độ tương phản mạch máu.',
+                en: 'A non-contrast "bright blood" angiography technique, often based on b-SSFP (TrueFISP, FIESTA) or sometimes FSE. It exploits the high T2/T1 ratio of blood, making it bright compared to suppressed static tissue. Often combined with subtraction to increase vessel contrast.'
+            },
+            applications: [
+                { priority: 1, use: { vi: 'Chụp MRA động mạch ngoại vi (chân, tay) không tiêm thuốc (cho bệnh nhân suy thận, dị ứng Gadolinium).', en: 'Peripheral MRA (legs, arms) without contrast (for patients with renal failure, Gado allergy).' } },
+                { priority: 2, use: { vi: 'Đánh giá động mạch thận không tiêm thuốc.', en: 'Non-contrast renal artery evaluation.' } },
+                { priority: 3, use: { vi: 'Một số biến thể dùng cho chụp động mạch vành không tiêm thuốc.', en: 'Some variants are used for non-contrast coronary MRA.' } }
+            ],
+            tips: {
+                vi: 'Thường dựa trên b-SSFP. Kỹ thuật này chụp "máu sáng". Cần đặt saturation band cẩn thận để xóa tín hiệu tĩnh mạch (nếu muốn xem động mạch) và mỡ. Tốc độ chụp nhanh, hữu ích cho bệnh nhân không thể tiêm thuốc.',
+                en: 'Often based on b-SSFP. This is a "bright blood" technique. Requires careful placement of saturation bands to null venous signal (if imaging arteries) and fat. Fast acquisition, useful for patients who cannot receive contrast.'
+            }
+        },
+        {
+            id: 'asl_mra',
+            group: 'non-contrast-mra', 
+            genericName: { vi: 'ASL (Arterial Spin Labeling)', en: 'ASL (Arterial Spin Labeling)' },
+            vendors: {
+                Siemens: 'ASL, pCASL, FAIR',
+                GE: '3D ASL, pCASL',
+                Philips: 'ASL, pCASL',
+                Canon: 'ASL',
+                Fujifilm: 'ASL' 
+            },
+            imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQXG8GvwD5B1IgZJ8tR2Mjc8y3OpANbA-E5Zw&s', 
+            physics: {
+                vi: 'Kỹ thuật tưới máu (perfusion) không tiêm thuốc. Máy sẽ "đánh dấu" (labeling) các proton máu ở động mạch cổ bằng xung RF. Sau một thời gian trễ (Post-Labeling Delay), các proton này đi lên não. Máy chụp ảnh não (ảnh label) và trừ nó đi từ một ảnh nền (ảnh control, không label). Kết quả là ảnh chỉ chứa tín hiệu của máu đã đi lên não, phản ánh tưới máu (CBF).',
+                en: 'A non-contrast perfusion technique. The scanner "labels" blood protons in the neck arteries with an RF pulse. After a Post-Labeling Delay (PLD), these protons travel to the brain. The scanner takes a "label" image and subtracts a "control" image (no label). The result is an image of only the blood that has perfused the brain, reflecting CBF.'
+            },
+            applications: [
+                { priority: 1, use: { vi: 'Đánh giá tưới máu não (CBF) trong đột quỵ, thiếu máu mạn tính (Moya Moya, hẹp cảnh).', en: 'Evaluation of cerebral blood flow (CBF) in stroke, chronic ischemia (Moya Moya, carotid stenosis).' } },
+                { priority: 2, use: { vi: 'Đánh giá mức độ tưới máu của u não (phân biệt u, giả u).', en: 'Assessing tumor perfusion (differentiating tumor, pseudo-tumor).' } },
+                { priority: 3, use: { vi: 'Nghiên cứu chức năng não (fMRI) hoặc bệnh lý sa sút trí tuệ (Alzheimer).', en: 'Functional brain studies (fMRI) or dementia (Alzheimer\'s).' } }
+            ],
+            tips: {
+                vi: 'Là kỹ thuật tưới máu không tiêm thuốc. SNR rất thấp, đòi hỏi bệnh nhân nằm cực kỳ yên tĩnh. Tham số quan trọng là PLD (Post-Labeling Delay) - thời gian chờ máu đi từ cổ lên não. PLD quá ngắn hoặc quá dài đều cho kết quả sai.',
+                en: 'A non-contrast perfusion technique. Very low SNR, requires an extremely still patient. The key parameter is PLD (Post-Labeling Delay) - the time allowed for blood to travel from the neck to the brain. A PLD that is too short or too long will give incorrect results.'
+            }
+        },
+        {
+            id: 'ifir_ssfp',
+            group: 'non-contrast-mra',
+            genericName: { vi: 'IFIR-SSFP (Inflow IR SSFP)', en: 'IFIR-SSFP (Inflow IR SSFP)' },
+            vendors: {
+                Siemens: 'NATIVE-TrueFISP (with IR)', 
+                GE: 'Inhance Inflow IR', 
+                Philips: 'B-TRANCE (with IR)', 
+                Canon: 'Time-SLIP (with IR)', 
+                Fujifilm: 'VASC (with IR)' 
+            },
+            imageUrl: 'https://media.springernature.com/lw1200/springer-static/image/art%3A10.1007%2Fs00261-020-02836-5/MediaObjects/261_2020_2836_Fig2_HTML.jpg', 
+            physics: {
+                vi: 'Là một kỹ thuật chụp mạch không thuốc, kết hợp xung đảo nghịch (Inversion Recovery - IR) với chuỗi xung SSFP (TrueFISP/FIESTA). Xung IR được dùng để xóa (null) tín hiệu của mô tĩnh (ví dụ: mỡ, cơ). Sau đó, chuỗi xung SSFP (vốn làm máu sáng) được thu thập. Kết quả là ảnh chỉ có tín hiệu của dòng máu chảy vào (inflow) là sáng rực trên nền mô tĩnh bị xóa đen.',
+                en: 'A non-contrast angiography technique combining an Inversion Recovery (IR) pulse with an SSFP (TrueFISP/FIESTA) sequence. The IR pulse is used to null the signal from static tissue (e.g., fat, muscle). Then, the SSFP sequence (which makes blood bright) is acquired. The result is an image with only the bright signal of inflowing blood on a black background.'
+            },
+            applications: [
+                { priority: 1, use: { vi: 'Chụp MRA động mạch thận (Renal MRA) không tiêm thuốc.', en: 'Non-contrast Renal MRA.' } },
+                { priority: 2, use: { vi: 'Chụp MRA động mạch ngoại vi (Peripheral MRA) không tiêm thuốc, đặc biệt ở bệnh nhân suy thận.', en: 'Non-contrast Peripheral MRA, especially for patients with renal insufficiency.' } },
+                { priority: 3, use: { vi: 'Thay thế cho FBI/TRANCE khi cần độ tương phản mô-máu cao hơn.', en: 'Alternative to FBI/TRANCE when higher blood-tissue contrast is needed.' } }
+            ],
+            tips: {
+                vi: 'Giống như STIR/FLAIR, việc chọn thời gian TI (Inversion Time) là CỰC KỲ QUAN TRỌNG. TI phải được chọn chính xác để xóa (null) tín hiệu mô nền. TI Scout (Look-Locker) có thể cần thiết để tìm TI tối ưu. Kỹ thuật này thường nhạy với dòng chảy hơn TOF.',
+                en: 'Like STIR/FLAIR, choosing the TI (Inversion Time) is CRITICAL. The TI must be chosen precisely to null the background tissue. A TI Scout (Look-Locker) may be needed to find the optimal TI. This technique is often more sensitive to flow than TOF.'
+            }
+        },
+
+        // ========= NHÓM MẠCH MÁU (CÓ TIÊM THUỐC) ==========
+        {
+            id: 'ce_mra_single_phase', 
+            group: 'ce-mra',
+            genericName: { vi: 'CE-MRA (Pha đơn / Single Phase)', en: 'CE-MRA (Single Phase)' },
+            vendors: {
+                Siemens: 'MRA 3D Flash / VIBE', 
+                GE: 'MR-Angio 3D / LAVA-XL', 
+                Philips: 'MRA 3D TFE / THRIVE', 
+                Canon: 'CE-MRA / 3D Quick', 
+                Fujifilm: 'CE-MRA / TIGRE' 
+            },
+            imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-hD8nFhhUfJawLO4r-FySQF2n1Tabt-LTFg&s', 
+            physics: {
+                vi: 'Sử dụng chuỗi xung T1W GRE 3D (ví dụ: VIBE/LAVA/THRIVE) với thời gian TR/TE cực ngắn, kết hợp xóa mỡ (Dixon/Fat-Sat). Chụp được thực hiện đồng thời với việc tiêm thuốc đối quang từ (Gadolinium). Kỹ thuật này được canh thời gian (timing) để bắt *một* pha duy nhất (thường là pha động mạch) với độ phân giải không gian cao nhất.',
+                en: 'Uses a T1W 3D GRE sequence (e.g., VIBE/LAVA/THRIVE) with ultra-short TR/TE, combined with fat suppression (Dixon/Fat-Sat). Acquisition is timed precisely with the injection of Gadolinium contrast. This technique is timed to capture *one* single phase (usually arterial) with the highest possible spatial resolution.'
+            },
+            applications: [
+                { priority: 1, use: { vi: 'Đánh giá hẹp/tắc động mạch chủ, động mạch thận, động mạch chậu/chi dưới (bệnh lý mạch máu ngoại vi).', en: 'Evaluation of stenosis/occlusion of the aorta, renal arteries, iliac/lower extremity arteries (peripheral vascular disease).' } },
+                { priority: 2, use: { vi: 'Đánh giá động mạch cảnh (thay thế/bổ sung cho TOF).', en: 'Carotid artery evaluation (alternative/supplement to TOF).' } },
+                { priority: 3, use: { vi: 'Chụp MRA tĩnh mạch (MRV) ở các pha muộn hơn (ví dụ: MRV bụng, MRV chi dưới).', en: 'MR Venography (MRV) in later phases (e.g., abdominal MRV, lower extremity MRV).' } }
+            ],
+            tips: {
+                vi: 'Canh thời gian (Timing) là quan trọng nhất. Phải sử dụng Bolus Tracking (ví dụ: Care Bolus, SmartPrep) hoặc Test Bolus để bắt đúng pha động mạch. Tốc độ bơm thuốc phải nhanh (ví dụ: 2-3 mL/s) và đi kèm nước muối đẩy (saline flush).',
+                en: 'Timing is everything. Must use Bolus Tracking (e.g., Care Bolus, SmartPrep) or a Test Bolus to catch the precise arterial phase. Injection rate must be fast (e.g., 2-3 mL/s) and followed by a saline flush.'
+            }
+        },
+        {
+            id: 'ce_mra_time_resolved',
+            group: 'ce-mra',
+            genericName: { vi: 'MRA Time-Resolved (TWIST/TRICKS)', en: 'MRA Time-Resolved (TWIST/TRICKS)' },
+            vendors: {
+                Siemens: 'TWIST (Time-Resolved...Angiography)',
+                GE: 'TRICKS-XV (Time-Resolved Imaging...)', 
+                Philips: 'Keyhole (4D-TRAK)', 
+                Canon: 'DRKS (Dynamic-contrast K-space Sharing)', 
+                Fujifilm: 'TRAQ' 
+            },
+            imageUrl: 'https://media.springernature.com/lw1200/springer-static/image/art%3A10.1038%2Fs41598-020-73331-6/MediaObjects/41598_2020_73331_Fig1_HTML.jpg', 
+            physics: {
+                vi: 'Là kỹ thuật MRA có thuốc, cho phép chụp liên tục nhiều pha (multi-phasic) với độ phân giải thời gian (temporal resolution) cao. Sử dụng các kỹ thuật tăng tốc song song (parallel imaging) và chia sẻ/lấy mẫu thưa k-space (như k-space-sharing hoặc undersampling) để thu dữ liệu cực nhanh (ví dụ: 2-5 giây/pha), cho phép thấy rõ các pha động mạch, mao mạch và tĩnh mạch.',
+                en: 'A contrast-enhanced MRA technique that allows for continuous multi-phasic acquisition with high temporal resolution. Uses parallel imaging and k-space sharing/undersampling techniques to acquire data extremely fast (e.g., 2-5 sec/phase), allowing visualization of arterial, capillary, and venous phases.'
+            },
+            applications: [
+                { priority: 1, use: { vi: 'Chẩn đoán Dị dạng động-tĩnh mạch (AVM), Dò động-tĩnh mạch (Fistula) - nơi cần thấy rõ shunt.', en: 'Diagnosis of Arteriovenous Malformations (AVM), Fistulas - where seeing the shunt is critical.' } },
+                { priority: 2, use: { vi: 'Đánh giá tưới máu động học (dynamic perfusion) ở chi dưới, đặc biệt là bàn chân (xem dòng chảy bù trừ).', en: 'Evaluation of dynamic perfusion in the lower extremities, especially the feet (to see collateral flow).' } },
+                { priority: 3, use: { vi: 'Đánh giá tưới máu u (ví dụ: u gan, u não).', en: 'Assessing tumor perfusion (e.g., liver tumors, brain tumors).' } },
+                { priority: 4, use: { vi: 'Chụp bụng (Abdomen) đa pha khi bệnh nhân không thể nín thở (chụp free-breathing).', en: 'Multi-phasic abdomen acquisition for patients who cannot breath-hold (free-breathing).' } }
+            ],
+            tips: {
+                vi: 'Đây là kỹ thuật đánh đổi: Tăng độ phân giải thời gian (chụp nhanh nhiều pha) sẽ làm giảm độ phân giải không gian (ảnh ít chi tiết hơn MRA pha đơn). Không cần canh thời gian (bolus tracking) chính xác vì máy tự động chụp liên tục trước, trong và sau khi tiêm thuốc.',
+                en: 'This is a trade-off: Increasing temporal resolution (many fast phases) reduces spatial resolution (less detailed image than single-phase MRA). No precise bolus timing is needed as the scanner acquires continuously before, during, and after injection.'
+            }
+        },
+
+        // ========= NHÓM XUNG ĐÁNH GIÁ KHUẾCH TÁN ==========
+        {
+            id: 'dwi',
+            group: 'diffusion', 
+            genericName: { vi: 'DWI (Diffusion-Weighted Imaging)', en: 'DWI (Diffusion-Weighted Imaging)' },
+            vendors: {
+                Siemens: 'DWI, DWEPI, RESOLVE', 
+                GE: 'DWI, EPI, MUSE, PROPELLER DWI', 
+                Philips: 'DWI, SSh-EPI, DWI with segmented EPI', 
+                Canon: 'DWI, FASE DWI', 
+                Fujifilm: 'DWI, RADAR DWI' 
+            },
+            imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRkAqNlmUQfGuBhPdLDZ7jRRQrMao9tHQc7yFEDYGnYSy-XDPsKj5LINDUZbTL62dvUhRc&usqp=CAU',
+            physics: {
+                vi: 'Đo lường sự khuếch tán (chuyển động Brown) của các phân tử nước. Thường dựa trên chuỗi xung EPI (Echo-Planar Imaging). Sử dụng hai xung gradient đối xứng (diffusion gradients) với giá trị b-value. Vùng hạn chế khuếch tán (ví dụ: nhồi máu cấp, u tế bào dày đặc) sẽ sáng trên DWI (b-value cao) và tối trên bản đồ ADC. RESOLVE/FOCUS là các kỹ thuật DWI giảm artifact, tăng độ phân giải.',
+                en: 'Measures the diffusion (Brownian motion) of water molecules. Usually based on an EPI (Echo-Planar Imaging) sequence. Uses two symmetric diffusion gradients with a b-value. Areas of restricted diffusion (e.g., acute stroke, hypercellular tumors) will be bright on DWI (high b-value) and dark on the ADC map. RESOLVE/FOCUS are DWI techniques to reduce artifacts and increase resolution.'
+            },
+            applications: [
+                { priority: 1, use: { vi: 'Chẩn đoán nhồi máu não cấp (siêu sớm, < 30 phút).', en: 'Diagnosis of acute cerebral infarction (hyperacute, < 30 minutes).' } },
+                { priority: 2, use: { vi: 'Phát hiện và đặc tính hóa u (ví dụ: u não, u gan, u tiền liệt tuyến, u vú).', en: 'Detection and characterization of tumors (e.g., brain, liver, prostate, breast).' } },
+                { priority: 3, use: { vi: 'Phát hiện áp xe (ổ mủ hạn chế khuếch tán) - phân biệt với nang hoại tử.', en: 'Detection of abscess (pus restricts diffusion) - differentiating from necrotic cysts.' } },
+                { priority: 4, use: { vi: 'Đánh giá bệnh lý Creutzfeldt-Jakob (CJD).', en: 'Evaluation of Creutzfeldt-Jakob disease (CJD).'} }
+            ],
+            tips: {
+                vi: 'DWI (EPI) rất nhạy với artifact không đồng nhất từ trường (susceptibility). Tránh vùng có kim loại, khí (xoang). LUÔN LUÔN xem kèm bản đồ ADC để xác nhận hạn chế khuếch tán. Giá trị b-value càng cao (ví dụ: b=1500, 2000) càng nhạy với tổn thương nhưng SNR càng giảm.',
+                en: 'DWI (EPI) is very sensitive to susceptibility artifacts. Avoid areas with metal, air (sinuses). ALWAYS check the ADC map to confirm restricted diffusion. Higher b-values (e.g., b=1500, 2000) are more sensitive to lesions but have lower SNR.'
+            }
+        },
+        {
+            id: 'adc',
+            group: 'diffusion', 
+            genericName: { vi: 'ADC Map (Apparent Diffusion Coefficient)', en: 'ADC Map (Apparent Diffusion Coefficient)' },
+            vendors: {
+                Siemens: 'ADC Map',
+                GE: 'ADC Map',
+                Philips: 'ADC Map',
+                Canon: 'ADC Map',
+                Fujifilm: 'ADC Map' 
+            },
+            imageUrl: 'https://prod-images-static.radiopaedia.org/blog_images/249/Stroke.PNG', 
+            physics: {
+                vi: 'Đây không phải là chuỗi xung mà là bản đồ định lượng, được máy tính tự động tính toán từ ít nhất 2 ảnh DWI với b-value khác nhau (ví dụ: b=0 và b=1000). Giá trị ADC (đơn vị mm²/s) phản ánh mức độ khuếch tán thực sự. Vùng hạn chế khuếch tán (DWI sáng) sẽ có tín hiệu tối trên ADC.',
+                en: 'This is not a sequence, but a quantitative map, automatically calculated by the scanner from at least 2 DWI images with different b-values (e.g., b=0 and b=1000). The ADC value (in mm²/s) reflects the true degree of diffusion. Areas of restricted diffusion (bright on DWI) will be dark on the ADC map.'
+            },
+            applications: [
+                { priority: 1, use: { vi: 'Xác nhận tổn thương hạn chế khuếch tán thực sự (nhồi máu cấp: DWI sáng, ADC tối).', en: 'Confirming true restricted diffusion (acute stroke: bright on DWI, dark on ADC).' } },
+                { priority: 2, use: { vi: 'Phân biệt "T2 Shine-Through" (DWI sáng, ADC cũng sáng - do T2 rất dài, ví dụ: nang) với hạn chế khuếch tán thực sự.', en: 'Differentiating "T2 Shine-Through" (bright on DWI, bright on ADC - due to very long T2, e.g., cyst) from true restricted diffusion.' } },
+                { priority: 3, use: { vi: 'Định lượng mức độ ác tính của u (u càng ác tính, tế bào càng dày đặc, ADC càng thấp).', en: 'Quantifying tumor malignancy (more malignant = more hypercellular = lower ADC).' } }
+            ],
+            tips: {
+                vi: 'ADC là bản đồ "thật", DWI là ảnh "tổng hợp". Một tổn thương SÁNG trên DWI và TỐI trên ADC mới là "hạn chế khuếch tán thực sự". Nếu SÁNG trên cả DWI và ADC, đó là "T2 Shine-through" (ví dụ: nang, phù). ',
+                en: 'ADC is the "true" map, DWI is a "composite" image. A lesion that is BRIGHT on DWI and DARK on ADC is "true restricted diffusion". If it is BRIGHT on both DWI and ADC, it is "T2 Shine-through" (e.g., cyst, edema).'
+            }
+        },
+        {
+            id: 'dwibs',
+            group: 'diffusion', 
+            genericName: { vi: 'DWIBS / REVEAL (DWI Toàn thân)', en: 'DWIBS / REVEAL (Whole-Body DWI)' },
+            vendors: {
+                Siemens: 'REVEAL',
+                GE: 'eDWI',
+                Philips: 'DWIBS (DWI with Background Suppression)',
+                Canon: 'Body Vision',
+                Fujifilm: '(DWI)'
+            },
+            imageUrl: 'https://www.mdpi.com/diagnostics/diagnostics-08-00045/article_deploy/html/images/diagnostics-08-00045-g002.png', 
+            physics: {
+                vi: 'Là một chuỗi xung DWI (thường là EPI) được tối ưu hóa cho chụp toàn thân (whole-body). Sử dụng kỹ thuật xóa nền (background suppression), phổ biến nhất là STIR, để xóa tín hiệu mỡ và mô nền, chỉ làm nổi bật các tổn thương có hạn chế khuếch tán (u, di căn, hạch).',
+                en: 'A DWI sequence (usually EPI) optimized for whole-body imaging. Uses background suppression, most commonly STIR, to null signal from fat and background tissues, highlighting only lesions with restricted diffusion (tumors, metastases, nodes).'
+            },
+            applications: [
+                { priority: 1, use: { vi: 'Tầm soát di căn (metastasis) toàn thân (thay thế PET/CT trong một số trường hợp).', en: 'Whole-body metastasis screening (replaces PET/CT in some cases).' } },
+                { priority: 2, use: { vi: 'Đánh giá giai đoạn (staging) của lymphoma, myeloma.', en: 'Staging of lymphoma, myeloma.' } },
+                { priority: 3, use: { vi: 'Phát hiện u nguyên phát không rõ nguồn gốc.', en: 'Detecting primary tumor of unknown origin.' } }
+            ],
+            tips: {
+                vi: 'Thường được chụp ở nhiều "station" (giường) khác nhau và máy tự động ghép lại (stitching). Yêu cầu b-value cao (thường là b=800-1000). Chất lượng ảnh phụ thuộc vào việc xóa mỡ (STIR) có đồng đều hay không.',
+                en: 'Often acquired in multiple "stations" (bed positions) and automatically "stitched" together. Requires a high b-value (usually b=800-1000). Image quality depends on the uniformity of STIR fat suppression.'
+            }
+        },
+        {
+            id: 'dwi_resolve_muse',
+            group: 'diffusion',
+            genericName: { vi: 'DWI Phân Giải Cao (RESOLVE/MUSE)', en: 'High-Resolution DWI (RESOLVE/MUSE)' },
+            vendors: {
+                Siemens: 'RESOLVE',
+                GE: 'MUSE, PROPELLER DWI',
+                Philips: 'DWI with segmented EΡΙ',
+                Canon: 'FASE DWI',
+                Fujifilm: 'RADAR DWI'
+            },
+            physics: {
+                vi: 'Là chuỗi xung DWI không dựa trên EPI một lần chụp (Single-Shot EPI), mà dựa trên EPI phân đoạn (segmented EPI) hoặc TSE/FSE (như RADAR/PROPELLER). Kỹ thuật này thu thập k-space qua nhiều lần TR, giúp giảm đáng kể artifact nhạy từ (susceptibility) và méo hình (distortion) so với DWI-EPI truyền thống. Đổi lại, thời gian chụp sẽ dài hơn.',
+                en: 'This is a DWI sequence not based on Single-Shot EPI, but on segmented EPI or TSE/FSE (like RADAR/PROPELLER). It acquires k-space over multiple TRs, significantly reducing susceptibility artifacts and distortion compared to traditional DWI-EPI. The trade-off is a longer scan time.'
+            },
+            applications: [
+                { priority: 1, use: { vi: 'Chụp tiền liệt tuyến (Prostate): Cho hình ảnh DWI độ phân giải cao, không méo hình.', en: 'Prostate imaging: Provides high-resolution, distortion-free DWI.' } },
+                { priority: 2, use: { vi: 'Chụp não ở các vùng dễ bị artifact (hố sau, nền sọ, gần xoang).', en: 'Brain imaging in high-artifact areas (posterior fossa, skull base, near sinuses).' } },
+                { priority: 3, use: { vi: 'Chụp cột sống (Spine): Đánh giá tủy sống với ít artifact hơn.', en: 'Spine imaging: Evaluating the spinal cord with fewer artifacts.' } }
+            ],
+            tips: {
+                vi: 'Chậm hơn đáng kể so với DWI-EPI tiêu chuẩn, nhưng chất lượng hình ảnh vượt trội ở những vùng khó. Rất tốt để kết hợp (fusion) với ảnh T2W cho chẩn đoán (ví dụ: PI-RADS).',
+                en: 'Significantly slower than standard DWI-EPI, but far superior image quality in difficult areas. Excellent for fusing with T2W images for diagnosis (e.g., PI-RADS).'
+            },
+            imageUrl: 'https://placehold.co/600x400/9ca3af/ffffff?text=RESOLVE+Prostate+DWI'
+        },
+        {
+            id: 'dwi_zoomit_focus',
+            group: 'diffusion',
+            genericName: { vi: 'DWI FOV Thu Nhỏ (ZOOMit/FOCUS)', en: 'Reduced-FoV DWI (ZOOMit/FOCUS)' },
+            vendors: {
+                Siemens: 'ZOOMit',
+                GE: 'FOCUS',
+                Philips: 'Zoom Diffusion',
+                Canon: '',
+                Fujifilm: ''
+            },
+            physics: {
+                vi: 'Là một kỹ thuật DWI sử dụng xung RF kích thích chọn lọc 2D (2D spatially-selective RF) để chỉ kích thích một vùng nhỏ (FOV thu nhỏ) thay vì toàn bộ lát cắt. Điều này cho phép sử dụng gradient khuếch tán mạnh hơn, giảm TE, và giảm thời gian chụp, dẫn đến hình ảnh có độ phân giải cao hơn và ít méo hình hơn trong khu vực quan tâm.',
+                en: 'A DWI technique that uses a 2D spatially-selective RF excitation pulse to excite only a small region (reduced FOV) instead of the entire slice. This allows for stronger diffusion gradients, reduced TE, and shorter scan times, resulting in higher resolution and less distortion in the region of interest.'
+            },
+            applications: [
+                { priority: 1, use: { vi: 'Chụp tiền liệt tuyến (Prostate): Rất phổ biến để có ảnh DWI độ phân giải cao, không méo hình.', en: 'Prostate imaging: Very common for high-resolution, non-distorted DWI.' } },
+                { priority: 2, use: { vi: 'Chụp trực tràng (Rectum), tai trong, và các cấu trúc nhỏ khác.', en: 'Imaging the rectum, inner ear, and other small structures.' } },
+                { priority: 3, use: { vi: 'Đánh giá tủy sống (Spinal cord) một cách chi tiết.', en: 'Detailed evaluation of the spinal cord.' } }
+            ],
+            tips: {
+                vi: 'KTV phải đặt FOV thu nhỏ (reduced FOV) chính xác vào vùng cần chẩn đoán. Thường được sử dụng kết hợp với DWI phân giải cao (RESOLVE/MUSE) để đạt chất lượng tốt nhất.',
+                en: 'The technologist must place the reduced FOV box accurately on the diagnostic region. Often used in combination with high-resolution DWI (RESOLVE/MUSE) for best quality.'
+            },
+            imageUrl: 'https://placehold.co/600x400/9ca3af/ffffff?text=ZOOMit+FOCUS+DWI'
+        },
+        {
+            id: 'dti',
+            group: 'diffusion',
+            genericName: { vi: 'DTI (Diffusion Tensor Imaging)', en: 'DTI (Diffusion Tensor Imaging)' },
+            vendors: {
+                Siemens: 'DTI, MDDW',
+                GE: 'DTI, FiberTrak',
+                Philips: 'DTI, Fiber Trak',
+                Canon: 'DTI, DTT',
+                Fujifilm: 'DTI, DTI Tractography'
+            },
+            physics: {
+                vi: 'Là một kỹ thuật DWI nâng cao, trong đó máy chạy chuỗi xung DWI ở nhiều hướng khuếch tán khác nhau (thường là 6, 12, 30 hướng hoặc nhiều hơn) cộng với 1 ảnh b=0. Dữ liệu này cho phép máy tính tính toán "tensor" khuếch tán tại mỗi voxel, mô tả hướng và mức độ khuếch tán. Từ đó tạo ra các bản đồ như FA (Độ bất đẳng hướng) và bản đồ bó sợi (Tractography).',
+                en: 'An advanced DWI technique where the scanner runs the DWI sequence in multiple different diffusion directions (typically 6, 12, 30, or more) plus one b=0 image. This data allows the calculation of a "diffusion tensor" at each voxel, describing the directionality and magnitude of diffusion. This is used to create maps like FA (Fractional Anisotropy) and fiber tracts (Tractography).'
+            },
+            applications: [
+                { priority: 1, use: { vi: 'Đánh giá và lập bản đồ các bó sợi chất trắng (Tractography) - ví dụ: bó vỏ-gai, bó cung.', en: 'Evaluating and mapping white matter tracts (Tractography) - e.g., corticospinal tract, arcuate fasciculus.' } },
+                { priority: 2, use: { vi: 'Lập kế hoạch phẫu thuật thần kinh (tránh làm tổn thương các bó sợi quan trọng).', en: 'Neurosurgical planning (to avoid damaging critical fiber tracts).' } },
+                { priority: 3, use: { vi: 'Đánh giá chấn thương sọ não (TBI) / tổn thương trục lan tỏa (DAI).', en: 'Assessing Traumatic Brain Injury (TBI) / Diffuse Axonal Injury (DAI).' } }
+            ],
+            tips: {
+                vi: 'Thời gian chụp rất lâu (thường 5-8 phút). Bệnh nhân phải nằm TUYỆT ĐỐI YÊN. Số lượng hướng (directions) càng nhiều, bản đồ càng chính xác nhưng thời gian chụp càng lâu. Cần phần mềm xử lý hậu kỳ (post-processing) chuyên dụng để tạo bản đồ bó sợi.',
+                en: 'Very long scan time (often 5-8 minutes). Patient MUST remain ABSOLUTELY still. More directions = more accurate maps = longer scan time. Requires dedicated post-processing software to generate tractography.'
+            },
+            imageUrl: 'https://placehold.co/600x400/9ca3af/ffffff?text=DTI+Tractography'
+        },
+
+        // ========= NHÓM KỸ THUẬT NÂNG CAO ==========
+        {
+            id: 'psir',
+            group: 'advanced-maps',
+            genericName: { vi: 'PSIR (Phase-Sensitive IR)', en: 'PSIR (Phase-Sensitive IR)' },
+            vendors: {
+                Siemens: 'PSIR / True IR', 
+                GE: 'PS-IR', 
+                Philips: 'PSIR / Real IR', 
+                Canon: 'PSIR / Real IR', 
+                Fujifilm: 'PS-IR / Real-IR' 
+            },
+            imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYmfJ3bsqKOqwwz8Wg-kjVnPrcNYmMO2O43w&s', 
+            physics: {
+                vi: 'Là một chuỗi xung Inversion Recovery (IR) được tái tạo dựa trên thông tin pha (phase-sensitive) thay vì chỉ biên độ. Điều này giúp giữ lại thông tin âm/dương của tín hiệu, tạo ra ảnh "true inversion" với độ tương phản T1 rất cao và không có hiện tượng tín hiệu bằng 0 ở điểm null point (khác với STIR/FLAIR thông thường).',
+                en: 'An Inversion Recovery (IR) sequence that is reconstructed based on phase information (phase-sensitive) rather than just magnitude. This preserves the positive/negative signal information, creating a "true inversion" image with very high T1 contrast and no signal loss at the null point (unlike conventional STIR/FLAIR).'
+            },
+            applications: [
+                { priority: 1, use: { vi: 'Đánh giá ngấm thuốc muộn (Late Gadolinium Enhancement - LGE) trong cơ tim (chẩn đoán sẹo nhồi máu cơ tim).', en: 'Late Gadolinium Enhancement (LGE) evaluation in the myocardium (diagnosing myocardial infarction scars).' } },
+                { priority: 2, use: { vi: 'Đánh giá sụn khớp (MSK): Tương phản tuyệt vời giữa sụn và xương/dịch.', en: 'Cartilage evaluation (MSK): Excellent contrast between cartilage and bone/fluid.' } },
+                { priority: 3, use: { vi: 'Đánh giá não: Tăng cường độ tương phản giữa chất xám và chất trắng, phát hiện tổn thương vỏ não (MS).', en: 'Brain evaluation: Enhancing gray-white matter contrast, detecting cortical (MS) lesions.'} }
+            ],
+            tips: {
+                vi: 'Thường dùng trong chụp tim (LGE). Chìa khóa là tìm đúng TI (thời gian đảo nghịch) để xóa (null) tín hiệu cơ tim bình thường. Dùng chuỗi TI Scout (Look-Locker) để tìm TI chính xác trước khi chạy chuỗi xung này.',
+                en: 'Commonly used in Cardiac LGE. The key is to find the correct TI (Inversion Time) to null the normal myocardium. Use a TI Scout (Look-Locker) sequence to find the precise TI before running this sequence.'
+            }
+        },
+        {
+            id: 't2star_map',
+            group: 'advanced-maps',
+            genericName: { vi: 'T2* Mapping (mGRE / ME-DATA)', en: 'T2* Mapping (mGRE / ME-DATA)' },
+            vendors: {
+                Siemens: 'T2* Map / LiverLab', 
+                GE: 'T2* Map / IDEAL-IQ', 
+                Philips: 'T2* Map / mDixon Quant', 
+                Canon: 'T2* Mapping (FFE2D mEcho)', 
+                Fujifilm: 'T2* Map' 
+            },
+            imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9ST1OrxBf1Ak7iSq_KP6fBZ0KkmES1d3XPw&s', 
+            physics: {
+                vi: 'Là chuỗi xung Multi-Echo Gradient Echo (mGRE), thu tín hiệu ở nhiều thời điểm TE khác nhau. Từ dữ liệu đa echo này, máy tính có thể tính toán và tạo ra bản đồ định lượng T2* (hoặc R2* = 1/T2*). Giá trị T2* giảm khi có sự hiện diện của sắt.',
+                en: 'A Multi-Echo Gradient Echo (mGRE) sequence that acquires signals at multiple different TEs. From this multi-echo data, the scanner can calculate and generate a quantitative T2* map (or R2* = 1/T2*). The T2* value decreases in the presence of iron.'
+            },
+            applications: [
+                { priority: 1, use: { vi: 'Định lượng sắt trong gan (chẩn đoán bệnh ứ sắt - hemochromatosis).', en: 'Quantification of liver iron (diagnosing hemochromatosis).' } },
+                { priority: 2, use: { vi: 'Định lượng sắt trong tim (cho bệnh nhân Thalassemia).', en: 'Quantification of myocardial iron (for Thalassemia patients).' } },
+                { priority: 3, use: { vi: 'Nghiên cứu lắng đọng sắt trong não (bệnh lý thoái hóa thần kinh).', en: 'Researching iron deposition in the brain (neurodegenerative diseases).'} }
+            ],
+            tips: {
+                vi: 'Dùng để định lượng (cho ra con số cụ thể), khác với T2* GRE (chỉ nhìn bằng mắt). Bệnh nhân cần nín thở tốt. KTV cần vẽ ROI cẩn thận trên bản đồ T2* (ví dụ: trong gan, trong vách liên thất) để đo giá trị.',
+                en: 'Used for quantification (gives a specific number), unlike T2* GRE (which is qualitative). Patient must breath-hold well. The tech needs to draw ROIs carefully on the T2* map (e.g., in the liver, in the interventricular septum) to measure the value.'
+            }
+        },
+        {
+            id: 'bolus_trak',
+            group: 'advanced-maps',
+            genericName: { vi: 'Bolus Tracking / Test Bolus', en: 'Bolus Tracking / Test Bolus' },
+            vendors: {
+                Siemens: 'CARE Bolus, Test Bolus', 
+                GE: 'Smart Prep, Fluoro Triggered MRA', 
+                Philips: 'BolusTrak, Test-Bolus',
+                Canon: 'Visual Prep', 
+                Fujifilm: 'FLUTE' 
+            },
+            imageUrl: 'https://mri-images.com/images/various-mr-images/bolus-tracking-mri.jpg',
+            physics: {
+                vi: 'Không phải là chuỗi xung chẩn đoán, mà là một kỹ thuật theo dõi (monitoring) sự di chuyển của bolus thuốc đối quang từ. Máy sẽ chụp liên tục một lát cắt (thường là 2D FLASH/GRE) qua động mạch chủ, và hiển thị biểu đồ tín hiệu theo thời gian thực. KTV sẽ dựa vào biểu đồ này để bắt đầu (trigger) chuỗi xung MRA 3D chính (ví dụ: VIBE) ngay khi thuốc đạt đỉnh ở động mạch.',
+                en: 'Not a diagnostic sequence, but a technique to monitor the arrival of the contrast bolus. The scanner repeatedly images a single slice (usually 2D FLASH/GRE) through the aorta and displays a real-time signal intensity curve. The tech uses this curve to trigger the main 3D MRA sequence (e.g., VIBE) the moment the contrast peaks in the artery.'
+            },
+            applications: [
+                { priority: 1, use: { vi: 'Canh thời gian (timing) chính xác cho Chụp mạch MRA có thuốc (CE-MRA) (động mạch chủ, động mạch thận, động mạch ngoại vi).', en: 'Precise timing for Contrast-Enhanced MRA (CE-MRA) (aorta, renal arteries, peripheral arteries).' } },
+                { priority: 2, use: { vi: 'Đảm bảo chụp đúng pha động mạch, tránh bị nhiễm tĩnh mạch sớm.', en: 'Ensures a pure arterial phase capture, avoiding early venous contamination.'} }
+            ],
+            tips: {
+                vi: 'Đặt ROI (vùng quan tâm) ngay tại động mạch chủ (hoặc động mạch đích). Dặn bệnh nhân nín thở trước khi bắt đầu tiêm. Khi thấy tín hiệu trong ROI tăng vọt (thuốc về), lập tức bấm bắt đầu (trigger) chuỗi xung 3D chính và ra hiệu cho bệnh nhân nín thở.',
+                en: 'Place the ROI over the aorta (or target artery). Instruct the patient to hold their breath just before injection. When the signal in the ROI spikes (contrast arrives), immediately trigger the main 3D sequence and cue the patient to breath-hold.'
+            }
+        },
+        {
+            id: 'ti_scout',
+            group: 'advanced-maps',
+            genericName: { vi: 'TI Scout (Look-Locker)', en: 'TI Scout (Look-Locker)' },
+            vendors: {
+                Siemens: 'TI Scout, Look-Locker',
+                GE: 'Look-Locker, TI Finder',
+                Philips: 'TI Scout',
+                Canon: 'TI Scout',
+                Fujifilm: 'Look-Locker' 
+            },
+            imageUrl: 'https://media.springernature.com/lw685/springer-static/image/art%3A10.1186%2Fs12968-021-00719-2/MediaObjects/12968_2021_719_Fig2_HTML.jpg', 
+            physics: {
+                vi: 'Là một chuỗi xung Inversion Recovery (IR) đặc biệt, thu nhiều ảnh ở các thời điểm TI (Inversion Time) khác nhau sau một xung đảo nghịch. Mục đích là để KTV nhìn thấy tín hiệu của một mô cụ thể (ví dụ: cơ tim, mỡ) thay đổi theo thời gian và chọn ra thời điểm TI mà mô đó bị xóa (tín hiệu bằng 0).',
+                en: 'A special Inversion Recovery (IR) sequence that acquires multiple images at different Inversion Times (TI) after a single inversion pulse. The purpose is for the tech to visualize how a specific tissue\'s signal (e.g., myocardium, fat) changes over time and select the TI at which that tissue is nulled (signal = 0).'
+            },
+            applications: [
+                { priority: 1, use: { vi: 'Xác định TI chính xác để xóa tín hiệu cơ tim bình thường trong chuỗi xung LGE (ngấm thuốc muộn) ở tim.', en: 'Determining the precise TI to null normal myocardium for Late Gadolinium Enhancement (LGE) cardiac imaging.' } },
+                { priority: 2, use: { vi: 'Xác định TI chính xác để xóa tín hiệu mỡ (STIR) hoặc dịch (FLAIR) ở các từ trường khác nhau (ví dụ: 3T) hoặc ở các bệnh nhân khác nhau.', en: 'Determining the precise TI to null fat (STIR) or fluid (FLAIR) at different field strengths (e.g., 3T) or in different patients.'} }
+            ],
+            tips: {
+                vi: 'Luôn chạy TI Scout *sau khi tiêm thuốc* (chờ 5-10 phút) trước khi chạy LGE (PSIR) ở tim. KTV cần nhìn vào dải ảnh và tìm ảnh mà cơ tim (myocardium) đen nhất, sau đó đọc giá trị TI tương ứng (ví dụ: 280ms) và nhập vào chuỗi xung LGE.',
+                en: 'Always run the TI Scout *after contrast injection* (wait 5-10 min) before running the cardiac LGE (PSIR) sequence. The tech must look at the series of images, find the one where the myocardium is blackest, read the corresponding TI (e.g., 280ms), and enter it into the LGE sequence.'
+            }
+        },
+        {
+            id: 'blade_propeller',
+            group: 'advanced-maps',
+            genericName: { vi: 'BLADE / PROPELLER (Khử nhiễu)', en: 'BLADE / PROPELLER (Motion Correction)' },
+            vendors: {
+                Siemens: 'BLADE',
+                GE: 'PROPELLER 3.0',
+                Philips: 'MultiVane XD',
+                Canon: 'JET',
+                Fujifilm: 'RADAR'
+            },
+            imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYj7n0hN_1nGlZvI3_gS6iIrBO_02Sirdb2BOpcEV6WtqY-hOYpRpqVYYMrvBSKhpChrM&usqp=CAU', 
+            physics: {
+                vi: 'Đây là một kỹ thuật thu thập k-space theo kiểu "nan hoa" (radial blades) thay vì từng dòng (Cartesian). Mỗi "nan" đi qua trung tâm k-space, cho phép máy tính tự động phát hiện và sửa lỗi do chuyển động của bệnh nhân (cả chuyển động cứng và dòng chảy) trong thời gian thực.',
+                en: 'This is a k-space acquisition technique that uses "radial blades" instead of Cartesian lines. Each "blade" passes through the center of k-space, allowing the scanner to automatically detect and correct for patient motion (both bulk motion and flow) in real-time.'
+            },
+            applications: [
+                { priority: 1, use: { vi: 'Cứu cánh (workhorse) cho T2W và FLAIR não ở bệnh nhân không hợp tác, run rẩy (Parkinson), hoặc trẻ em.', en: 'A lifesaver (workhorse) for T2W and FLAIR brain imaging in uncooperative patients, those with tremors (Parkinson\'s), or children.' } },
+                { priority: 2, use: { vi: 'Giảm xảo ảnh dòng chảy (flow artifact) ở hố sau và cột sống cổ mà không cần flow compensation.', en: 'Reduces flow artifacts in the posterior fossa and cervical spine without needing flow compensation.' } },
+                { priority: 3, use: { vi: 'Chụp T2W bụng (free-breathing) ở bệnh nhân không nín thở được.', en: 'Free-breathing T2W abdomen for patients who cannot breath-hold.' } }
+            ],
+            tips: {
+                vi: 'Thời gian chụp sẽ dài hơn đáng kể so với TSE/FSE thông thường. Bù lại, hình ảnh rất sắc nét và gần như không bị nhiễu chuyển động. Rất hiệu quả trong các ca cấp cứu đột quỵ.',
+                en: 'Scan time is significantly longer than conventional TSE/FSE. In return, the image is very sharp and almost free of motion artifacts. Very effective in acute stroke cases.'
+            }
+        },
+        {
+            id: 'warp_mavric',
+            group: 'advanced-maps',
+            genericName: { vi: 'WARP / MAVRIC (Giảm xảo ảnh Kim loại)', en: 'WARP / MAVRIC (Metal Artifact Reduction)' },
+            vendors: {
+                Siemens: 'WARP / Advanced WARP (với SEMAC)',
+                GE: 'MAVRIC SL',
+                Philips: 'O-MAR / O-MAR XD',
+                Canon: 'MART EXP / VAT',
+                Fujifilm: '(N/A)'
+            },
+            imageUrl: 'https://www.gehealthcare.in/-/jssmedia/global/products/images/magnetic-resonance-imaging/2018/06/14/mavric_sl_spotlight-1200.jpg?h=400&iar=0&w=1200&rev=-1&hash=42DC5D0F2D918006CF60875A5D998930', 
+            physics: {
+                vi: 'Đây là một bộ các kỹ thuật phức tạp (không phải một xung đơn) nhằm giảm xảo ảnh (susceptibility artifact) nghiêm trọng gây ra bởi kim loại. Các kỹ thuật này thường bao gồm: Tăng Bandwidth, dùng TSE (thay vì GRE), và các kỹ thuật thu/tái tạo đặc biệt (như SEMAC/MAVRIC) để bù đắp sự méo từ trường.',
+                en: 'This is a complex set of techniques (not a single sequence) designed to reduce severe susceptibility artifacts caused by metal. These techniques often include: Increasing Bandwidth, using TSE (instead of GRE), and special acquisition/reconstruction techniques (like SEMAC/MAVRIC) to compensate for field distortion.'
+            },
+            applications: [
+                { priority: 1, use: { vi: 'Chụp cột sống sau phẫu thuật có nẹp vít (pedicle screws).', en: 'Post-surgical spine imaging with pedicle screws.' } },
+                { priority: 2, use: { vi: 'Đánh giá khớp háng, khớp gối nhân tạo (đánh giá lỏng khớp, viêm, u).', en: 'Evaluation of artificial hips and knees (assessing loosening, inflammation, tumors).' } },
+                { priority: 3, use: { vi: 'Chụp não/cổ ở bệnh nhân có nẹp răng hoặc mảnh kim loại.', en: 'Brain/neck imaging in patients with dental hardware or shrapnel.' } }
+            ],
+            tips: {
+                vi: 'Luôn chọn kỹ thuật này khi có kim loại. Kỹ thuật này làm tăng đáng kể thời gian chụp và có thể làm giảm SNR, nhưng là cách duy nhất để thu được hình ảnh chẩn đoán ở vùng lân cận kim loại.',
+                en: 'Always choose this technique when metal is present. It significantly increases scan time and can reduce SNR, but it is the only way to get diagnostic images near metal.'
+            }
         }
     ]
 };
