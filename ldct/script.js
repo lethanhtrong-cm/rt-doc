@@ -1,4 +1,4 @@
-// Khởi tạo các Icon Lucide
+// Khởi tạo các Icon Lucide ngay khi file load
 lucide.createIcons();
 
 // Cập nhật năm tự động cho Footer
@@ -7,7 +7,8 @@ document.getElementById('year').textContent = new Date().getFullYear();
 // --- LOGIC CHO NÚT LÊN ĐẦU TRANG (BACK TO TOP) ---
 const bttButton = document.getElementById('backToTop');
 window.onscroll = function() {
-    if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+    // Hiển thị nút khi cuộn quá 400px
+    if (document.body.scrollTop > 400 || document.documentElement.scrollTop > 400) {
         bttButton.classList.add('show');
     } else {
         bttButton.classList.remove('show');
@@ -24,39 +25,38 @@ function addParticle() {
     const item = document.createElement('div');
     item.className = 'float-item';
     
-    // Kích thước ngẫu nhiên
+    // Kích thước ngẫu nhiên từ 5px - 25px
     const size = Math.random() * 20 + 5 + 'px';
     item.style.width = size;
     item.style.height = size;
     
-    // Vị trí ngang ngẫu nhiên
+    // Vị trí ngang ngẫu nhiên trên toàn màn hình
     item.style.left = Math.random() * 100 + 'vw';
     
-    // Tốc độ trôi ngẫu nhiên
-    item.style.animationDuration = (Math.random() * 15 + 10) + 's';
+    // Tốc độ trôi ngẫu nhiên (chậm rãi, chuyên nghiệp)
+    item.style.animationDuration = (Math.random() * 20 + 15) + 's';
     
-    // Màu sắc
-    const colors = ['#ffffff', '#bae6fd', '#fbcfe8', '#ffffff'];
+    // Màu sắc theo tone y khoa nhẹ nhàng
+    const colors = ['#ffffff', '#e0f2fe', '#f8fafc'];
     item.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-    item.style.opacity = Math.random() * 0.4;
+    item.style.opacity = Math.random() * 0.3;
     
     bg.appendChild(item);
     
-    // Dọn dẹp DOM sau khi hoạt ảnh kết thúc
-    setTimeout(() => item.remove(), 25000);
+    // Dọn dẹp DOM sau khi hoạt ảnh kết thúc để tối ưu hiệu suất
+    setTimeout(() => item.remove(), 35000);
 }
-// Tạo particle mới mỗi 1.2s
-setInterval(addParticle, 1200);
+// Tạo particle mới mỗi 1.5s
+setInterval(addParticle, 1500);
 
 // --- HỆ THỐNG ĐA NGÔN NGỮ (I18N TRANSLATIONS) ---
-// Dữ liệu y khoa đã được cập nhật chuẩn USPSTF/NCCN
 const translations = {
     vi: {
         header_main: "TRANG THÔNG TIN HƯỚNG DẪN",
         header_sub: "TẦM SOÁT UNG THƯ PHỔI BẰNG CẮT LỚP VI TÍNH LIỀU THẤP",
         header_desc: "Medical Excellence • Precision Protocols • Patient Safety",
-        btn_explore: "Khám phá nội dung",
-        btn_view_params: "Tải Protocol Chi Tiết của AAPM",
+        btn_explore: "Khám phá nội dung <i data-lucide='arrow-down' size='20'></i>",
+        btn_view_params: "<i data-lucide='file-down'></i> Tải Protocol Chi Tiết của AAPM",
         nav_guidelines: "Khuyến cáo",
         nav_studies: "Nghiên cứu",
         nav_workflow: "Quy trình",
@@ -64,7 +64,6 @@ const translations = {
         nav_params: "Thông số",
         nav_calc: "Tính Liều",
         
-        // Cập nhật chuẩn Y khoa mới
         sec_guidelines: "Đối tượng Tầm soát",
         uspstf_title: "Khuyến cáo USPSTF (2021)",
         uspstf_content: "<li><strong>Độ tuổi:</strong> 50 - 80 tuổi.</li><li><strong>Tiền sử:</strong> ≥ 20 gói-năm.</li><li><strong>Tình trạng:</strong> Đang hút hoặc đã cai < 15 năm.</li>",
@@ -75,7 +74,7 @@ const translations = {
         
         sec_studies: "Chứng minh lâm sàng",
         nlst_content: "Nghiên cứu quy mô lớn chứng minh <strong>LDCT giảm 20% tỷ lệ tử vong</strong> so với chụp X-quang phổi quy ước.",
-        read_nejm: "Xem báo cáo NEJM &rarr;",
+        read_nejm: "Xem báo cáo NEJM <i data-lucide='external-link' size='16'></i>",
         nelson_content: "Giảm tử vong 24% ở nam và 33% ở nữ sau 10 năm sàng lọc định kỳ.",
         lusi_content: "Khẳng định giá trị LDCT trong phát hiện sớm và can thiệp kịp thời.",
         
@@ -103,8 +102,8 @@ const translations = {
         header_main: "TECHNICAL GUIDELINES",
         header_sub: "LOW DOSE CT LUNG SCREENING (LDCT)",
         header_desc: "Medical Excellence • Precision Protocols • Patient Safety",
-        btn_explore: "Explore Content",
-        btn_view_params: "Download AAPM Protocols",
+        btn_explore: "Explore Content <i data-lucide='arrow-down' size='20'></i>",
+        btn_view_params: "<i data-lucide='file-down'></i> Download AAPM Protocols",
         nav_guidelines: "Guidelines",
         nav_studies: "Studies",
         nav_workflow: "Workflow",
@@ -112,7 +111,6 @@ const translations = {
         nav_params: "Parameters",
         nav_calc: "Dose Calc",
         
-        // Cập nhật chuẩn Y khoa mới (Tiếng Anh)
         sec_guidelines: "Screening Criteria",
         uspstf_title: "USPSTF Guidelines (2021)",
         uspstf_content: "<li><strong>Age:</strong> 50 - 80 years.</li><li><strong>History:</strong> ≥ 20 pack-years.</li><li><strong>Status:</strong> Current smoker or quit < 15 years.</li>",
@@ -123,7 +121,7 @@ const translations = {
         
         sec_studies: "Clinical Evidence",
         nlst_content: "Study proved <strong>LDCT reduced mortality by 20%</strong> compared to routine chest X-ray.",
-        read_nejm: "View NEJM Report &rarr;",
+        read_nejm: "View NEJM Report <i data-lucide='external-link' size='16'></i>",
         nelson_content: "Mortality reduced by 24% in men and 33% in women after 10-year follow-up.",
         lusi_content: "Confirms LDCT as an effective early screening and intervention tool.",
         
@@ -162,13 +160,13 @@ window.toggleLanguage = function() {
         }
     });
     
-    // Cập nhật text của nút
+    // Cập nhật text của nút chuyển ngôn ngữ
     document.querySelector('.lang-btn').textContent = currentLang === 'vi' ? 'EN' : 'VN';
     
-    // Render lại các Icon bên trong các chuỗi được thêm vào (nếu có)
+    // Render lại các Icon Lucide bên trong các chuỗi được thêm vào (nếu có thẻ <i>)
     lucide.createIcons();
     
-    // Trigger lại MathJax để render công thức hóa học/toán học (nếu có update qua i18n)
+    // Trigger lại MathJax để render công thức hóa học/toán học
     if (window.MathJax) {
         MathJax.typesetPromise();
     }
