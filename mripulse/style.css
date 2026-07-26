@@ -1,0 +1,23 @@
+body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
+
+/* Modern Scrollbar */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+/* UI Utilities */
+.glass-header { background: rgba(30, 64, 175, 0.95); backdrop-filter: blur(8px); }
+.hidden { display: none !important; }
+.toggle-icon { transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+.rotate-180 { transform: rotate(180deg); }
+
+.lang-btn {
+    cursor: pointer; opacity: 0.6; transition: all 0.2s ease;
+    border: 2px solid transparent; transform: scale(0.95);
+}
+.lang-btn.active { opacity: 1; transform: scale(1.1); border-color: #fff; box-shadow: 0 0 10px rgba(255,255,255,0.3); }
+
+@media (min-width: 768px) {
+    .sidebar-sticky { position: sticky; top: 5rem; align-self: flex-start; }
+}
