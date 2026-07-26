@@ -6,9 +6,12 @@ body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
 ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
 ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
 
-/* UI Utilities - ĐÃ SỬA: Cố định màu nền header đặc, rõ nét, không bị trong suốt mờ khó nhìn */
+/* UI Utilities - ĐÃ SỬA: Ép cứng màu nền đặc hoàn toàn, loại bỏ hiệu ứng trong suốt */
 .glass-header { 
-    background-color: #1e40af; /* Màu xanh dương đậm chuẩn */
+    background-color: #1e40af !important;
+    opacity: 1 !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
