@@ -1,18 +1,25 @@
 document.addEventListener("DOMContentLoaded", () => {
-    // Hàm fetch module HTML và nhúng vào DOM
+    // Hàm tải module HTML động
     async function loadModule(url, containerId) {
         try {
             const response = await fetch(url);
-            if (!response.ok) throw new Error(`Lỗi HTTP: ${response.status} khi tải ${url}`);
+            if (!response.ok) throw new Error(`Lỗi tải module: ${url}`);
             const htmlContent = await response.text();
             document.getElementById(containerId).innerHTML = htmlContent;
         } catch (error) {
-            console.error("Lỗi tải module:", error);
-            document.getElementById(containerId).innerHTML = `<p style="color:red; text-align:center;">Không thể tải dữ liệu: ${url}</p>`;
+            console.error(error);
+            document.getElementById(containerId).innerHTML = `<p style="color:red; font-size:14px;">Lỗi tải nội dung</p>`;
         }
     }
 
-    // Khởi chạy load song song 2 module
-    loadModule('components/hero-ct.html', 'ct-module-container');
-    loadModule('components/hero-mri.html', 'mri-module-container');
+    // Mảng cấu hình các module cần load
+    const modules = [
+        { url: 'components/hero-quiz.html', id: 'module-quiz' },
+        { url: 'components/hero-ct.html', id: 'module-ct' },
+        { url: 'components/hero-mri-sequence.html', id: 'module-mri-seq' },
+        { url: 'components/hero-mri-protocol.html', id: 'module-mri-proto' }
+    ];
+
+    // Load tất cả module cùng lúc
+    modules.forEach(mod => loadModule(mod.url, mod.id));
 });
