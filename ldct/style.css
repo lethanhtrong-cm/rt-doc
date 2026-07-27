@@ -121,7 +121,7 @@ header {
 }
 
 header h1[data-i18n="header_main"] {
-    font-size: clamp(0.9rem, 2vw, 1.4rem); /* Đã giảm thông số size chữ */
+    font-size: clamp(0.9rem, 2vw, 1.4rem); 
     opacity: 0.9;
     margin-bottom: 5px;
     font-weight: 700;
@@ -130,7 +130,7 @@ header h1[data-i18n="header_main"] {
 
 header h1[data-i18n="header_sub"] {
     font-family: 'Montserrat', sans-serif;
-    font-size: clamp(1.5rem, 4vw, 2.8rem); /* Đã giảm thông số size chữ */
+    font-size: clamp(1.5rem, 4vw, 2.8rem); 
     margin: 0;
     text-transform: uppercase;
     letter-spacing: -1px;
@@ -187,10 +187,10 @@ nav {
 .nav-container {
     max-width: 1400px; width: 100%; margin: 0 auto;
     display: flex; 
-    justify-content: center; /* Đã đổi từ space-between sang center */
+    justify-content: center; 
     align-items: center;
     padding: 0 40px;
-    gap: 60px; /* Thêm khoảng cách 60px giữa Logo và Menu */
+    gap: 60px;
 }
 
 .nav-logo-group {
@@ -380,6 +380,39 @@ h3 { color: var(--med-primary); font-family: 'Montserrat', sans-serif; margin-bo
 .table-ui td strong { color: var(--text-main); }
 .table-ui tr:last-child td { border-bottom: none; }
 .table-ui tr:hover td { background: var(--soft-blue); }
+
+/* --- DOSE HIGHLIGHT SECTION --- */
+#dose {
+    background: linear-gradient(145deg, #ffffff 0%, #f0f9ff 100%);
+    border: 2px solid var(--med-accent);
+    box-shadow: 0 20px 50px rgba(14, 165, 233, 0.15);
+}
+
+#dose .table-container {
+    border: none;
+    box-shadow: 0 15px 35px rgba(15, 23, 42, 0.08);
+    background: white;
+}
+
+#dose .table-ui th {
+    background: var(--med-gradient); 
+    color: white;
+    border-bottom: none;
+}
+
+#dose .table-ui td {
+    border-bottom: 1px solid #e2e8f0;
+}
+
+#dose .table-ui td strong {
+    color: var(--med-secondary);
+    font-weight: 800;
+    font-size: 1.1rem;
+}
+
+#dose .table-ui tr:hover td {
+    background: #f8fafc;
+}
 
 .formula-container {
     background: var(--med-primary); 
