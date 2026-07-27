@@ -355,13 +355,20 @@ h3 { color: var(--med-primary); font-family: 'Montserrat', sans-serif; margin-bo
     display: flex; gap: 15px; align-items: flex-start;
 }
 
-.table-container { 
-    overflow-x: auto; 
-    -webkit-overflow-scrolling: touch; 
-    border-radius: 20px; 
-    border: 1px solid #e2e8f0; 
-    margin: 30px 0; 
-    box-shadow: 0 10px 25px rgba(15, 23, 42, 0.03);
+/* --- DOSE HIGHLIGHT SECTION (CẬP NHẬT GIAO DIỆN NHẸ NHÀNG) --- */
+#dose {
+    background: linear-gradient(145deg, #ffffff 0%, #f0f9ff 100%);
+    border: 1px solid rgba(14, 165, 233, 0.15);
+    box-shadow: 0 20px 50px rgba(14, 165, 233, 0.08);
+}
+
+#dose .table-container {
+    border: none;
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.05);
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    margin: 30px 0;
 }
 
 .table-ui {
@@ -370,49 +377,71 @@ h3 { color: var(--med-primary); font-family: 'Montserrat', sans-serif; margin-bo
     min-width: 600px;
 }
 
-.table-ui th {
-    background: var(--bg-light); color: var(--text-main);
-    padding: 18px; font-weight: 800; text-transform: uppercase; font-size: 0.85rem;
-    border-bottom: 2px solid #cbd5e1;
-}
-
-.table-ui td { padding: 18px; border-bottom: 1px solid #f1f5f9; text-align: center; font-size: 1rem; color: var(--text-muted); }
-.table-ui td strong { color: var(--text-main); }
-.table-ui tr:last-child td { border-bottom: none; }
-.table-ui tr:hover td { background: var(--soft-blue); }
-
-/* --- DOSE HIGHLIGHT SECTION --- */
-#dose {
-    background: linear-gradient(145deg, #ffffff 0%, #f0f9ff 100%);
-    border: 2px solid var(--med-accent);
-    box-shadow: 0 20px 50px rgba(14, 165, 233, 0.15);
-}
-
-#dose .table-container {
-    border: none;
-    box-shadow: 0 15px 35px rgba(15, 23, 42, 0.08);
-    background: white;
-}
-
 #dose .table-ui th {
-    background: var(--med-gradient); 
+    background: var(--med-primary); 
     color: white;
     border-bottom: none;
+    padding: 20px 15px;
+    font-weight: 800; 
+    text-transform: uppercase; 
+    font-size: 0.85rem;
+}
+
+/* Làm nổi bật Cột 3 (Chứa CTDIvol / Target) của Header */
+#dose .table-ui th:nth-child(3) {
+    background: var(--med-secondary);
 }
 
 #dose .table-ui td {
-    border-bottom: 1px solid #e2e8f0;
+    border-bottom: 1px solid #f1f5f9;
+    padding: 18px 15px;
+    text-align: center; 
+    font-size: 1rem; 
+    color: var(--text-muted);
 }
 
-#dose .table-ui td strong {
+/* Đổi màu xanh đồng bộ cho Cột 1 (Tổ chức / Nhóm BN) */
+#dose .table-ui td:first-child,
+#dose .table-ui td:first-child strong {
     color: var(--med-secondary);
     font-weight: 800;
+}
+
+/* Đổi màu xanh đậm, in đậm cho Cột 3 (Giá trị giới hạn) */
+#dose .table-ui td:nth-child(3),
+#dose .table-ui td:nth-child(3) strong {
+    color: var(--med-primary);
+    font-weight: 800;
     font-size: 1.1rem;
+}
+
+#dose .table-ui tr:last-child td {
+    border-bottom: none;
 }
 
 #dose .table-ui tr:hover td {
     background: #f8fafc;
 }
+
+/* Các bảng ở section khác (nếu có) giữ style cơ bản */
+section:not(#dose) .table-container { 
+    overflow-x: auto; 
+    -webkit-overflow-scrolling: touch; 
+    border-radius: 20px; 
+    border: 1px solid #e2e8f0; 
+    margin: 30px 0; 
+    box-shadow: 0 10px 25px rgba(15, 23, 42, 0.03);
+}
+section:not(#dose) .table-ui th {
+    background: var(--bg-light); color: var(--text-main);
+    padding: 18px; font-weight: 800; text-transform: uppercase; font-size: 0.85rem;
+    border-bottom: 2px solid #cbd5e1;
+}
+section:not(#dose) .table-ui td { padding: 18px; border-bottom: 1px solid #f1f5f9; text-align: center; font-size: 1rem; color: var(--text-muted); }
+section:not(#dose) .table-ui td strong { color: var(--text-main); }
+section:not(#dose) .table-ui tr:last-child td { border-bottom: none; }
+section:not(#dose) .table-ui tr:hover td { background: var(--soft-blue); }
+
 
 .formula-container {
     background: var(--med-primary); 
@@ -633,8 +662,8 @@ footer::before {
 
     /* Table Mobile */
     .table-ui { min-width: 100%; } 
-    .table-ui th { padding: 12px 8px; font-size: 0.7rem; }
-    .table-ui td { padding: 12px 8px; font-size: 0.85rem; }
+    #dose .table-ui th { padding: 12px 8px; font-size: 0.7rem; }
+    #dose .table-ui td { padding: 12px 8px; font-size: 0.85rem; }
     .hidden-xs { display: none; }
 
     /* Formula Mobile */
