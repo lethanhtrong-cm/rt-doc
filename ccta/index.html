@@ -297,6 +297,51 @@
                             </div>
                         </div>
 
+                        <!-- Reference Table (New) -->
+                        <div class="mt-6 bg-white rounded-2xl p-6 border border-slate-200/60 shadow-sm overflow-hidden">
+                            <h4 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4 flex items-center gap-2">
+                                <i class="fa-solid fa-table"></i> Bảng tham khảo thông số
+                            </h4>
+                            <div class="overflow-x-auto rounded-xl border border-slate-200/60">
+                                <table class="w-full text-left text-sm text-slate-600 whitespace-nowrap">
+                                    <thead class="text-xs text-slate-500 uppercase bg-slate-50 border-b border-slate-200/60">
+                                        <tr>
+                                            <th scope="col" class="px-4 py-3 font-bold">Cân nặng (kg)</th>
+                                            <th scope="col" class="px-4 py-3 font-bold">Chỉ số BMI (kg/m²)</th>
+                                            <th scope="col" class="px-4 py-3 font-bold">Điện thế bóng (kVp)</th>
+                                            <th scope="col" class="px-4 py-3 font-bold">WIDR khuyến cáo (mg I/kg/s)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-slate-100">
+                                        <tr class="hover:bg-blue-50/50 transition-colors">
+                                            <td class="px-4 py-3 font-semibold text-slate-700">&lt; 60 kg</td>
+                                            <td class="px-4 py-3">&lt; 22.5</td>
+                                            <td class="px-4 py-3">70 - 80 kVp</td>
+                                            <td class="px-4 py-3 font-medium text-pink-600">14 - 18 mg I/kg/s</td>
+                                        </tr>
+                                        <tr class="hover:bg-blue-50/50 transition-colors">
+                                            <td class="px-4 py-3 font-semibold text-slate-700">60 - 75 kg</td>
+                                            <td class="px-4 py-3">22.5 - 25</td>
+                                            <td class="px-4 py-3">100 kVp</td>
+                                            <td class="px-4 py-3 font-medium text-pink-600">22 - 25 mg I/kg/s</td>
+                                        </tr>
+                                        <tr class="hover:bg-blue-50/50 transition-colors">
+                                            <td class="px-4 py-3 font-semibold text-slate-700">76 - 90 kg</td>
+                                            <td class="px-4 py-3">25 - 30</td>
+                                            <td class="px-4 py-3">100 - 120 kVp</td>
+                                            <td class="px-4 py-3 font-medium text-pink-600">25 - 28 mg I/kg/s</td>
+                                        </tr>
+                                        <tr class="hover:bg-blue-50/50 transition-colors">
+                                            <td class="px-4 py-3 font-semibold text-slate-700">&gt; 90 kg</td>
+                                            <td class="px-4 py-3">&gt; 30</td>
+                                            <td class="px-4 py-3">120 kVp</td>
+                                            <td class="px-4 py-3 font-medium text-pink-600">28 - 30 mg I/kg/s</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
                         <!-- Alert Box -->
                         <div id="alert-box" class="mt-8 hidden animate-bounce-in">
                             <div class="bg-amber-50/80 backdrop-blur border border-amber-200 p-4 rounded-2xl flex items-center gap-4 shadow-sm">
