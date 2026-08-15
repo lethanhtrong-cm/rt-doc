@@ -2,9 +2,11 @@
 let currentIdrRec = 0.021;
 
 // --- Init ---
-document.addEventListener('DOMContentLoaded', () => {
-    calculate(); // Calc on load
-});
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', calculate);
+} else {
+    calculate(); // Đảm bảo luôn chạy tính toán lần đầu
+}
 
 // --- Input Synchronization Logic ---
 function syncInput(type, val) {
