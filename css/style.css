@@ -157,3 +157,81 @@ body {
     .mri-item-light { height: 70px; }
     .protocol-list-light { width: 100%; }
 }
+/* ... (Giữ nguyên các CSS trước đó của bạn) ... */
+
+/* =========================================
+   THIẾT KẾ CHO MODULE NỔI BẬT (FULL-WIDTH)
+   ========================================= */
+
+/* Trải dài 2 cột trên Desktop */
+.full-width { 
+    grid-column: 1 / -1; 
+    display: flex; 
+    flex-direction: row; 
+    align-items: center; 
+    gap: 40px; 
+    padding: 40px 5%;
+}
+.full-width .panel-header { width: 50%; margin-bottom: 0; }
+.full-width .panel-visual { width: 50%; margin-top: 0; justify-content: flex-end; }
+
+/* Màu nền đặc biệt: Xanh đậm */
+.bg-primary-blue { 
+    background-color: var(--primary-blue); 
+    color: var(--white); 
+}
+.bg-primary-blue .panel-title,
+.bg-primary-blue .panel-title span { color: var(--white); }
+.bg-primary-blue .panel-desc { color: rgba(255, 255, 255, 0.8); }
+.bg-primary-blue .cta-link { color: var(--white); }
+.bg-primary-blue .badge-white { 
+    background-color: rgba(255, 255, 255, 0.2); 
+    color: var(--white); 
+}
+
+/* Giao diện máy tính Glassmorphism (Kính mờ) */
+.glass-calc {
+    width: 100%; 
+    max-width: 360px;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 16px; 
+    padding: 24px;
+    color: var(--white);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+.glass-input-group { 
+    display: flex; justify-content: space-between; align-items: center; 
+    margin-bottom: 16px; font-size: 13px; font-weight: 500;
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.2); padding-bottom: 10px;
+}
+.glass-input-val { 
+    background: rgba(0, 0, 0, 0.2); padding: 6px 12px; 
+    border-radius: 6px; font-family: monospace; font-weight: 700; color: #5EEAD4; /* Xanh ngọc sáng */
+}
+.glass-btn { 
+    display: flex; justify-content: center; align-items: center; gap: 8px;
+    width: 100%; background: var(--white); color: var(--primary-blue); 
+    padding: 12px; border-radius: 8px; font-weight: 600; font-size: 14px;
+    margin-top: 20px; transition: transform 0.2s;
+}
+
+/* =========================================
+   CẬP NHẬT MEDIA QUERY (MOBILE & TABLET)
+   ========================================= */
+@media (max-width: 900px) {
+    /* ... (giữ nguyên các luật mobile cũ) ... */
+
+    /* Xử lý Card Full-width trên Mobile */
+    .full-width { 
+        grid-column: 1; /* Hủy trải dài */
+        flex-direction: column; /* Xếp dọc */
+        padding: 24px; 
+        gap: 24px; 
+    }
+    .full-width .panel-header, 
+    .full-width .panel-visual { width: 100%; }
+    .full-width .panel-visual { justify-content: center; }
+}
