@@ -1,12 +1,29 @@
 // Global var to store current recommendation
 let currentIdrRec = 0.021;
 
-// --- Init ---
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', calculate);
-} else {
-    calculate(); // Đảm bảo luôn chạy tính toán lần đầu
+// --- Utility cho an toàn DOM (Fail-Safe Pattern) ---
+function safeSetText(id, text) {
+    const el = document.getElementById(id);
+    if (el) el.textContent = text;
 }
+
+// --- Init ---
+function initApp() {
+    // Chỉ chạy logic khi DOM cơ bản (ô nhập liệu) đã thực sự tồn tại
+    if (document.getElementById('weight-input')) {
+        calculate();
+    } else {
+        setTimeout(initApp, 50); // Lặp lại kiểm tra nếu DOM render chậm
+    }
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initApp);
+} else {
+    initApp();
+}
+// Fallback an toàn đảm bảo 100% kích hoạt sau khi tải xong tài nguyên
+window.addEventListener('load', initApp);
 
 // --- Input Synchronization Logic ---
 function syncInput(type, val) {
@@ -22,8 +39,10 @@ function syncSlider(type, val) {
 }
 
 function setPreset(val) {
-    document.getElementById('conc-input').value = val;
-    document.getElementById('conc-slider').value = val;
+    const concInput = document.getElementById('conc-input');
+    const concSlider = document.getElementById('conc-slider');
+    if (concInput) concInput.value = val;
+    if (concSlider) concSlider.value = val;
     
     // Visual feedback for buttons
     document.querySelectorAll('.preset-btn').forEach(btn => {
@@ -40,34 +59,38 @@ function setPreset(val) {
 }
 
 function applyIdrRecommendation() {
-    document.getElementById('idr-input').value = currentIdrRec;
-    document.getElementById('idr-slider').value = currentIdrRec;
+    const idrInput = document.getElementById('idr-input');
+    const idrSlider = document.getElementById('idr-slider');
+    if (idrInput) idrInput.value = currentIdrRec;
+    if (idrSlider) idrSlider.value = currentIdrRec;
     calculate();
 }
 
 // --- Core Calculation ---
 function calculate() {
-    // Get Values
-    const weight = parseFloat(document.getElementById('weight-input').value) || 0;
-    const concMg = parseFloat(document.getElementById('conc-input').value) || 0;
-    const time = parseFloat(document.getElementById('time-input').value) || 13;
-    const idr = parseFloat(document.getElementById('idr-input').value) || 0.0215;
+    // Lấy Values an toàn (tránh crash code nếu không tìm thấy DOM)
+    const weightInput = document.getElementById('weight-input');
+    const concInput = document.getElementById('conc-input');
+    const timeInput = document.getElementById('time-input');
+    const idrInput = document.getElementById('idr-input');
 
-    const flowEl = document.getElementById('res-flow');
-    const volEl = document.getElementById('res-vol');
-    const timeDisplayEl = document.getElementById('display-time');
-    const alertBox = document.getElementById('alert-box');
-    
+    if (!weightInput || !concInput || !timeInput || !idrInput) return; // Dừng hàm để bảo vệ luồng
+
+    const weight = parseFloat(weightInput.value) || 0;
+    const concMg = parseFloat(concInput.value) || 0;
+    const time = parseFloat(timeInput.value) || 13;
+    const idr = parseFloat(idrInput.value) || 0.0215;
+
     // Update Time Display in Header
-    timeDisplayEl.textContent = time;
+    safeSetText('display-time', time);
 
     // --- Update Recommendations ---
     updateKvRecommendation(weight);
     updateIdrRecommendation(weight);
 
     if (weight <= 0 || concMg <= 0 || time <= 0) {
-        flowEl.textContent = "--";
-        volEl.textContent = "--";
+        safeSetText('res-flow', '--');
+        safeSetText('res-vol', '--');
         return;
     }
 
@@ -80,40 +103,43 @@ function calculate() {
     let volume = Math.round(flow * time);
 
     // Update Text
-    flowEl.textContent = flow.toFixed(1);
-    volEl.textContent = volume;
+    safeSetText('res-flow', flow.toFixed(1));
+    safeSetText('res-vol', volume);
 
     // Update Formula Breakdown
-    document.getElementById('calc-weight').textContent = weight;
-    document.getElementById('calc-idr').textContent = idr;
-    document.getElementById('calc-conc').textContent = concG.toFixed(3); // e.g., 0.350
-    document.getElementById('calc-flow-res').textContent = flow.toFixed(1);
+    safeSetText('calc-weight', weight);
+    safeSetText('calc-idr', idr);
+    safeSetText('calc-conc', concG.toFixed(3)); // e.g., 0.350
+    safeSetText('calc-flow-res', flow.toFixed(1));
 
-    document.getElementById('calc-flow-in').textContent = flow.toFixed(1);
-    document.getElementById('calc-time').textContent = time;
-    document.getElementById('calc-vol-res').textContent = volume;
+    safeSetText('calc-flow-in', flow.toFixed(1));
+    safeSetText('calc-time', time);
+    safeSetText('calc-vol-res', volume);
 
-    // Update Bars
+    // Update Bars an toàn
     const flowPercent = Math.min((flow / 8) * 100, 100); 
     const volPercent = Math.min((volume / 120) * 100, 100);
     
-    document.getElementById('flow-bar').style.width = `${flowPercent}%`;
-    document.getElementById('vol-bar').style.width = `${volPercent}%`;
+    const flowBar = document.getElementById('flow-bar');
+    if (flowBar) flowBar.style.width = `${flowPercent}%`;
+    
+    const volBar = document.getElementById('vol-bar');
+    if (volBar) volBar.style.width = `${volPercent}%`;
 
     // Warnings
-    if (flow > 6.5) {
-        alertBox.classList.remove('hidden');
-        document.getElementById('alert-flow-val').textContent = flow.toFixed(1);
-    } else {
-        alertBox.classList.add('hidden');
+    const alertBox = document.getElementById('alert-box');
+    if (alertBox) {
+        if (flow > 6.5) {
+            alertBox.classList.remove('hidden');
+            safeSetText('alert-flow-val', flow.toFixed(1));
+        } else {
+            alertBox.classList.add('hidden');
+        }
     }
 }
 
 // --- kV Recommendation Logic ---
 function updateKvRecommendation(weight) {
-    const kvEl = document.getElementById('kv-recommendation');
-    const kvBox = document.getElementById('kv-alert-box');
-    const kvIcon = document.getElementById('kv-icon-bg');
     let kvText = "";
     let colorClass = "";
     let bgClass = "";
@@ -146,17 +172,20 @@ function updateKvRecommendation(weight) {
         colorClass = "text-amber-600";
     }
 
-    kvEl.textContent = kvText;
-    kvEl.className = `text-xl font-black ${colorClass}`;
-    kvBox.className = `${bgClass} border rounded-2xl p-4 flex items-center gap-3 relative overflow-hidden transition-colors duration-300`;
-    kvIcon.className = `w-10 h-10 rounded-full ${iconBgClass} flex items-center justify-center ${iconTextClass} flex-shrink-0 transition-colors duration-300`;
+    safeSetText('kv-recommendation', kvText);
+    
+    const kvEl = document.getElementById('kv-recommendation');
+    if(kvEl) kvEl.className = `text-xl font-black ${colorClass}`;
+    
+    const kvBox = document.getElementById('kv-alert-box');
+    if(kvBox) kvBox.className = `${bgClass} border rounded-2xl p-4 flex items-center gap-3 relative overflow-hidden transition-colors duration-300`;
+    
+    const kvIcon = document.getElementById('kv-icon-bg');
+    if(kvIcon) kvIcon.className = `w-10 h-10 rounded-full ${iconBgClass} flex items-center justify-center ${iconTextClass} flex-shrink-0 transition-colors duration-300`;
 }
 
 // --- IDR Recommendation Logic ---
 function updateIdrRecommendation(weight) {
-    const idrValEl = document.getElementById('idr-rec-val');
-    const idrLabelEl = document.getElementById('idr-rec-label');
-    
     let recIdr = 0.021;
     let label = "(Standard)";
 
@@ -176,6 +205,6 @@ function updateIdrRecommendation(weight) {
     }
 
     currentIdrRec = recIdr;
-    idrValEl.textContent = recIdr;
-    idrLabelEl.textContent = label;
+    safeSetText('idr-rec-val', recIdr);
+    safeSetText('idr-rec-label', label);
 }
