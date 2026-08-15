@@ -1,10 +1,12 @@
-// Global var to store current recommendation
+// Global vars
 let currentIdrRec = 0.021;
+let isAppInitialized = false; // Cờ bảo vệ chống load x2
+let selectedUserRating = 5;
 
-// --- Dữ liệu Bình luận ---
+// --- Dữ liệu Bình luận (Thêm biến rating) ---
 let comments = JSON.parse(localStorage.getItem('ccta_comments')) || [
-    { id: 1, author: 'Bác sĩ Tuấn', role: 'BS', roleClass: 'bg-blue-100 text-blue-600', time: '2 giờ trước', text: 'Giao diện tính toán rất tiện lợi, thông số WB-IDR gợi ý chuẩn xác giúp tôi an tâm hơn khi thiết lập protocol.' },
-    { id: 2, author: 'KTV Minh Hải', role: 'KTV', roleClass: 'bg-emerald-100 text-emerald-600', time: '1 ngày trước', text: 'Công thức hoạt động ổn định trên cả điện thoại. Cảm ơn tác giả đã phát triển tool này.' }
+    { id: 1, author: 'Bác sĩ Tuấn', role: 'BS', roleClass: 'bg-blue-100 text-blue-600', time: '2 giờ trước', text: 'Giao diện tính toán rất tiện lợi, thông số WB-IDR gợi ý chuẩn xác giúp tôi an tâm hơn khi thiết lập protocol.', rating: 5 },
+    { id: 2, author: 'KTV Minh Hải', role: 'KTV', roleClass: 'bg-emerald-100 text-emerald-600', time: '1 ngày trước', text: 'Công thức hoạt động ổn định trên cả điện thoại. Cảm ơn tác giả đã phát triển tool này.', rating: 4 }
 ];
 
 // --- Utility cho an toàn DOM (Fail-Safe Pattern) ---
@@ -13,9 +15,12 @@ function safeSetText(id, text) {
     if (el) el.textContent = text;
 }
 
-// --- Init (Cơ chế an toàn 100% khi tách file) ---
+// --- Init (Cơ chế an toàn chống Load x2) ---
 function init() {
+    if (isAppInitialized) return; // Nếu đã chạy rồi thì ngắt luôn
+    
     if (document.getElementById('weight-input')) {
+        isAppInitialized = true; // Bật cờ đánh dấu đã chạy
         calculate();
         initCounter();
         renderComments();
@@ -27,24 +32,46 @@ function init() {
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
 } else {
-    init(); // Đảm bảo luôn chạy tính toán lần đầu kể cả khi DOM đã load xong
+    init(); 
 }
-window.addEventListener('load', init); // Fallback cuối cùng nếu có độ trễ
+window.addEventListener('load', init); 
 
 // --- Tính năng Đếm Lượt Truy cập ---
 function initCounter() {
-    // Đổi key thành 'ccta_views_v2' để reset bộ đếm cũ về số 0 theo yêu cầu
-    let views = localStorage.getItem('ccta_views_v2'); 
+    let views = localStorage.getItem('ccta_views_v3'); 
     if (!views) {
-        views = 1; // Bắt đầu từ 1 ở lần truy cập đầu tiên sau reset
+        views = 1; 
     } else {
-        views = parseInt(views) + 1; // Tự động cộng dồn
+        views = parseInt(views) + 1; 
     }
-    localStorage.setItem('ccta_views_v2', views);
+    localStorage.setItem('ccta_views_v3', views);
     safeSetText('page-view-counter', views.toLocaleString('vi-VN'));
 }
 
-// --- Tính năng Bình luận ---
+// --- Tính năng Bình luận & Rating ---
+function setRating(val) {
+    selectedUserRating = val;
+    document.getElementById('rating-text').textContent = `(${val} / 5)`;
+    const stars = document.querySelectorAll('#interactive-rating i');
+    stars.forEach((star, index) => {
+        if (index < val) {
+            star.className = 'fa-solid fa-star hover:scale-110 transition-transform';
+        } else {
+            star.className = 'fa-regular fa-star hover:scale-110 transition-transform text-slate-300 hover:text-amber-400';
+        }
+    });
+}
+
+function generateStarsHtml(rating) {
+    let r = rating || 5;
+    let html = '';
+    for(let i = 1; i <= 5; i++) {
+        if(i <= r) html += '<i class="fa-solid fa-star"></i>';
+        else html += '<i class="fa-regular fa-star text-slate-300"></i>';
+    }
+    return html;
+}
+
 function renderComments() {
     const list = document.getElementById('comments-list');
     if (!list) return;
@@ -67,12 +94,11 @@ function renderComments() {
                     </div>
                 </div>
                 <div class="flex text-amber-400 text-[10px] sm:text-xs">
-                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    ${generateStarsHtml(c.rating)}
                 </div>
             </div>
             <p class="text-xs sm:text-sm text-slate-600 ml-9 sm:ml-11 mt-1 sm:mt-0 pr-12">${c.text}</p>
             
-            <!-- Nút Xóa bình luận (Sẽ hiện lên khi hover) -->
             <button onclick="deleteComment(${c.id})" class="absolute bottom-3 right-4 text-[10px] sm:text-xs text-red-400 hover:text-red-600 opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1 cursor-pointer">
                 <i class="fa-solid fa-trash"></i> Xóa
             </button>
@@ -85,28 +111,37 @@ function renderComments() {
 
 function submitComment() {
     const input = document.getElementById('comment-input');
+    const nameInput = document.getElementById('comment-name');
     if (!input || !input.value.trim()) return;
+
+    let authorName = (nameInput && nameInput.value.trim()) ? nameInput.value.trim() : 'Khách';
+    let initial = authorName.charAt(0).toUpperCase();
 
     const newComment = {
         id: Date.now(),
-        author: 'Khách',
-        role: 'G',
+        author: authorName,
+        role: initial,
         roleClass: 'bg-indigo-100 text-indigo-600',
         time: 'Vừa xong',
-        text: input.value.trim()
+        text: input.value.trim(),
+        rating: selectedUserRating
     };
 
-    comments.unshift(newComment); // Đẩy bình luận mới lên trên cùng
+    comments.unshift(newComment); 
     localStorage.setItem('ccta_comments', JSON.stringify(comments));
-    input.value = ''; // Làm rỗng ô nhập
-    renderComments(); // Render lại danh sách
+    
+    input.value = ''; 
+    if(nameInput) nameInput.value = '';
+    setRating(5); // Khôi phục 5 sao sau khi gửi
+    
+    renderComments(); 
 }
 
 function deleteComment(id) {
     if (confirm('Bạn có chắc chắn muốn xóa bình luận này?')) {
         comments = comments.filter(c => c.id !== id);
         localStorage.setItem('ccta_comments', JSON.stringify(comments));
-        renderComments(); // Render lại sau khi xóa
+        renderComments(); 
     }
 }
 
@@ -129,10 +164,9 @@ function setPreset(val) {
     if (concInput) concInput.value = val;
     if (concSlider) concSlider.value = val;
     
-    // Visual feedback for buttons
     document.querySelectorAll('.preset-btn').forEach(btn => {
         btn.classList.remove('active');
-        btn.classList.add('bg-slate-50', 'text-slate-500'); // inactive style
+        btn.classList.add('bg-slate-50', 'text-slate-500'); 
         
         if(btn.dataset.val == val) {
             btn.classList.add('active');
@@ -153,23 +187,19 @@ function applyIdrRecommendation() {
 
 // --- Core Calculation ---
 function calculate() {
-    // Get Values
     const weightInput = document.getElementById('weight-input');
     const concInput = document.getElementById('conc-input');
     const timeInput = document.getElementById('time-input');
     const idrInput = document.getElementById('idr-input');
     
-    if (!weightInput || !concInput || !timeInput || !idrInput) return; // Tránh lỗi crash nếu chưa load đủ DOM
+    if (!weightInput || !concInput || !timeInput || !idrInput) return; 
 
     const weight = parseFloat(weightInput.value) || 0;
     const concMg = parseFloat(concInput.value) || 0;
     const time = parseFloat(timeInput.value) || 13;
     const idr = parseFloat(idrInput.value) || 0.0215;
 
-    // Update Time Display in Header
     safeSetText('display-time', time);
-
-    // --- Update Recommendations ---
     updateKvRecommendation(weight);
     updateIdrRecommendation(weight);
 
@@ -179,29 +209,23 @@ function calculate() {
         return;
     }
 
-    // Logic
     const concG = concMg / 1000;
-    
-    // Flow = (Weight * IDR) / Concentration(g)
     let flow = (weight * idr) / concG;
     flow = Math.round(flow * 10) / 10;
     let volume = Math.round(flow * time);
 
-    // Update Text
     safeSetText('res-flow', flow.toFixed(1));
     safeSetText('res-vol', volume);
 
-    // Update Formula Breakdown
     safeSetText('calc-weight', weight);
     safeSetText('calc-idr', idr);
-    safeSetText('calc-conc', concG.toFixed(3)); // e.g., 0.350
+    safeSetText('calc-conc', concG.toFixed(3)); 
     safeSetText('calc-flow-res', flow.toFixed(1));
 
     safeSetText('calc-flow-in', flow.toFixed(1));
     safeSetText('calc-time', time);
     safeSetText('calc-vol-res', volume);
 
-    // Update Bars
     const flowPercent = Math.min((flow / 8) * 100, 100); 
     const volPercent = Math.min((volume / 120) * 100, 100);
     
@@ -211,7 +235,6 @@ function calculate() {
     if (flowBar) flowBar.style.width = `${flowPercent}%`;
     if (volBar) volBar.style.width = `${volPercent}%`;
 
-    // Warnings
     const alertBox = document.getElementById('alert-box');
     if (alertBox) {
         if (flow > 6.5) {
