@@ -63,6 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
         { url: 'components/hero-ct.html', id: 'module-ct' },
         { url: 'components/hero-mri-sequence.html', id: 'module-mri-seq' },
         { url: 'components/hero-mri-protocol.html', id: 'module-mri-proto' }
+        { url: 'components/hero-ccta.html', id: 'module-ccta' } // Thêm dòng này
     ];
 
     modules.forEach(mod => loadModule(mod.url, mod.id));
