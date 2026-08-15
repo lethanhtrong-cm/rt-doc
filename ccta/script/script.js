@@ -1,9 +1,27 @@
 // Global var to store current recommendation
 let currentIdrRec = 0.021;
 
+// --- Dữ liệu Bình luận ---
+let comments = JSON.parse(localStorage.getItem('ccta_comments')) || [
+    { id: 1, author: 'Bác sĩ Tuấn', role: 'BS', roleClass: 'bg-blue-100 text-blue-600', time: '2 giờ trước', text: 'Giao diện tính toán rất tiện lợi, thông số WB-IDR gợi ý chuẩn xác giúp tôi an tâm hơn khi thiết lập protocol.' },
+    { id: 2, author: 'KTV Minh Hải', role: 'KTV', roleClass: 'bg-emerald-100 text-emerald-600', time: '1 ngày trước', text: 'Công thức hoạt động ổn định trên cả điện thoại. Cảm ơn tác giả đã phát triển tool này.' }
+];
+
+// --- Utility cho an toàn DOM (Fail-Safe Pattern) ---
+function safeSetText(id, text) {
+    const el = document.getElementById(id);
+    if (el) el.textContent = text;
+}
+
 // --- Init (Cơ chế an toàn 100% khi tách file) ---
 function init() {
-    calculate(); // Calc on load
+    if (document.getElementById('weight-input')) {
+        calculate();
+        initCounter();
+        renderComments();
+    } else {
+        setTimeout(init, 50);
+    }
 }
 
 if (document.readyState === 'loading') {
@@ -11,8 +29,86 @@ if (document.readyState === 'loading') {
 } else {
     init(); // Đảm bảo luôn chạy tính toán lần đầu kể cả khi DOM đã load xong
 }
-
 window.addEventListener('load', init); // Fallback cuối cùng nếu có độ trễ
+
+// --- Tính năng Đếm Lượt Truy cập ---
+function initCounter() {
+    // Đổi key thành 'ccta_views_v2' để reset bộ đếm cũ về số 0 theo yêu cầu
+    let views = localStorage.getItem('ccta_views_v2'); 
+    if (!views) {
+        views = 1; // Bắt đầu từ 1 ở lần truy cập đầu tiên sau reset
+    } else {
+        views = parseInt(views) + 1; // Tự động cộng dồn
+    }
+    localStorage.setItem('ccta_views_v2', views);
+    safeSetText('page-view-counter', views.toLocaleString('vi-VN'));
+}
+
+// --- Tính năng Bình luận ---
+function renderComments() {
+    const list = document.getElementById('comments-list');
+    if (!list) return;
+
+    let html = '<h4 class="text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-widest mb-3 sm:mb-4">Bình luận gần đây</h4>';
+
+    if (comments.length === 0) {
+        html += '<p class="text-xs text-slate-400 italic">Chưa có bình luận nào. Hãy là người đầu tiên đánh giá!</p>';
+    }
+
+    comments.forEach(c => {
+        html += `
+        <div class="p-3 sm:p-4 bg-slate-50/50 rounded-2xl border border-slate-100 relative group transition-all">
+            <div class="flex justify-between items-start mb-2">
+                <div class="flex items-center gap-2 sm:gap-3">
+                    <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-full ${c.roleClass || 'bg-slate-200 text-slate-600'} flex items-center justify-center font-bold text-[10px] sm:text-xs">${c.role}</div>
+                    <div>
+                        <h5 class="text-xs sm:text-sm font-bold text-slate-700">${c.author}</h5>
+                        <p class="text-[9px] sm:text-[10px] text-slate-400">${c.time}</p>
+                    </div>
+                </div>
+                <div class="flex text-amber-400 text-[10px] sm:text-xs">
+                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                </div>
+            </div>
+            <p class="text-xs sm:text-sm text-slate-600 ml-9 sm:ml-11 mt-1 sm:mt-0 pr-12">${c.text}</p>
+            
+            <!-- Nút Xóa bình luận (Sẽ hiện lên khi hover) -->
+            <button onclick="deleteComment(${c.id})" class="absolute bottom-3 right-4 text-[10px] sm:text-xs text-red-400 hover:text-red-600 opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1 cursor-pointer">
+                <i class="fa-solid fa-trash"></i> Xóa
+            </button>
+        </div>
+        `;
+    });
+
+    list.innerHTML = html;
+}
+
+function submitComment() {
+    const input = document.getElementById('comment-input');
+    if (!input || !input.value.trim()) return;
+
+    const newComment = {
+        id: Date.now(),
+        author: 'Khách',
+        role: 'G',
+        roleClass: 'bg-indigo-100 text-indigo-600',
+        time: 'Vừa xong',
+        text: input.value.trim()
+    };
+
+    comments.unshift(newComment); // Đẩy bình luận mới lên trên cùng
+    localStorage.setItem('ccta_comments', JSON.stringify(comments));
+    input.value = ''; // Làm rỗng ô nhập
+    renderComments(); // Render lại danh sách
+}
+
+function deleteComment(id) {
+    if (confirm('Bạn có chắc chắn muốn xóa bình luận này?')) {
+        comments = comments.filter(c => c.id !== id);
+        localStorage.setItem('ccta_comments', JSON.stringify(comments));
+        renderComments(); // Render lại sau khi xóa
+    }
+}
 
 // --- Input Synchronization Logic ---
 function syncInput(type, val) {
@@ -28,8 +124,10 @@ function syncSlider(type, val) {
 }
 
 function setPreset(val) {
-    document.getElementById('conc-input').value = val;
-    document.getElementById('conc-slider').value = val;
+    const concInput = document.getElementById('conc-input');
+    const concSlider = document.getElementById('conc-slider');
+    if (concInput) concInput.value = val;
+    if (concSlider) concSlider.value = val;
     
     // Visual feedback for buttons
     document.querySelectorAll('.preset-btn').forEach(btn => {
@@ -46,8 +144,10 @@ function setPreset(val) {
 }
 
 function applyIdrRecommendation() {
-    document.getElementById('idr-input').value = currentIdrRec;
-    document.getElementById('idr-slider').value = currentIdrRec;
+    const idrInput = document.getElementById('idr-input');
+    const idrSlider = document.getElementById('idr-slider');
+    if (idrInput) idrInput.value = currentIdrRec;
+    if (idrSlider) idrSlider.value = currentIdrRec;
     calculate();
 }
 
@@ -66,21 +166,16 @@ function calculate() {
     const time = parseFloat(timeInput.value) || 13;
     const idr = parseFloat(idrInput.value) || 0.0215;
 
-    const flowEl = document.getElementById('res-flow');
-    const volEl = document.getElementById('res-vol');
-    const timeDisplayEl = document.getElementById('display-time');
-    const alertBox = document.getElementById('alert-box');
-    
     // Update Time Display in Header
-    if (timeDisplayEl) timeDisplayEl.textContent = time;
+    safeSetText('display-time', time);
 
     // --- Update Recommendations ---
     updateKvRecommendation(weight);
     updateIdrRecommendation(weight);
 
     if (weight <= 0 || concMg <= 0 || time <= 0) {
-        if (flowEl) flowEl.textContent = "--";
-        if (volEl) volEl.textContent = "--";
+        safeSetText('res-flow', '--');
+        safeSetText('res-vol', '--');
         return;
     }
 
@@ -93,26 +188,18 @@ function calculate() {
     let volume = Math.round(flow * time);
 
     // Update Text
-    if (flowEl) flowEl.textContent = flow.toFixed(1);
-    if (volEl) volEl.textContent = volume;
+    safeSetText('res-flow', flow.toFixed(1));
+    safeSetText('res-vol', volume);
 
     // Update Formula Breakdown
-    const elWeight = document.getElementById('calc-weight');
-    const elIdr = document.getElementById('calc-idr');
-    const elConc = document.getElementById('calc-conc');
-    const elFlowRes = document.getElementById('calc-flow-res');
-    const elFlowIn = document.getElementById('calc-flow-in');
-    const elTime = document.getElementById('calc-time');
-    const elVolRes = document.getElementById('calc-vol-res');
+    safeSetText('calc-weight', weight);
+    safeSetText('calc-idr', idr);
+    safeSetText('calc-conc', concG.toFixed(3)); // e.g., 0.350
+    safeSetText('calc-flow-res', flow.toFixed(1));
 
-    if (elWeight) elWeight.textContent = weight;
-    if (elIdr) elIdr.textContent = idr;
-    if (elConc) elConc.textContent = concG.toFixed(3); // e.g., 0.350
-    if (elFlowRes) elFlowRes.textContent = flow.toFixed(1);
-
-    if (elFlowIn) elFlowIn.textContent = flow.toFixed(1);
-    if (elTime) elTime.textContent = time;
-    if (elVolRes) elVolRes.textContent = volume;
+    safeSetText('calc-flow-in', flow.toFixed(1));
+    safeSetText('calc-time', time);
+    safeSetText('calc-vol-res', volume);
 
     // Update Bars
     const flowPercent = Math.min((flow / 8) * 100, 100); 
@@ -125,11 +212,11 @@ function calculate() {
     if (volBar) volBar.style.width = `${volPercent}%`;
 
     // Warnings
+    const alertBox = document.getElementById('alert-box');
     if (alertBox) {
         if (flow > 6.5) {
             alertBox.classList.remove('hidden');
-            const alertFlowVal = document.getElementById('alert-flow-val');
-            if (alertFlowVal) alertFlowVal.textContent = flow.toFixed(1);
+            safeSetText('alert-flow-val', flow.toFixed(1));
         } else {
             alertBox.classList.add('hidden');
         }
@@ -182,7 +269,7 @@ function updateKvRecommendation(weight) {
     kvIcon.className = `w-10 h-10 rounded-full ${iconBgClass} flex items-center justify-center ${iconTextClass} flex-shrink-0 transition-colors duration-300`;
 }
 
-// --- IDR Recommendation Logic (New) ---
+// --- IDR Recommendation Logic ---
 function updateIdrRecommendation(weight) {
     const idrValEl = document.getElementById('idr-rec-val');
     const idrLabelEl = document.getElementById('idr-rec-label');
