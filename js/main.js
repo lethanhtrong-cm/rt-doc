@@ -9,26 +9,31 @@ document.addEventListener("DOMContentLoaded", () => {
     // Kiểm tra trạng thái đã lưu
     if (localStorage.getItem('theme') === 'dark') {
         body.classList.add('dark-theme');
-        moonIcon.style.display = 'none';
-        sunIcon.style.display = 'block';
-    }
-
-    themeBtn.addEventListener('click', () => {
-        body.classList.toggle('dark-theme');
-        if (body.classList.contains('dark-theme')) {
-            localStorage.setItem('theme', 'dark');
+        if (moonIcon && sunIcon) {
             moonIcon.style.display = 'none';
             sunIcon.style.display = 'block';
-        } else {
-            localStorage.setItem('theme', 'light');
-            moonIcon.style.display = 'block';
-            sunIcon.style.display = 'none';
         }
-    });
+    }
+
+    if (themeBtn) {
+        themeBtn.addEventListener('click', () => {
+            body.classList.toggle('dark-theme');
+            if (body.classList.contains('dark-theme')) {
+                localStorage.setItem('theme', 'dark');
+                moonIcon.style.display = 'none';
+                sunIcon.style.display = 'block';
+            } else {
+                localStorage.setItem('theme', 'light');
+                moonIcon.style.display = 'block';
+                sunIcon.style.display = 'none';
+            }
+        });
+    }
 
     // --- 2. LOGIC FETCH MODULE KÈM SKELETON LOADING ---
     async function loadModule(url, containerId) {
         const container = document.getElementById(containerId);
+        if (!container) return; // Bỏ qua nếu không tìm thấy container
         
         // Render Skeleton Loading UI
         container.innerHTML = `
@@ -47,7 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
             if (!response.ok) throw new Error(`Lỗi tải: ${url}`);
             const htmlContent = await response.text();
             
-            // Giả lập độ trễ mạng nhẹ (300ms) để thấy hiệu ứng mượt mà (Có thể xóa ở thực tế)
+            // Giả lập độ trễ mạng nhẹ (300ms) để thấy hiệu ứng mượt mà
             setTimeout(() => {
                 container.innerHTML = htmlContent;
             }, 300);
@@ -58,12 +63,13 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
+    // Mảng cấu hình chính xác không có lỗi cú pháp
     const modules = [
         { url: 'components/hero-quiz.html', id: 'module-quiz' },
         { url: 'components/hero-ct.html', id: 'module-ct' },
         { url: 'components/hero-mri-sequence.html', id: 'module-mri-seq' },
-        { url: 'components/hero-mri-protocol.html', id: 'module-mri-proto' }
-        { url: 'components/hero-ccta.html', id: 'module-ccta' } // Thêm dòng này
+        { url: 'components/hero-mri-protocol.html', id: 'module-mri-proto' },
+        { url: 'components/hero-ccta.html', id: 'module-ccta' }
     ];
 
     modules.forEach(mod => loadModule(mod.url, mod.id));
