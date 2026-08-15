@@ -1,0 +1,93 @@
+body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+/* Custom Gradient Range Slider */
+input[type=range] {
+    -webkit-appearance: none; 
+    background: transparent; 
+}
+
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 22px;
+    width: 22px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #22d3ee, #3b82f6); /* Cyan to Blue */
+    cursor: pointer;
+    margin-top: -9px; 
+    box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.3);
+    border: 2px solid white;
+    transition: all 0.2s;
+}
+
+input[type=range]::-webkit-slider-thumb:hover {
+    transform: scale(1.15);
+    box-shadow: 0 0 0 4px rgba(34, 211, 238, 0.2);
+}
+
+input[type=range]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 6px;
+    cursor: pointer;
+    background: #e2e8f0;
+    border-radius: 99px;
+}
+
+/* Specific Color Sliders */
+#idr-slider::-webkit-slider-thumb {
+    background: linear-gradient(135deg, #f472b6, #db2777); /* Pink for IDR */
+    box-shadow: 0 4px 6px -1px rgba(219, 39, 119, 0.3);
+}
+#idr-slider:hover::-webkit-slider-thumb {
+    box-shadow: 0 0 0 4px rgba(244, 114, 182, 0.2);
+}
+
+.gradient-text {
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    background-image: linear-gradient(to right, #2563eb, #06b6d4);
+}
+
+.gradient-text-emerald {
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    background-image: linear-gradient(to right, #059669, #34d399);
+}
+
+.gradient-text-pink {
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    background-image: linear-gradient(to right, #db2777, #f472b6);
+}
+
+.card-hover-effect {
+    transition: all 0.3s ease;
+}
+.card-hover-effect:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.preset-btn.active {
+    background: linear-gradient(135deg, #3b82f6, #06b6d4);
+    color: white;
+    border: none;
+    box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.4);
+}
+
+.kv-badge {
+    transition: all 0.3s ease;
+}
+
+.recommendation-pill {
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.recommendation-pill:hover {
+    transform: scale(1.02);
+    filter: brightness(0.95);
+}
