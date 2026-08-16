@@ -3,46 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nền Tảng Đào Tạo & Hướng Dẫn Y Khoa</title>
-    <!-- Favicon SVG -->
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚕️</text></svg>">
+    <title>Đăng Ký Hội Thảo Khoa Học Y Khoa</title>
+    <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <!-- Navbar -->
-    <header class="navbar">
-        <div class="logo">Medical<span>Guide</span></div>
-        <nav>
-            <a href="#">Trang chủ</a>
-            <a href="#">Ngân hàng đề</a>
-            <a href="#">CT Scanner</a>
-            <a href="#">MRI</a>
-        </nav>
-        <!-- Nút chuyển đổi Dark Mode -->
-        <button id="theme-toggle" class="theme-toggle-btn" aria-label="Đổi giao diện Sáng/Tối">
-            <svg id="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
-            <svg id="sun-icon" style="display:none;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
-        </button>
-    </header>
-
-    <!-- Layout Bento Box -->
-    <section class="hero-bento-section">
-        <div class="bento-grid">
-            <!-- HÀNG 1 (Hero Banner - Công cụ CCTA trải dài) -->
-            <div id="module-ccta" class="bento-panel bg-primary-blue full-width"></div>
-
-            <!-- HÀNG 2 (Tài liệu tham khảo 1) -->
-            <div id="module-quiz" class="bento-panel bg-soft-blue"></div>
-            <div id="module-ct" class="bento-panel bg-soft-teal"></div>
+    <div class="page-wrapper">
+        <div class="registration-container" id="form-container">
+            <div class="header-section">
+                <div class="icon-medical">+</div>
+                <h2>Hội Thảo Khoa Học</h2>
+                <p>Đăng ký để nhận liên kết tham dự trực tuyến</p>
+            </div>
             
-            <!-- HÀNG 3 (Tài liệu tham khảo 2) -->
-            <div id="module-mri-seq" class="bento-panel bg-white outline-border"></div>
-            <div id="module-mri-proto" class="bento-panel bg-white outline-border"></div>
-        </div>
-    </section>
+            <form id="registration-form">
+                <div class="form-group">
+                    <label for="fullName">Họ và tên</label>
+                    <input type="text" id="fullName" name="fullName" placeholder="VD: Nguyễn Văn A" required>
+                </div>
 
-    <!-- Script xử lý module -->
-    <script src="js/main.js"></script>
+                <div class="form-group">
+                    <label for="workplace">Đơn vị công tác</label>
+                    <input type="text" id="workplace" name="workplace" placeholder="VD: Bệnh viện Đa khoa tỉnh..." required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Địa chỉ Email</label>
+                    <input type="email" id="email" name="email" placeholder="VD: email@hospital.vn" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="qualification">Trình độ chuyên môn</label>
+                    <select id="qualification" name="qualification" required>
+                        <option value="" disabled selected>-- Chọn trình độ --</option>
+                        <option value="BS">Bác sĩ</option>
+                        <option value="ThS">Thạc sĩ / Bác sĩ CKI</option>
+                        <option value="TS">Tiến sĩ / Bác sĩ CKII</option>
+                        <option value="KTV">Kỹ thuật viên</option>
+                        <option value="DD">Điều dưỡng</option>
+                        <option value="Khac">Khác</option>
+                    </select>
+                </div>
+
+                <div id="error-message" class="error-text"></div>
+
+                <button type="submit" id="submit-btn" class="btn-submit">
+                    Đăng Ký Tham Dự
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Nạp file JS chính theo dạng ES6 Module -->
+    <script type="module" src="main.js"></script>
 </body>
 </html>
